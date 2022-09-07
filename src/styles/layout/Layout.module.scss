@@ -1,0 +1,15 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 10% calc(100vw - 10%);
+  grid-template-rows: 3rem 1fr;
+  grid-template-areas:
+    "nav header"
+    "nav contents";
+
+  .main {
+    grid-area: contents;
+    padding: 25px;
+  }
+}

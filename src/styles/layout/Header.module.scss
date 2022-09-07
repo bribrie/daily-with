@@ -1,0 +1,39 @@
+@import "../utils";
+
+header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-end;
+  border-bottom: 0.1rem solid #ebebeb;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+  height: 3rem;
+  z-index: 1;
+  grid-area: header;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    li {
+      display: flex;
+      padding-left: 0.4em;
+    }
+  }
+
+  .userNav {
+    display: none;
+  }
+
+  .userNavShow {
+    position: absolute;
+    right: 1.72rem;
+    top: 3rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+  }
+}

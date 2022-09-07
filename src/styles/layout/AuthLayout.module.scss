@@ -1,0 +1,9 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  .main {
+    grid-area: contents;
+    padding: 25px;
+  }
+}

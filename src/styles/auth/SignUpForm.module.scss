@@ -40,7 +40,7 @@
     }
 
     button {
-      @include Button($lightBlue);
+      @include Button($skyBlue);
       color: white;
       margin-top: 2rem;
     }

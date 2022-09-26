@@ -1,0 +1,51 @@
+/* Color pallete */
+$primary: #94b9f4;
+$skyBlue: #b9d1fb;
+$lightBlue: #b9d1fb34;
+$yellow: #f7eed7;
+$lightYellow: #ede9c0;
+$gray: #949494;
+$black: #343a40;
+$peach: #fcd6ac;
+$orange: #f2b07a;
+
+@mixin Button($color) {
+  border: none;
+  background-color: $color;
+  width: 50%;
+  height: 3rem;
+  border: 1px solid $skyBlue;
+  border-radius: 4px;
+  font: white;
+  cursor: pointer;
+}
+
+@mixin Input {
+  margin-bottom: 1em;
+  text-align: center;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+
+  &:focus {
+    outline: 1px solid $primary;
+  }
+}
+
+/* Responsive size */
+@mixin Computer {
+  @media all and (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin Tablet {
+  @media all and (min-width: 480px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin Mobile {
+  @media all and (min-width: 320px) and (max-width: 479px) {
+    @content;
+  }
+}

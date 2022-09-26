@@ -39,11 +39,14 @@
       }
     }
 
-    button {
+    .btn {
       @include Button(white);
+      &:hover {
+        background-color: $lightBlue;
+      }
     }
     .loginBtn {
-      @include Button($lightBlue);
+      @include Button($skyBlue);
       color: white;
       margin-bottom: 3rem;
     }

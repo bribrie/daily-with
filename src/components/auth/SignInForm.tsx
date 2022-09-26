@@ -34,8 +34,10 @@ const SignInForm = ({
           />
           <button className={styles.loginBtn}>로그인</button>
         </form>
-        <button onClick={googleClick}>Google로 로그인하기</button>
-        <button>
+        <button onClick={googleClick} className={styles.btn}>
+          Google로 로그인하기
+        </button>
+        <button className={styles.btn}>
           <Link to="/signup">회원가입</Link>
         </button>
       </div>

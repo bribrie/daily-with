@@ -1,0 +1,28 @@
+@import "../utils";
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  .spinner {
+    width: 7rem;
+    height: 7rem;
+    border: 5px solid$lightBlue;
+    border-top: 5px solid $skyBlue;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+}

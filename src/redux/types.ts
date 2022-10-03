@@ -8,6 +8,7 @@ export interface AuthState {
   user: User;
   loading: "idle" | "pending" | "succeeded" | "failed";
   isSignedIn: boolean;
+  error: string;
 }
 
 export interface SignUpReq {
@@ -19,4 +20,23 @@ export interface SignUpReq {
 export interface SignInReq {
   email: string;
   password: string;
+}
+
+//Price
+export interface PriceListType {
+  type: string;
+  period: string;
+  title: string;
+  price: string;
+  delay: string;
+  event: boolean;
+}
+
+export interface PriceState {
+  priceList: PriceListType[];
+  loading: "idle" | "pending" | "succeeded" | "failed";
+}
+
+export interface AddPriceReq extends PriceListType {
+  userUid: string | null;
 }

@@ -1,6 +1,12 @@
 .container {
   width: 100vw;
   height: 100vh;
+  display: grid;
+
+  grid-template-rows: 3rem auto;
+  grid-template-areas:
+    "header"
+    "contents";
 
   .main {
     grid-area: contents;

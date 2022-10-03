@@ -1,0 +1,61 @@
+@import "../utils";
+
+.container {
+  border: 1px solid $lightBlue;
+  box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 32%);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: flex-end;
+  cursor: pointer;
+
+  .contentWrapper {
+    border-radius: 10px 10px 0 0;
+    color: white;
+    //TODO: gradient로 수정
+    background-color: $primary;
+    width: 100%;
+    padding: 1rem;
+    flex: 8;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      font-size: 0.5rem;
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      div {
+        padding-right: 0.5rem;
+      }
+    }
+    .title {
+      flex: 3;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+  }
+
+  .priceWrapper {
+    flex: 2;
+    background: linear-gradient(to right, $lightBlue, white);
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+
+    .price {
+      padding: 0.7rem;
+      font-size: 0.9rem;
+      text-align: right;
+    }
+  }
+}

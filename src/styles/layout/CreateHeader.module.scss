@@ -1,0 +1,33 @@
+@import "../utils";
+
+.header {
+  @include ContentHeader;
+  background-color: #f9f9f9;
+
+  .headerInner {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: auto;
+    max-width: 1024px;
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      color: rgb(190, 190, 190);
+      background-color: rgb(245, 245, 245);
+
+      a {
+        color: rgb(119, 119, 119);
+        padding-right: 0.3em;
+      }
+    }
+
+    div {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $black;
+    }
+  }
+}

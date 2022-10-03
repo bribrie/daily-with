@@ -1,0 +1,47 @@
+@import "../utils";
+
+.container {
+  @include Container;
+
+  .header {
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    height: 3rem;
+    margin-bottom: 3rem;
+
+    .count {
+      font-size: 1.5rem;
+    }
+
+    .searchBar {
+      border-radius: 20px;
+      border: 1px solid rgba(128, 128, 128, 0.438);
+      text-align: center;
+      outline: none;
+      height: 70%;
+    }
+  }
+
+  .itemWrapper {
+    max-width: 1024px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    // grid-template-columns: repeat(4, minmax(6.5rem, auto));
+    grid-auto-rows: 11rem;
+    grid-gap: 2rem;
+
+    @include Tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include Mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

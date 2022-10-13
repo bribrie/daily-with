@@ -1,7 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { RootState } from "redux/store";
-import { PriceListType, PriceState, AddPriceReq } from "redux/types";
+import {
+  PriceListType,
+  PriceState,
+  AddPriceReq,
+  EditPriceReq,
+} from "redux/types";
 import { db } from "service/firebase";
 
 export const getPriceAsync = createAsyncThunk(
@@ -15,7 +27,7 @@ export const getPriceAsync = createAsyncThunk(
 
       querySnapshot.forEach((doc) => {
         const { type, period, title, price, delay, event } = doc.data();
-        data.push({ type, period, title, price, delay, event });
+        data.push({ type, period, title, price, delay, event, id: doc.id });
       });
       //payload 전달
       return { data };
@@ -25,7 +37,7 @@ export const getPriceAsync = createAsyncThunk(
 
 export const addPriceAsync = createAsyncThunk(
   "price/add",
-  async (priceData: AddPriceReq, { rejectWithValue }) => {
+  async (priceData: AddPriceReq, { rejectWithValue, signal }) => {
     try {
       if (priceData.userUid) {
         //price collection에 추가
@@ -38,7 +50,55 @@ export const addPriceAsync = createAsyncThunk(
           delay: priceData.delay,
           event: priceData.event,
         });
+
         if (response) return;
+      }
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const editPriceAsync = createAsyncThunk(
+  "price/update",
+  async (data: EditPriceReq, { rejectWithValue }) => {
+    try {
+      if (data.userUid !== null) {
+        const ref = doc(
+          collection(db, "users", data.userUid, "price"),
+          data.id
+        );
+
+        await updateDoc(ref, {
+          type: data.type,
+          period: data.period,
+          title: data.title,
+          price: data.price,
+          delay: data.delay,
+        });
+      }
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+interface DeletePriceReq {
+  userUid: string | null;
+  id: string | undefined;
+}
+
+export const deletePriceAsync = createAsyncThunk(
+  "price/delete",
+  async (priceData: DeletePriceReq, { rejectWithValue }) => {
+    try {
+      console.log("slice", priceData);
+      if (priceData.userUid && priceData.id) {
+        const ref = doc(
+          collection(db, "users", priceData.userUid, "price"),
+          priceData.id
+        );
+        await deleteDoc(ref);
       }
     } catch (err: any) {
       return rejectWithValue(err.message);
@@ -74,13 +134,33 @@ const priceSlice = createSlice({
     builder.addCase(addPriceAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    //Update
+    builder.addCase(editPriceAsync.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(editPriceAsync.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+    });
+    builder.addCase(editPriceAsync.rejected, (state) => {
+      state.loading = "failed";
+    });
+    //Delete
+    builder.addCase(deletePriceAsync.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(deletePriceAsync.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+    });
+    builder.addCase(deletePriceAsync.rejected, (state) => {
+      state.loading = "failed";
+    });
   },
 });
 
 export const priceList = (state: RootState) =>
   state.persistedReducer.price.priceList;
 
-export const loading = (state: RootState) =>
+export const priceLoading = (state: RootState) =>
   state.persistedReducer.price.loading;
 
 export default priceSlice.reducer;

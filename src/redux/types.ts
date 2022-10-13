@@ -24,6 +24,7 @@ export interface SignInReq {
 
 //Price
 export interface PriceListType {
+  id: string | undefined;
   type: string;
   period: string;
   title: string;
@@ -37,6 +38,10 @@ export interface PriceState {
   loading: "idle" | "pending" | "succeeded" | "failed";
 }
 
-export interface AddPriceReq extends PriceListType {
+export interface AddPriceReq extends Omit<PriceListType, "id"> {
+  userUid: string | null;
+}
+
+export interface EditPriceReq extends PriceListType {
   userUid: string | null;
 }

@@ -3,12 +3,14 @@ $primary: #94b9f4;
 $skyBlue: #b9d1fb;
 $lightBlue: #b9d1fb34;
 $yellow: #f7eed7;
-$lightYellow: #ede9c0;
+$lightYellow: #efbf972e;
 $gray: #949494;
 $black: #343a40;
 $peach: #fcd6ac;
 $orange: #f2b07a;
+$accentColor: #6f94cf;
 
+/* Mixin */
 @mixin Button($color) {
   border: none;
   background-color: $color;
@@ -31,9 +33,21 @@ $orange: #f2b07a;
   }
 }
 
+@mixin Container {
+  padding: 25px;
+  width: 100%;
+  height: 100%;
+}
+
 /* Responsive size */
-@mixin Computer {
+@mixin DeskTop {
   @media all and (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin ListDeskTop {
+  @media all and (min-width: 768px) and (max-width: 1083px) {
     @content;
   }
 }
@@ -45,7 +59,7 @@ $orange: #f2b07a;
 }
 
 @mixin Mobile {
-  @media all and (min-width: 320px) and (max-width: 479px) {
+  @media all and (max-width: 479px) {
     @content;
   }
 }

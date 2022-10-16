@@ -13,6 +13,7 @@ import {
   PriceState,
   AddPriceReq,
   EditPriceReq,
+  DeletePriceReq,
 } from "redux/types";
 import { db } from "service/firebase";
 
@@ -82,11 +83,6 @@ export const editPriceAsync = createAsyncThunk(
     }
   }
 );
-
-interface DeletePriceReq {
-  userUid: string | null;
-  id: string | undefined;
-}
 
 export const deletePriceAsync = createAsyncThunk(
   "price/delete",

@@ -7,8 +7,6 @@ export interface User {
 export interface AuthState {
   user: User;
   loading: "idle" | "pending" | "succeeded" | "failed";
-  isSignedIn: boolean;
-  error: string;
 }
 
 export interface SignUpReq {
@@ -43,5 +41,9 @@ export interface AddPriceReq extends Omit<PriceListType, "id"> {
 }
 
 export interface EditPriceReq extends PriceListType {
+  userUid: string | null;
+}
+
+export interface DeletePriceReq extends Pick<PriceListType, "id"> {
   userUid: string | null;
 }

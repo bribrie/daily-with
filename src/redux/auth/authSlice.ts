@@ -21,7 +21,6 @@ const initialState: AuthState = {
     uid: null,
   },
   loading: "idle",
-  isSignedIn: false,
 };
 
 //가입할 때는 db collection에 추가하기
@@ -108,30 +107,24 @@ const authSlice = createSlice({
     //SignUp
     builder.addCase(signUpAsync.pending, (state) => {
       state.loading = "pending";
-      state.isSignedIn = false;
     });
     builder.addCase(signUpAsync.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = "succeeded";
-      state.isSignedIn = true;
     });
     builder.addCase(signUpAsync.rejected, (state, action) => {
       state.loading = "failed";
-      state.isSignedIn = false;
     });
     //SignIn
     builder.addCase(SignInAsync.pending, (state) => {
       state.loading = "pending";
-      state.isSignedIn = true;
     });
     builder.addCase(SignInAsync.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = "succeeded";
-      state.isSignedIn = true;
     });
     builder.addCase(SignInAsync.rejected, (state, action) => {
       state.loading = "failed";
-      state.isSignedIn = false;
     });
     //SingOut
     builder.addCase(PURGE, () => initialState);
@@ -147,10 +140,7 @@ export const currentUser = (state: RootState) =>
 export const currentUserUid = (state: RootState) =>
   state.persistedReducer.auth.user.uid;
 
-export const loading = (state: RootState) =>
+export const authLoading = (state: RootState) =>
   state.persistedReducer.auth.loading;
-
-export const isSignedIn = (state: RootState) =>
-  state.persistedReducer.auth.isSignedIn;
 
 export default authSlice.reducer;

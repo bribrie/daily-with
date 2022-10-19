@@ -5,6 +5,7 @@ import MainPage from "pages/MainPage";
 import Layout from "components/layout/Layout";
 import AuthLayout from "components/layout/AuthLayout";
 import PricePage from "pages/price/PricePage";
+import PriceEditPage from "pages/price/PriceEditPage";
 import PriceCreatePage from "pages/price/PriceCreatePage";
 import "styles/App.scss";
 
@@ -15,10 +16,12 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<MainPage />} />
-        <Route path="/price/*" element={<PricePage />}></Route>
+        {/* Price */}
+        <Route path="/price" element={<PricePage />} />
+        <Route path="/price/:id" element={<PriceEditPage />} />
         <Route path="/price/create" element={<PriceCreatePage />} />
       </Route>
-
+      {/* Auth */}
       <Route element={<AuthLayout />}>
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />

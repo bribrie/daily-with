@@ -1,7 +1,11 @@
 import PriceFormContainer from "containers/price/PriceFormContainer";
 
 const PriceCreatePage = () => {
-  return <PriceFormContainer />;
+  return (
+    <>
+      <PriceFormContainer />
+    </>
+  );
 };
 
 export default PriceCreatePage;

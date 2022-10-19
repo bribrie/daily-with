@@ -117,8 +117,8 @@ const PriceForm = ({
               type="text"
               name="delay"
               id="delay"
+              value="0"
               unit="일"
-              required
               onChange={handleChange}
             />
           </CreateContent>

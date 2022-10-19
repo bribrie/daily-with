@@ -1,59 +1,60 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { formatCurrency } from "utilites/formatCurrency";
+import { FormEvent, useState } from "react";
 import useInput from "hooks/useInput";
 import PriceForm from "components/price/PriceForm";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { addPriceAsync, getPriceAsync } from "redux/price/priceSlice";
+import {
+  addPriceAsync,
+  getPriceAsync,
+  priceLoading,
+} from "redux/price/priceSlice";
 import { currentUserUid } from "redux/auth/authSlice";
+import useCurrency from "hooks/useCurrency";
+import Loading from "components/layout/Loading";
 
 const PriceFormContainer = () => {
   const [{ type, period, title, delay }, inputChange] = useInput({
     type: "헬스",
     period: "기간제",
     title: "",
-    delay: "",
+    delay: "0",
   }); //defaultChecked를 initial로 세팅
-  const [price, setPrice] = useState("");
+
+  const [price, handlePrice] = useCurrency("");
   const [event, setEvent] = useState(false);
+  const loading = useAppSelector(priceLoading);
+  const userUid = useAppSelector(currentUserUid);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  //숫자 -> 원화로 보여주기
-  const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
-    const str: string = e.target.value.replace(/[^0-9]/g, "");
-    const changedNum = Number(str);
-    setPrice(formatCurrency(changedNum));
-  };
-
-  const userUid = useAppSelector(currentUserUid);
-  const addPriceData = {
-    type,
-    period,
-    title,
-    price,
-    delay,
-    userUid,
-    event,
-  };
 
   //DB에 저장
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(addPriceAsync(addPriceData));
-      await dispatch(getPriceAsync(userUid));
+      const addData = {
+        type,
+        period,
+        title,
+        price,
+        delay,
+        userUid,
+        event,
+      };
+      await dispatch(addPriceAsync(addData)).unwrap();
+      await dispatch(getPriceAsync(userUid)).unwrap();
       navigate("/price");
     } catch {
-      //TODO: 에러 수정
-      console.log("FAILED");
+      alert("새 이용권을 등록할 수 없습니다. 다시 시도해주세요.");
     }
   };
 
   const handleCheckEvent = () => {
     setEvent((event) => !event);
   };
+
+  //Loading 중
+  if (loading === "pending") return <Loading />;
 
   return (
     <PriceForm

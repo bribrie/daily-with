@@ -1,13 +1,14 @@
 import CreateButton from "components/layout/CreateButton";
-import { ChangeEventHandler } from "react";
 import { PriceListType } from "redux/types";
-import PriceItem from "./PriceItem";
+import PriceItemContainer from "containers/price/PriceItemContainer";
 import styles from "styles/price/PriceList.module.scss";
+import { KeyboardEventHandler } from "react";
 
 interface ListProps {
   list: PriceListType[];
-  handleSearch?: ChangeEventHandler;
+  handleSearch: KeyboardEventHandler;
 }
+
 const PriceList = ({ list, handleSearch }: ListProps) => {
   return (
     <div className={styles.container}>
@@ -17,17 +18,18 @@ const PriceList = ({ list, handleSearch }: ListProps) => {
           type="text"
           placeholder="이용권명 검색"
           className={styles.searchBar}
-          onChange={handleSearch}
+          onKeyPress={handleSearch}
         />
       </div>
       {list.length === 0 ? (
         <>
-          <div>등록된 이용권이 없습니다.</div>
+          <div className={styles.textWrapper}>등록된 이용권이 없습니다.</div>
         </>
       ) : (
         <div className={styles.itemWrapper}>
           {list.map((data) => (
-            <PriceItem
+            <PriceItemContainer
+              id={data.id}
               key={data.title}
               type={data.type}
               title={data.title}

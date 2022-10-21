@@ -16,8 +16,7 @@
   .contentWrapper {
     border-radius: 10px 10px 0 0;
     color: white;
-    //TODO: gradient로 수정
-    background-color: $primary;
+    background: linear-gradient(to right bottom, $primary 40%, $skyBlue);
     width: 100%;
     padding: 1rem;
     flex: 8;
@@ -25,17 +24,15 @@
     flex-direction: column;
 
     .header {
-      font-size: 0.5rem;
+      font-size: 0.75rem;
       display: flex;
       flex: 1;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-
-      div {
-        padding-right: 0.5rem;
-      }
+      font-weight: 500;
     }
+
     .title {
       flex: 3;
       display: flex;
@@ -56,6 +53,19 @@
       padding: 0.7rem;
       font-size: 0.9rem;
       text-align: right;
+    }
+
+    .editDeleteBtn {
+      display: flex;
+      justify-content: space-around;
+      padding: 0.7rem;
+      font-size: 0.9rem;
+
+      div {
+        &:hover {
+          color: $primary;
+        }
+      }
     }
   }
 }

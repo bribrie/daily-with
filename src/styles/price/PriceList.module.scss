@@ -25,6 +25,29 @@
       outline: none;
       height: 70%;
     }
+
+    @include Mobile {
+      width: 100%;
+      flex-direction: column;
+      height: 5rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .count {
+        font-size: 1.3rem;
+        flex: 1;
+      }
+
+      .searchBar {
+        flex: 1;
+        width: 60%;
+      }
+    }
+  }
+
+  .textWrapper {
+    max-width: 1024px;
+    margin: auto;
   }
 
   .itemWrapper {
@@ -32,16 +55,25 @@
     margin: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    // grid-template-columns: repeat(4, minmax(6.5rem, auto));
     grid-auto-rows: 11rem;
     grid-gap: 2rem;
 
+    @include ListDeskTop {
+      grid-template-columns: repeat(3, minmax(12rem, 14.5rem));
+      justify-content: center;
+      align-items: center;
+    }
+
     @include Tablet {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 14.5rem));
+      justify-content: center;
+      align-items: center;
     }
 
     @include Mobile {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 75%;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

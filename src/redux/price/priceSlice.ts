@@ -88,7 +88,6 @@ export const deletePriceAsync = createAsyncThunk(
   "price/delete",
   async (priceData: DeletePriceReq, { rejectWithValue }) => {
     try {
-      console.log("slice", priceData);
       if (priceData.userUid && priceData.id) {
         const ref = doc(
           collection(db, "users", priceData.userUid, "price"),

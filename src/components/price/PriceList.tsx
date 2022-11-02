@@ -1,25 +1,28 @@
-import CreateButton from "components/layout/CreateButton";
+import { KeyboardEventHandler, MouseEventHandler } from "react";
 import { PriceListType } from "redux/types";
 import PriceItemContainer from "containers/price/PriceItemContainer";
+import CreateButton from "components/layout/CreateButton";
+import SearchBar from "components/common/ui/SearchBar";
 import styles from "styles/price/PriceList.module.scss";
-import { KeyboardEventHandler } from "react";
 
 interface ListProps {
   list: PriceListType[];
   handleSearch: KeyboardEventHandler;
+  handleReset: MouseEventHandler;
 }
 
-const PriceList = ({ list, handleSearch }: ListProps) => {
+const PriceList = ({ list, handleSearch, handleReset }: ListProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.count}>총 {list.length} 개의 이용권</h1>
-        <input
-          type="text"
-          placeholder="이용권명 검색"
-          className={styles.searchBar}
-          onKeyPress={handleSearch}
-        />
+        <div className={styles.searchBar}>
+          <SearchBar
+            placeholder="이용권명 검색"
+            handleSearch={handleSearch}
+            handleReset={handleReset}
+          />
+        </div>
       </div>
       {list.length === 0 ? (
         <>

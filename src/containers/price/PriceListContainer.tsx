@@ -1,23 +1,17 @@
-import {
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo } from "react";
 import { getPriceAsync, priceLoading, priceList } from "redux/price/priceSlice";
-import { useAppDispatch } from "redux/hooks";
-import { useAppSelector } from "redux/hooks";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { PriceListType } from "redux/types";
 import { currentUserUid } from "redux/auth/authSlice";
 import Loading from "components/layout/Loading";
 import PriceList from "components/price/PriceList";
+import useSearch from "hooks/useSearch";
 
 const PriceListContainer = () => {
-  const [searchTitle, setSearchTitle] = useState("");
   const list = useAppSelector(priceList);
   const uid = useAppSelector(currentUserUid);
   const loadingStatus = useAppSelector(priceLoading);
+  const [searchValue, searchHandler, handleReset] = useSearch();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,28 +27,32 @@ const PriceListContainer = () => {
   //필터 리스트 기억
   const filteredList = useMemo(() => {
     return list.filter((data: PriceListType) =>
-      data.title.toLowerCase().includes(searchTitle)
+      data.title.toLowerCase().includes(searchValue)
     );
-  }, [list, searchTitle]);
-
-  //엔터 누를 시 검색
-  const handleSearch = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const { value } = e.target;
-      setSearchTitle(value);
-    }
-  }, []);
+  }, [list, searchValue]);
 
   //Loading 중
   if (loadingStatus === "pending") return <Loading />;
 
   //검색어 없을 때
-  if (searchTitle === "") {
-    return <PriceList list={list} handleSearch={handleSearch} />;
+  if (searchValue === "") {
+    return (
+      <PriceList
+        list={list}
+        handleSearch={searchHandler}
+        handleReset={handleReset}
+      />
+    );
   }
   //검색어 있을 때
   else {
-    return <PriceList list={filteredList} handleSearch={handleSearch} />;
+    return (
+      <PriceList
+        list={filteredList}
+        handleSearch={searchHandler}
+        handleReset={handleReset}
+      />
+    );
   }
 };
 

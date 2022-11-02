@@ -1,4 +1,4 @@
-@import "../utils";
+@import "../base//mixins";
 
 .container {
   @include Container;
@@ -16,14 +16,12 @@
 
     .count {
       font-size: 1.5rem;
+      flex: 4;
     }
 
     .searchBar {
-      border-radius: 20px;
-      border: 1px solid rgba(128, 128, 128, 0.438);
-      text-align: center;
-      outline: none;
-      height: 70%;
+      flex: 1;
+      height: 100%;
     }
 
     @include Mobile {

@@ -1,8 +1,8 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react";
-import CreateHeader from "components/layout/CreateHeader";
+import CreateHeader from "components/layout/create/CreateHeader";
+import CreateContent from "components/layout/create/CreateContent";
 import Input from "components/layout/Input";
 import styles from "styles/price/PriceForm.module.scss";
-import CreateContent from "components/layout/CreateContent";
 
 interface FormProps {
   handleSave?: MouseEventHandler;

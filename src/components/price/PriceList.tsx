@@ -1,7 +1,7 @@
 import { KeyboardEventHandler, MouseEventHandler } from "react";
 import { PriceListType } from "redux/types";
 import PriceItemContainer from "containers/price/PriceItemContainer";
-import CreateButton from "components/layout/CreateButton";
+import CreateButton from "components/layout/create/CreateButton";
 import SearchBar from "components/common/ui/SearchBar";
 import styles from "styles/price/PriceList.module.scss";
 

@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FormEventHandler } from "react";
-import CreateHeader from "components/layout/CreateHeader";
-import CreateContent from "components/layout/CreateContent";
+import CreateHeader from "components/layout/create/CreateHeader";
+import CreateContent from "components/layout/create/CreateContent";
 import Input from "components/layout/Input";
 import styles from "styles/price/PriceEdit.module.scss";
 

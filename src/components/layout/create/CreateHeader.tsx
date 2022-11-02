@@ -1,14 +1,20 @@
-import styles from "styles/layout/CreateHeader.module.scss";
+import { memo, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { memo } from "react";
+import styles from "styles/layout/create/CreateHeader.module.scss";
 
-interface Props {
+interface HeaderProps {
   title: string;
   linkAddress: string;
   linkName: string;
+  children?: ReactNode;
 }
 
-const CreateHeader = ({ title, linkAddress, linkName }: Props) => {
+const CreateHeader = ({
+  title,
+  linkAddress,
+  linkName,
+  children,
+}: HeaderProps) => {
   return (
     <section className={styles.header}>
       <div className={styles.headerInner}>
@@ -16,7 +22,12 @@ const CreateHeader = ({ title, linkAddress, linkName }: Props) => {
           <Link to={linkAddress}>{linkName}</Link>
           &gt; {title}
         </span>
-        <div>{title}</div>
+
+        {children ? (
+          <>{children}</>
+        ) : (
+          <div className={styles.title}>{title}</div>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-@import "../utils";
+@import "../../base/colors";
 
 .wrapper {
   position: fixed;
@@ -11,7 +11,8 @@
 
   button {
     cursor: pointer;
-    img {
+
+    svg {
       width: 3rem;
       height: 3rem;
     }

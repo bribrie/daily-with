@@ -1,0 +1,27 @@
+@import "../../base/colors";
+
+.labelWrapper {
+  width: 100%;
+  margin-right: 1.5rem;
+
+  .input {
+    margin-right: 0.5rem;
+    accent-color: $accentColor;
+  }
+}
+
+.inputWrapper {
+  max-width: 22rem;
+  border-bottom: 1px solid $createBorderColor;
+
+  .input {
+    height: 2em;
+    outline: none;
+  }
+
+  .unit {
+    height: 2em;
+    color: $gray;
+    width: 50%;
+  }
+}

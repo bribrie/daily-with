@@ -7,6 +7,7 @@ import AuthLayout from "components/layout/AuthLayout";
 import PricePage from "pages/price/PricePage";
 import PriceEditPage from "pages/price/PriceEditPage";
 import PriceCreatePage from "pages/price/PriceCreatePage";
+import NotFoundPage from "pages/NotFoundPage";
 import "styles/App.scss";
 
 function App() {
@@ -21,11 +22,15 @@ function App() {
         <Route path="/price/:id" element={<PriceEditPage />} />
         <Route path="/price/create" element={<PriceCreatePage />} />
       </Route>
+
       {/* Auth */}
       <Route element={<AuthLayout />}>
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Route>
+
+      {/* Not Found */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

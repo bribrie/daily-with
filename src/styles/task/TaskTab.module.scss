@@ -1,0 +1,22 @@
+@import "../base/colors";
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: $black;
+  cursor: pointer;
+
+  .link {
+    flex: 1;
+    text-align: center;
+  }
+
+  .clicked {
+    color: $primary;
+  }
+}

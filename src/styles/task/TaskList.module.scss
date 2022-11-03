@@ -1,0 +1,43 @@
+@import "../base/mixins";
+
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 1024px;
+  margin: auto;
+  padding-top: 1.5rem;
+  display: grid;
+  grid-template-rows: 3rem 1fr;
+  grid-template-areas:
+    "search"
+    "item";
+  row-gap: 2rem;
+
+  @include Tablet {
+    padding-top: 0.5rem;
+    row-gap: 1rem;
+  }
+
+  @include Mobile {
+    padding-top: 0.5rem;
+    row-gap: 1rem;
+  }
+
+  .filterWrapper {
+    grid-area: search;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .noneContainer {
+    grid-area: item;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .listWrapper {
+    grid-area: item;
+  }
+}

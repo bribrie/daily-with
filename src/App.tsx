@@ -7,6 +7,9 @@ import AuthLayout from "components/layout/AuthLayout";
 import PricePage from "pages/price/PricePage";
 import PriceEditPage from "pages/price/PriceEditPage";
 import PriceCreatePage from "pages/price/PriceCreatePage";
+import TaskLayout from "components/task/TaskLayout";
+import TaskPage from "pages/task/TaskPage";
+import TaskCreatePage from "pages/task/TaskCreatePage";
 import NotFoundPage from "pages/NotFoundPage";
 import "styles/App.scss";
 
@@ -21,6 +24,12 @@ function App() {
         <Route path="/price" element={<PricePage />} />
         <Route path="/price/:id" element={<PriceEditPage />} />
         <Route path="/price/create" element={<PriceCreatePage />} />
+
+        {/* Task */}
+        <Route path="/task" element={<TaskLayout />}>
+          <Route path=":name" element={<TaskPage />} />
+        </Route>
+        <Route path="/task/:name/create" element={<TaskCreatePage />} />
       </Route>
 
       {/* Auth */}

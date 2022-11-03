@@ -1,4 +1,4 @@
-// Auth
+//* Auth
 export interface User {
   name: string | null;
   uid: string | null;
@@ -20,7 +20,7 @@ export interface SignInReq {
   password: string;
 }
 
-//Price
+//* Price
 export interface PriceListType {
   id: string | undefined;
   type: string;
@@ -45,5 +45,50 @@ export interface EditPriceReq extends PriceListType {
 }
 
 export interface DeletePriceReq extends Pick<PriceListType, "id"> {
+  userUid: string | null;
+}
+
+//* Task
+export interface TaskListType {
+  id: string;
+  part: string | undefined;
+  title: string;
+  detail: string;
+  day: string[];
+  time: string;
+  specialDate?: string | null;
+}
+
+// index signature
+interface TaskState {
+  task: {
+    [key: string]: TaskListType[];
+  };
+  loading: "idle" | "pending" | "succeeded" | "failed";
+}
+
+export const initialState: TaskState = {
+  task: {
+    daymorning: [],
+    dayafternoon: [],
+    weekend: [],
+  },
+  loading: "idle",
+};
+
+export interface GetTaskReq {
+  userUid: string | null;
+  name: string | undefined;
+}
+
+export interface AddTaskReq extends Omit<TaskListType, "id"> {
+  userUid: string | null;
+}
+
+export interface EditTaskReq extends TaskListType {
+  userUid: string | null;
+}
+
+export interface DeleletTaskReq extends Pick<TaskListType, "id"> {
   userUid: string | null;
 }

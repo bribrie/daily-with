@@ -1,0 +1,40 @@
+.day {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mon {
+  background-color: #fac8dd;
+}
+
+.tue {
+  background-color: #f8aecc;
+}
+
+.wed {
+  background-color: #f8b5a7;
+}
+
+.thu {
+  background-color: #bde0fe;
+}
+
+.fri {
+  background-color: #a2d2ff;
+}
+
+.sat {
+  background-color: #d8e2dc;
+}
+
+.sun {
+  background-color: #e7c6ff;
+}
+
+.everyday {
+  background-color: #c9b6ff;
+}

@@ -1,4 +1,5 @@
 @import "../base/colors";
+@import "../base/mixins";
 
 .wrapper {
   display: flex;
@@ -18,5 +19,14 @@
 
   .clicked {
     color: $primary;
+  }
+
+  @include Tablet {
+    font-size: 1rem;
+  }
+
+  @include Mobile {
+    font-size: 1rem;
+    gap: 0.5rem;
   }
 }

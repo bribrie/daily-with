@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { currentUserUid } from "redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { currentTask, getTaskAsync, taskLoading } from "redux/task/taskSlice";
+import { TaskListType } from "redux/types";
 import useSearch from "hooks/useSearch";
 import Loading from "components/layout/Loading";
 import TaskList from "components/task/TaskList";
@@ -25,8 +26,8 @@ const TaskListContainer = () => {
   }, [dispatch, name, userUid, taskList.length]);
 
   const filteredList = useMemo(() => {
-    return taskList.filter((el) =>
-      el.title?.toLowerCase().includes(searchValue)
+    return taskList.filter((el: TaskListType) =>
+      el.title.toLowerCase().includes(searchValue)
     );
   }, [taskList, searchValue]);
 

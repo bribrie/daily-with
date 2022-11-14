@@ -1,0 +1,60 @@
+@import "../base/mixins";
+@import "../base/colors";
+
+.formWrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+
+  .contentWrapper {
+    height: 100%;
+    margin-bottom: 5rem;
+
+    .textInput {
+      @include CreateTextInput;
+    }
+
+    .unitInput {
+      @include CreateUnitInput;
+    }
+
+    .labelInput {
+      @include CreateLabelInput;
+    }
+
+    .selectWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      height: 2rem;
+      margin-top: 1rem;
+
+      .dayWrapper {
+        flex: 9;
+        display: flex;
+        align-items: center;
+
+        div {
+          padding-right: 0.5rem;
+        }
+      }
+
+      button {
+        flex: 1;
+        color: #c9b6ff;
+      }
+    }
+
+    .specialDateInfo {
+      color: $gray;
+      font-size: 0.8rem;
+      margin-top: -0.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .buttonWrapper {
+    @include FinishButton;
+  }
+}

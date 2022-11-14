@@ -10,6 +10,7 @@ import PriceCreatePage from "pages/price/PriceCreatePage";
 import TaskLayout from "components/task/TaskLayout";
 import TaskPage from "pages/task/TaskPage";
 import TaskCreatePage from "pages/task/TaskCreatePage";
+import TaskEditPage from "pages/task/TaskEditPage";
 import NotFoundPage from "pages/NotFoundPage";
 import "styles/App.scss";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path=":name" element={<TaskPage />} />
         </Route>
         <Route path="/task/:name/create" element={<TaskCreatePage />} />
+        <Route path="/task/:name/:id" element={<TaskEditPage />} />
       </Route>
 
       {/* Auth */}

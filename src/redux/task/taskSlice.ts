@@ -83,7 +83,12 @@ export const editTaskAsync = createAsyncThunk(
         );
 
         await updateDoc(ref, {
+          part: editData.part,
           title: editData.title,
+          detail: editData.detail,
+          day: editData.day,
+          time: editData.time,
+          specialDate: editData.specialDate,
         });
       }
     } catch (err: any) {

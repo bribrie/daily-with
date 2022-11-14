@@ -1,4 +1,5 @@
 @import "../../base/colors";
+@import "../../base/mixins";
 
 .header {
   background-color: #f9f9f9;
@@ -11,6 +12,10 @@
     align-items: flex-start;
     margin: auto;
     max-width: 1024px;
+
+    @include Mobile {
+      padding: 2rem 2rem;
+    }
 
     .breadcrumb {
       font-size: 0.8rem;

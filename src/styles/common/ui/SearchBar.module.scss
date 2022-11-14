@@ -1,7 +1,6 @@
 @import "../../base/colors";
 
 .container {
-  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -19,7 +18,7 @@
 
   .resetButton {
     border-radius: 50%;
-    background-color: $primary;
+    background-color: $skyBlue;
     color: white;
     text-align: center;
     outline: none;

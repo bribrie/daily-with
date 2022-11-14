@@ -1,5 +1,5 @@
 import { MouseEvent } from "react";
-import styles from "styles/ui/DayBox.module.scss";
+import styles from "styles/common/ui/DayBox.module.scss";
 
 interface Dayprops {
   handleDaySelect: (e: MouseEvent) => void;

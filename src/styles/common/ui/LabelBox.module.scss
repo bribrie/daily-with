@@ -5,36 +5,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.mon {
-  background-color: #fac8dd;
-}
+  &.mon {
+    background-color: #fac8dd;
+  }
+  &.tue {
+    background-color: #f8aecc;
+  }
+  &.wed {
+    background-color: #f8b5a7;
+  }
 
-.tue {
-  background-color: #f8aecc;
-}
+  &.thu {
+    background-color: #bde0fe;
+  }
 
-.wed {
-  background-color: #f8b5a7;
-}
+  &.fri {
+    background-color: #a2d2ff;
+  }
 
-.thu {
-  background-color: #bde0fe;
-}
+  &.sat {
+    background-color: #d8e2dc;
+  }
 
-.fri {
-  background-color: #a2d2ff;
-}
+  &.sun {
+    background-color: #e7c6ff;
+  }
 
-.sat {
-  background-color: #d8e2dc;
-}
-
-.sun {
-  background-color: #e7c6ff;
-}
-
-.everyday {
-  background-color: #c9b6ff;
+  &.everyday {
+    background-color: #c9b6ff;
+  }
 }

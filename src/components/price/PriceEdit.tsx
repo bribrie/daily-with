@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEventHandler } from "react";
 import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
 import Input from "components/layout/Input";
+import FinishButton from "components/common/ui/FinishButton";
 import styles from "styles/price/PriceEdit.module.scss";
 
 interface FormProps {
@@ -140,10 +141,7 @@ const PriceEdit = ({
             <div></div>
           </CreateContent>
         </section>
-
-        <div className={styles.buttonWrapper}>
-          <button>수정 완료</button>
-        </div>
+        <FinishButton content="수정 완료" />
       </form>
     </>
   );

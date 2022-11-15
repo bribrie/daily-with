@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react";
 import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
 import Input from "components/layout/Input";
+import FinishButton from "components/common/ui/FinishButton";
 import styles from "styles/price/PriceForm.module.scss";
 
 interface FormProps {
@@ -127,9 +128,7 @@ const PriceForm = ({
             <div></div>
           </CreateContent>
         </section>
-        <div className={styles.buttonWrapper}>
-          <button>등록 완료</button>
-        </div>
+        <FinishButton content="등록 완료" />
       </form>
     </>
   );

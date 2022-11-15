@@ -3,6 +3,7 @@ import CreateContent from "components/layout/create/CreateContent";
 import CreateHeader from "components/layout/create/CreateHeader";
 import CreateInput from "components/layout/create/CreateInput";
 import DayBox from "components/common/ui/DayBox";
+import FinishButton from "components/common/ui/FinishButton";
 import styles from "styles/task/TaskForm.module.scss";
 
 interface FormType {
@@ -140,9 +141,7 @@ const TaskForm = ({
             </CreateInput>
           </CreateContent>
         </section>
-        <div className={styles.buttonWrapper}>
-          <button>등록 완료</button>
-        </div>
+        <FinishButton content="등록 완료" />
       </form>
     </>
   );

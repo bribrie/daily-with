@@ -4,6 +4,7 @@ import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
 import CreateInput from "components/layout/create/CreateInput";
 import DayBox from "components/common/ui/DayBox";
+import FinishButton from "components/common/ui/FinishButton";
 import styles from "styles/task/TaskEdit.module.scss";
 
 interface EditProps {
@@ -144,9 +145,7 @@ const TaskEdit = ({
             </CreateInput>
           </CreateContent>
         </section>
-        <div className={styles.buttonWrapper}>
-          <button>수정 완료</button>
-        </div>
+        <FinishButton content="수정 완료" />
       </form>
     </>
   );

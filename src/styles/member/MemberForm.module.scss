@@ -1,0 +1,127 @@
+@import "../base/mixins";
+@import "../base/colors";
+
+.infoWrapper {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 5rem 2rem;
+  grid-template-areas:
+    "name image"
+    "role image ";
+  row-gap: 1rem;
+
+  .name {
+    grid-area: name;
+
+    input {
+      width: 80%;
+      height: 100%;
+      background-color: inherit;
+      font-size: 2rem;
+      font-weight: 700;
+      border-bottom: 2px solid rgba(128, 128, 128, 0.243);
+      outline: none;
+    }
+  }
+
+  .role {
+    grid-area: role;
+    // height: 2rem;
+
+    select {
+      outline: none;
+      width: 40%;
+      height: 100%;
+      border: 2px solid rgba(128, 128, 128, 0.243);
+      font-size: 0.9rem;
+    }
+  }
+
+  @include Mobile {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 3rem 2rem;
+    .name {
+      input {
+        font-size: 0.9rem;
+      }
+    }
+    .role {
+      select {
+        width: 80%;
+      }
+    }
+  }
+
+  .pic {
+    grid-area: image;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    .imageWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 100%;
+      cursor: pointer;
+
+      img {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    label {
+      border: 3px solid #e9ecef;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 100%;
+      cursor: pointer;
+
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+
+  .contentWrapper {
+    height: 100%;
+    margin-bottom: 5rem;
+
+    .workDayInput {
+      max-width: 22rem;
+      margin-top: 1rem;
+      border-bottom: 1px solid $createBorderColor;
+    }
+
+    .textInput {
+      @include CreateTextInput;
+    }
+
+    .unitInput {
+      @include CreateUnitInput;
+    }
+
+    .labelInput {
+      @include CreateLabelInput;
+    }
+  }
+}

@@ -18,7 +18,8 @@ import storage from "redux-persist/lib/storage/session"; //세션 스토리지
 import logger from "redux-logger";
 import authReducer from "./auth/authSlice";
 import priceReducer from "./price/priceSlice";
-import TaskReducer from "./task/taskSlice";
+import taskReducer from "./task/taskSlice";
+import memberReducer from "./member/memberSlice";
 
 const persistConfig = {
   key: "root",
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   //TODO: 다른 리듀서 추가
   price: priceReducer,
-  task: TaskReducer,
+  task: taskReducer,
+  member: memberReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

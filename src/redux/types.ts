@@ -92,3 +92,36 @@ export interface EditTaskReq extends TaskListType {
 export interface DeleletTaskReq extends Pick<TaskListType, "id"> {
   userUid: string | null;
 }
+
+//*Memeber
+export interface MemeberListType {
+  id: string;
+  name: string;
+  contact: string;
+  introduction: string;
+  role: string;
+  image: File | undefined | string;
+  workDay: string;
+}
+
+export interface MemberState {
+  memberList: MemeberListType[];
+  loading: "idle" | "pending" | "succeeded" | "failed";
+}
+
+export interface AddMemberReq extends Omit<MemeberListType, "id"> {
+  userUid: string | null;
+}
+
+export interface GetMemberReq {
+  userUid: string | null;
+}
+
+export interface EditMemberReq extends MemeberListType {
+  userUid: string | null;
+}
+
+export interface DeleteMemberReq
+  extends Pick<MemeberListType, "id" | "image" | "name"> {
+  userUid: string | null;
+}

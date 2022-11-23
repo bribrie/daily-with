@@ -8,6 +8,7 @@ import styles from "styles/member/MemberForm.module.scss";
 
 interface MemeberFormProps {
   nameRef: RefObject<HTMLInputElement>;
+  roleRef: RefObject<HTMLSelectElement>;
   contactRef: RefObject<HTMLInputElement>;
   workDay: string;
   imageUrl: string | undefined;
@@ -19,6 +20,7 @@ interface MemeberFormProps {
 
 const MemberForm = ({
   nameRef,
+  roleRef,
   contactRef,
   workDay,
   introductionRef,
@@ -40,7 +42,7 @@ const MemberForm = ({
             />
           </div>
           <div className={styles.role}>
-            <select name="role" onChange={handleChange} required>
+            <select name="role" ref={roleRef} required>
               <option value="점장">점장</option>
               <option value="매니저">매니저</option>
               <option value="트레이너">트레이너</option>

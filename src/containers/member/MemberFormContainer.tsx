@@ -10,8 +10,8 @@ const MemberFormContainer = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const contactRef = useRef<HTMLInputElement>(null);
   const introductionRef = useRef<HTMLInputElement>(null);
-  const [{ role, workDay }, handleChange] = useInput({
-    role: "점장",
+  const roleRef = useRef<HTMLSelectElement>(null);
+  const [{ workDay }, handleChange] = useInput({
     workDay: "월-금",
   });
 
@@ -50,8 +50,9 @@ const MemberFormContainer = () => {
         introduction: introductionRef.current?.value as string,
         image: imageFiles,
         workDay,
-        role,
+        role: roleRef.current?.value as string,
       };
+
       await dispatch(addMemberAsync(addMemberData)).unwrap();
       await dispatch(getMemberAsync({ userUid })).unwrap();
       navigate("/member");
@@ -63,6 +64,7 @@ const MemberFormContainer = () => {
   return (
     <MemberForm
       nameRef={nameRef}
+      roleRef={roleRef}
       contactRef={contactRef}
       workDay={workDay}
       introductionRef={introductionRef}

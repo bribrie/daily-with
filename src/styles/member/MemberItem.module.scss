@@ -1,0 +1,90 @@
+@import "../base/colors";
+
+.itemWrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 3px;
+  border: 1px solid gray;
+
+  .contentWrapper {
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+
+    .role {
+      height: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      padding: 0 1rem;
+      align-items: center;
+    }
+
+    .profileImg {
+      flex: 4;
+      width: 5.3rem;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+
+      .imageIcon {
+        height: 100%;
+        border-radius: 50%;
+        border: 1px solid gray;
+      }
+
+      .imageSrc {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .introduction {
+      flex: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      .name {
+        font-size: 1.2rem;
+        margin: 0.7rem 0;
+      }
+      .contact {
+        font-size: 1rem;
+        margin-bottom: 0.7rem;
+      }
+      .workDay {
+        font-size: 0.9rem;
+        color: $gray;
+      }
+    }
+  }
+
+  .buttonWrapper {
+    flex: 1 1;
+    font-size: 0.7rem;
+    display: flex;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .updateBtn {
+      padding: 0.3rem 1rem;
+      background-color: $primary;
+      border-radius: 2px;
+      color: white;
+    }
+
+    .deleteBtn {
+      padding: 0.3rem 1rem;
+      background-color: $peach;
+      border-radius: 2px;
+      color: white;
+    }
+  }
+}

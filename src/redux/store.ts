@@ -20,6 +20,7 @@ import authReducer from "./auth/authSlice";
 import priceReducer from "./price/priceSlice";
 import taskReducer from "./task/taskSlice";
 import memberReducer from "./member/memberSlice";
+import salesReducer from "./sales/salesSlice";
 
 const persistConfig = {
   key: "root",
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   price: priceReducer,
   task: taskReducer,
   member: memberReducer,
+  sales: salesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

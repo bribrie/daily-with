@@ -93,7 +93,7 @@ export interface DeleletTaskReq extends Pick<TaskListType, "id"> {
   userUid: string | null;
 }
 
-//*Memeber
+//* Memeber
 export interface MemeberListType {
   id: string;
   name: string;
@@ -124,4 +124,44 @@ export interface EditMemberReq extends MemeberListType {
 export interface DeleteMemberReq
   extends Pick<MemeberListType, "id" | "image" | "name"> {
   userUid: string | null;
+}
+
+//* Sales
+export interface SalesListType {
+  id?: string;
+  registerType: string;
+  salesType: string;
+  peopleCount: string;
+  totalSales: string;
+}
+
+export interface TargetListType {
+  id: string;
+  month: string;
+  type: string;
+  newTarget: number;
+  reRegisterTarget: number;
+  totalSales: string;
+}
+
+export interface SalesState {
+  salesList: SalesListType[];
+  targetList: TargetListType[];
+  loading: "idle" | "pending" | "succeeded" | "failed";
+}
+
+export interface AddTargetReq extends Omit<TargetListType, "id"> {
+  userUid: string | null;
+}
+
+export interface GetTargetReq {
+  userUid: string | null;
+}
+
+export interface EditTargetReq extends TargetListType {
+  userUid: string | null;
+}
+
+export interface DeleteTargetReq extends GetTargetReq {
+  id: string;
 }

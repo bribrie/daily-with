@@ -1,0 +1,11 @@
+@import "../salesMixins";
+
+.listWrapper {
+  @include MonthlyTargetItem;
+
+  input {
+    width: 100%;
+    text-align: center;
+    outline: none;
+  }
+}

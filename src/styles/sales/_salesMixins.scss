@@ -1,0 +1,79 @@
+@import "../base/colors";
+@import "../base/mixins";
+
+@mixin MonthlyTargetItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 4rem;
+  grid-template-areas: "month type new reRegister totalSales button";
+  justify-items: center;
+  height: 3.5rem;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 0.5rem 0;
+
+  .month {
+    grid-area: month;
+    color: $orange;
+  }
+
+  .type {
+    grid-area: type;
+  }
+  .new {
+    grid-area: new;
+  }
+  .reRegister {
+    grid-area: reRegister;
+  }
+  .totalSales {
+    grid-area: totalSales;
+  }
+
+  .buttonWrapper {
+    grid-area: button;
+    button {
+      font-size: 0.9rem;
+      padding: 0.3em;
+      background-color: $orange;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .btnWrapper {
+    grid-area: button;
+    display: flex;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+
+    .twoButton {
+      padding: 0.3em;
+      background-color: $orange;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  @include Mobile {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-rows: repeat(4, 2rem);
+    column-gap: 0.5rem;
+    grid-template-areas:
+      "month type button"
+      "month new button"
+      "month reRegister button"
+      "month totalSales button";
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    height: auto;
+
+    .btnWrapper {
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+}

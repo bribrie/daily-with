@@ -25,6 +25,14 @@
   padding: 25px;
   width: 100%;
   height: 100%;
+
+  @include Mobile {
+    padding: 10px;
+  }
+}
+
+@mixin ContainerMargin {
+  margin: 0 5rem;
 }
 
 @mixin CreateLabelInput {
@@ -48,7 +56,7 @@
 
 /* Responsive size */
 @mixin DeskTop {
-  @media all and (min-width: 768px) and (max-width: 1024px) {
+  @media all and (min-width: 768px) {
     @content;
   }
 }

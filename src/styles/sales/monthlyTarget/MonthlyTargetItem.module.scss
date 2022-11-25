@@ -1,0 +1,5 @@
+@import "../salesMixins";
+
+.listWrapper {
+  @include MonthlyTargetItem;
+}

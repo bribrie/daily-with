@@ -15,12 +15,16 @@ interface InputType {
 const useInput = (ininitalValue: InputType) => {
   const [form, setForm] = useState(ininitalValue);
 
+  const handleReset = useCallback(() => {
+    setForm(ininitalValue);
+  }, [ininitalValue]);
+
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
-  return [form, handleChange] as const;
+  return [form, handleChange, handleReset] as const;
 };
 
 export default useInput;

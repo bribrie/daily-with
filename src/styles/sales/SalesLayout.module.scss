@@ -1,0 +1,9 @@
+@import "../base/mixins";
+
+.layoutContainer {
+  @include LayoutContainer;
+
+  .innerContainer {
+    @include InnerContainer;
+  }
+}

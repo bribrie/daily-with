@@ -5,24 +5,28 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 import {
   AddTargetReq,
   DeleteTargetReq,
   EditTargetReq,
-  GetTargetReq,
+  GetReq,
   TargetListType,
-} from "redux/types";
+} from "../salesTypes";
 import { db } from "service/firebase";
 
-//Target List
+//Monthly target은 전체 단위로만 가져옴
 export const getTargetAsync = createAsyncThunk(
-  "sales/target/get",
-  async (getData: GetTargetReq) => {
+  "target/get",
+  async (getData: GetReq) => {
     if (getData.userUid) {
       const ref = collection(db, "users", getData.userUid, "target");
-      const querySnapshot = await getDocs(ref);
+      //month 최근 순, type 헬스-필라-PT순으로 정렬
+      const q = query(ref, orderBy("month", "desc"), orderBy("type", "desc"));
+      const querySnapshot = await getDocs(q);
 
       let data: TargetListType[] = [];
 
@@ -45,7 +49,7 @@ export const getTargetAsync = createAsyncThunk(
 );
 
 export const addTargetAsync = createAsyncThunk(
-  "sales/target/add",
+  "target/add",
   async (addData: AddTargetReq, { rejectWithValue }) => {
     try {
       if (addData.userUid) {
@@ -66,7 +70,7 @@ export const addTargetAsync = createAsyncThunk(
 );
 
 export const editTargetAsync = createAsyncThunk(
-  "sales/target/edit",
+  "target/edit",
   async (editData: EditTargetReq, { rejectWithValue }) => {
     try {
       if (editData.userUid) {
@@ -89,7 +93,7 @@ export const editTargetAsync = createAsyncThunk(
 );
 
 export const deleteTargetAsync = createAsyncThunk(
-  "sales/target/delete",
+  "target/delete",
   async (deleteData: DeleteTargetReq, { rejectWithValue }) => {
     try {
       if (deleteData.userUid) {

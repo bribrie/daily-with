@@ -1,25 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
-import { SalesState } from "redux/types";
+import { TargetState } from "../salesTypes";
 import {
   addTargetAsync,
   deleteTargetAsync,
   editTargetAsync,
   getTargetAsync,
-} from "./salesThunk";
+} from "./targetThunk";
 
-const salesSlice = createSlice({
-  name: "sales",
+const targetSlice = createSlice({
+  name: "target",
   initialState: {
-    salesList: [],
     targetList: [],
     loading: "idle",
-  } as SalesState,
+  } as TargetState,
   reducers: {},
-  extraReducers: (builder) => {
-    //Sales List
-
-    //Target List
+  extraReducers(builder) {
     builder.addCase(getTargetAsync.pending, (state) => {
       state.loading = "pending";
     });
@@ -62,13 +58,10 @@ const salesSlice = createSlice({
   },
 });
 
-export const salesLoading = (state: RootState) =>
-  state.persistedReducer.sales.loading;
-
-export const salesList = (state: RootState) =>
-  state.persistedReducer.sales.salesList;
-
 export const targetList = (state: RootState) =>
-  state.persistedReducer.sales.targetList;
+  state.persistedReducer.target.targetList;
 
-export default salesSlice.reducer;
+export const targetLoading = (state: RootState) =>
+  state.persistedReducer.target.loading;
+
+export default targetSlice.reducer;

@@ -8,7 +8,7 @@ import { ReactComponent as Dashboard } from "./images/Dashboard.svg";
 export const navList = [
   { address: "/", name: "Dashboard", image: Dashboard },
   {
-    address: "/task/daymorning",
+    address: "/task",
     name: "Task",
     image: Calendar,
   },

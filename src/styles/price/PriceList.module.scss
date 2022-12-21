@@ -1,11 +1,10 @@
-@import "../base//mixins";
+@import "../base/mixins";
 
 .container {
-  @include Container;
+  @include LayoutContainer;
 
   .header {
-    max-width: 1024px;
-    margin: auto;
+    @include InnerContainer;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,7 +37,6 @@
 
       .searchBar {
         flex: 1;
-        width: 60%;
       }
     }
   }
@@ -49,15 +47,14 @@
   }
 
   .itemWrapper {
-    max-width: 1024px;
-    margin: auto;
+    @include InnerContainer;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(9.7rem, 16.4rem));
     grid-auto-rows: 11rem;
     grid-gap: 2rem;
 
     @include ListDeskTop {
-      grid-template-columns: repeat(3, minmax(12rem, 14.5rem));
+      grid-template-columns: repeat(3, minmax(10.5rem, 14.5rem));
       justify-content: center;
       align-items: center;
     }

@@ -1,4 +1,4 @@
-@import "../utils";
+@import "../base/colors";
 
 @keyframes spin {
   0% {
@@ -20,7 +20,7 @@
   .spinner {
     width: 7rem;
     height: 7rem;
-    border: 5px solid$lightBlue;
+    border: 5px solid $lightBlue;
     border-top: 5px solid $skyBlue;
     border-radius: 50%;
     animation: spin 2s linear infinite;

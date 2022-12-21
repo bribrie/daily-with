@@ -1,4 +1,4 @@
-@import "../utils";
+@import "../base/colors";
 
 .formWrapper {
   width: 100%;
@@ -30,7 +30,6 @@
     bottom: 0;
     right: 0;
     background-color: $skyBlue;
-    // width: calc(100vw - 8.5rem);
     width: 100%;
     display: flex;
     justify-content: flex-end;

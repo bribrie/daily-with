@@ -1,0 +1,76 @@
+@import "../../base/colors";
+@import "../../base/mixins";
+
+.headerWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 0.3rem;
+  grid-template-areas:
+    "date type wh wh wh rh rh rh totalVisitor registerVisitor"
+    "date type offline online friend telIn naverIn kakaoIn totalVisitor registerVisitor";
+  justify-items: center;
+  height: 4.5rem;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 0.5rem 0;
+  color: black;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+
+  .date {
+    grid-area: date;
+  }
+
+  .type {
+    grid-area: type;
+  }
+
+  .workInHeader {
+    grid-area: wh;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  .offline {
+    grid-area: offline;
+  }
+  .online {
+    grid-area: online;
+  }
+
+  .friend {
+    grid-area: friend;
+  }
+
+  .reserveInHeaer {
+    grid-area: rh;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  .telIn {
+    grid-area: telIn;
+  }
+  .naverIn {
+    grid-area: naverIn;
+  }
+  .kakaoIn {
+    grid-area: kakaoIn;
+  }
+
+  .totalVisitor {
+    grid-area: totalVisitor;
+  }
+  .registerVisitor {
+    grid-area: registerVisitor;
+  }
+  @include Mobile {
+    display: none;
+  }
+}

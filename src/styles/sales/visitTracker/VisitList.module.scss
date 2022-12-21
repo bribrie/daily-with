@@ -1,0 +1,36 @@
+@import "../../base/colors";
+@import "../../base/mixins";
+
+.wrapper {
+  width: 100%;
+
+  .info {
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .buttonWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      color: white;
+      background-color: $primary;
+      margin: 3rem 0;
+
+      &:disabled {
+        background-color: $skyBlue;
+        cursor: default;
+      }
+    }
+  }
+}

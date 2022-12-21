@@ -1,0 +1,33 @@
+@import "../salesMixins";
+
+.listWrapper {
+  @include VisitItem;
+
+  input {
+    width: 100%;
+    text-align: center;
+    outline: none;
+    font-size: 0.9rem;
+  }
+}
+
+.editButtonWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: $primary;
+    margin: 3rem 0;
+
+    &:disabled {
+      background-color: $skyBlue;
+      cursor: default;
+    }
+  }
+}

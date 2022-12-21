@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
+import Logo from "assets/images/Logo.png";
 import styles from "styles/auth/SignInForm.module.scss";
 
 interface SignInProps {
@@ -15,7 +16,9 @@ const SignInForm = ({
 }: SignInProps) => {
   return (
     <div className={styles.container}>
-      <h1>로그인</h1>
+      <div className={styles.logo}>
+        <img src={Logo} alt="dailyWith" />
+      </div>
       <div className={styles.formWrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <input

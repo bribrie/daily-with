@@ -8,6 +8,13 @@
   border-radius: 4px;
   font: white;
   cursor: pointer;
+
+  @include Tablet {
+    width: 100%;
+  }
+  @include Mobile {
+    width: 100%;
+  }
 }
 
 @mixin Input {

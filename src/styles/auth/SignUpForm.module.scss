@@ -1,4 +1,5 @@
-@import "../utils";
+@import "../base/mixins";
+@import "../base/colors";
 
 .container {
   width: 100%;
@@ -8,11 +9,24 @@
   align-items: center;
   flex-direction: column;
 
-  h1 {
-    font-size: 2rem;
-    font: $black;
-    text-align: center;
+  .logo {
+    height: 10rem;
     margin-bottom: 3rem;
+
+    img {
+      height: 100%;
+      padding: 1rem 0;
+    }
+
+    @include Mobile {
+      width: 100%;
+      height: auto;
+      margin-bottom: 3rem;
+
+      img {
+        width: 100%;
+      }
+    }
   }
 
   .formWrapper {
@@ -21,7 +35,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 800px;
+    width: 40rem;
     gap: 1em;
 
     .form {
@@ -35,6 +49,33 @@
         @include Input;
         width: 50%;
         height: 3rem;
+      }
+    }
+
+    @include Tablet {
+      width: 25rem;
+
+      .form {
+        width: 100%;
+
+        input {
+          @include Input;
+          width: 100%;
+          height: 3rem;
+        }
+      }
+    }
+
+    @include Mobile {
+      width: 100%;
+      .form {
+        width: 100%;
+
+        input {
+          @include Input;
+          width: 100%;
+          height: 3rem;
+        }
       }
     }
 

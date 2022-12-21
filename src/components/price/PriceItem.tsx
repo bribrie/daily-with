@@ -34,11 +34,7 @@ const PriceItem = ({
   return (
     <>
       {isModalOpen && (
-        <Modal
-          message="정말 삭제하시겠습니까?"
-          onConfirm={handleDelete}
-          onClose={handleModalOpen}
-        />
+        <Modal message="정말 삭제하시겠습니까?" onConfirm={handleDelete} />
       )}
 
       <div

@@ -20,7 +20,7 @@ import authReducer from "./auth/authSlice";
 import priceReducer from "./price/priceSlice";
 import taskReducer from "./task/taskSlice";
 import memberReducer from "./member/memberSlice";
-import salesReducer from "./sales/salesSlice";
+import modalReducer from "./common/modalSlice";
 
 const persistConfig = {
   key: "root",
@@ -30,11 +30,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  //TODO: 다른 리듀서 추가
   price: priceReducer,
   task: taskReducer,
   member: memberReducer,
-  sales: salesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -42,6 +40,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: {
     persistedReducer,
+    modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

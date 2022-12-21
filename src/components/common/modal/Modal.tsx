@@ -1,14 +1,21 @@
 import { MouseEventHandler } from "react";
+import { useDispatch } from "react-redux";
+import { modalClose } from "redux/common/modalSlice";
 import Portal from "./Portal";
 import styles from "styles/common/modal/Modal.module.scss";
 
 interface ModalProps {
   message: string;
   onConfirm: MouseEventHandler;
-  onClose: MouseEventHandler;
 }
 
-const Modal = ({ message, onConfirm, onClose }: ModalProps) => {
+const Modal = ({ message, onConfirm }: ModalProps) => {
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    dispatch(modalClose());
+  };
+
   return (
     <Portal>
       <div className={styles.overlay}>

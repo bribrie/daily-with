@@ -5,10 +5,10 @@ import {
   getPriceAsync,
   priceLoading,
 } from "redux/price/priceSlice";
+import { modalOpen, modalState } from "redux/common/modalSlice";
 import { PriceListType } from "redux/types";
 import PriceItem from "components/price/PriceItem";
 import Loading from "components/layout/Loading";
-import { useState } from "react";
 
 const PriceItemContainer = ({
   id,
@@ -22,10 +22,10 @@ const PriceItemContainer = ({
   const dispatch = useAppDispatch();
   const userUid = useAppSelector(currentUserUid);
   const loadingStatus = useAppSelector(priceLoading);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isModalOpen = useAppSelector(modalState);
 
   const handleModalOpen = () => {
-    setIsModalOpen(!isModalOpen);
+    dispatch(modalOpen());
   };
 
   //모달에서 확인 후 삭제진행

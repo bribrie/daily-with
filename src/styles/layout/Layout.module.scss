@@ -1,29 +1,32 @@
-@import "../utils";
+@import "../base/mixins";
 
 .container {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 8.5rem calc(100vw - 8.5rem);
+  grid-template-columns: 12rem calc(100vw - 12rem);
   grid-template-rows: 3rem auto;
   grid-template-areas:
     "nav header"
     "nav contents";
 
   @include Tablet {
-    grid-template-columns: 7rem calc(100vw - 7rem);
-    grid-template-rows: 3rem auto;
-    font-size: 14px;
-  }
-
-  @include Mobile {
-    //TODO: 모바일일 때는 햄버거 아이콘 보여주기
     display: grid;
     grid-template-areas:
       "header"
       "contents";
     grid-template-columns: 100vw;
-    grid-template-rows: 2.5rem auto;
+    grid-template-rows: 3rem auto;
+    font-size: 14px;
+  }
+
+  @include Mobile {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "contents";
+    grid-template-columns: 100vw;
+    grid-template-rows: 3rem auto;
     font-size: 14px;
   }
 

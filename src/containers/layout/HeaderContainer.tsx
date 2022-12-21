@@ -12,7 +12,7 @@ const HeaderContainer = () => {
 
   const handleSignOut = () => {
     dispatch(signOutAsync());
-    navigate("/home");
+    navigate("/");
   };
 
   const handleToggle = () => {

@@ -6,6 +6,8 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import {
   AddMemberReq,
@@ -37,14 +39,24 @@ export const getMemberAsync = createAsyncThunk(
           getData.userUid,
           "member"
         );
+        //입사일 순으로 정렬
+        const q = query(collectionRef, orderBy("startDate", "asc"));
 
-        const querySnapshot = await getDocs(collectionRef);
+        const querySnapshot = await getDocs(q);
         let data: MemeberListType[] = [];
 
         //firestore에서 정보 가져오기
         querySnapshot.forEach((doc) => {
-          const { name, contact, introduction, role, workDay, image } =
-            doc.data();
+          const {
+            name,
+            contact,
+            introduction,
+            role,
+            workDay,
+            image,
+            startDate,
+            mainColor,
+          } = doc.data();
           data.push({
             id: doc.id,
             name,
@@ -52,6 +64,8 @@ export const getMemberAsync = createAsyncThunk(
             introduction,
             role,
             workDay,
+            startDate,
+            mainColor,
             image: image,
           });
         });
@@ -93,6 +107,8 @@ export const addMemberAsync = createAsyncThunk(
             introduction: addData.introduction,
             role: addData.role,
             workDay: addData.workDay,
+            startDate: addData.startDate,
+            mainColor: addData.mainColor,
             image: "Image file upload",
           });
 
@@ -110,6 +126,8 @@ export const addMemberAsync = createAsyncThunk(
             introduction: addData.introduction,
             role: addData.role,
             workDay: addData.workDay,
+            startDate: addData.startDate,
+            mainColor: addData.mainColor,
             image: CHECK_IMAGE_WORD,
           });
         }
@@ -130,30 +148,17 @@ export const editMemberAsync = createAsyncThunk(
           collection(db, "users", editData.userUid, "member"),
           editData.id
         );
-        if (editData.image) {
-          await updateDoc(docRef, {
-            name: editData.name,
-            contact: editData.contact,
-            introduction: editData.introduction,
-            role: editData.role,
-            workDay: editData.workDay,
-            image: "Image file upload",
-          });
 
-          const storageRef = ref(storage, editData.name);
-          const result = await uploadBytes(storageRef, editData.image as File);
+        await updateDoc(docRef, {
+          name: editData.name,
+          contact: editData.contact,
+          introduction: editData.introduction,
+          role: editData.role,
+          workDay: editData.workDay,
+          startDate: editData.startDate,
+          mainColor: editData.mainColor,
+        });
 
-          if (result) return;
-        } else {
-          await updateDoc(docRef, {
-            name: editData.name,
-            contact: editData.contact,
-            introduction: editData.introduction,
-            role: editData.role,
-            workDay: editData.workDay,
-            image: CHECK_IMAGE_WORD,
-          });
-        }
         return { message: "success" };
       }
     } catch (err: any) {

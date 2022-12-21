@@ -1,90 +1,84 @@
 @import "../base/colors";
+@import "../base/mixins";
 
 .itemWrapper {
   display: flex;
-  width: 100%;
-  height: 100%;
   flex-direction: column;
-  border-radius: 3px;
-  border: 1px solid gray;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  box-shadow: 6px 2px 7px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
-  .contentWrapper {
-    flex: 9;
+  &.primary {
+    border-top: 2px solid $primary;
+  }
+
+  &.pink {
+    border-top: 2px solid #fac8dd;
+  }
+
+  &.peach {
+    border-top: 2px solid #f8b5a7;
+  }
+
+  &.purple {
+    border-top: 2px solid #c9b6ff;
+  }
+
+  &.orange {
+    border-top: 2px solid $orange;
+  }
+
+  &.green {
+    border-top: 2px solid #bbeb73;
+  }
+
+  .imageWrapper {
+    flex: 6;
+    height: 65%;
+    padding: 1rem 0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 
-    .role {
-      height: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      padding: 0 1rem;
-      align-items: center;
+    .icon {
+      width: 75%;
+      height: 105%;
     }
 
-    .profileImg {
-      flex: 4;
-      width: 5.3rem;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-
-      .imageIcon {
-        height: 100%;
-        border-radius: 50%;
-        border: 1px solid gray;
-      }
-
-      .imageSrc {
-        width: 100%;
-        border-radius: 50%;
-      }
-    }
-
-    .introduction {
-      flex: 5;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-
-      .name {
-        font-size: 1.2rem;
-        margin: 0.7rem 0;
-      }
-      .contact {
-        font-size: 1rem;
-        margin-bottom: 0.7rem;
-      }
-      .workDay {
-        font-size: 0.9rem;
-        color: $gray;
-      }
+    .picture {
+      width: 70%;
+      border-radius: 50%;
     }
   }
 
-  .buttonWrapper {
-    flex: 1 1;
-    font-size: 0.7rem;
+  .infoWrapper {
+    flex: 4;
     display: flex;
-    padding: 0.5rem 1rem;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
+    height: 100%;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
 
-    .updateBtn {
-      padding: 0.3rem 1rem;
-      background-color: $primary;
-      border-radius: 2px;
-      color: white;
+    .name {
+      font-size: 1.1rem;
+      font-weight: 800;
     }
 
-    .deleteBtn {
-      padding: 0.3rem 1rem;
-      background-color: $peach;
-      border-radius: 2px;
-      color: white;
+    .role {
+      color: $gray;
+      font-size: 0.9rem;
+    }
+
+    @include Mobile {
+      .name {
+        font-size: 1rem;
+      }
+
+      .role {
+        font-size: 0.8rem;
+      }
     }
   }
 }

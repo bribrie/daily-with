@@ -1,17 +1,14 @@
-import { Link } from "react-router-dom";
 import { CHECK_IMAGE_WORD } from "redux/member/memberSlice";
-import { MouseEventHandler } from "react";
-import Profile from "assets/images/Profile.svg";
+import { MemeberListType } from "redux/types";
+import UserIcon from "assets/images/UserCircle.png";
+import MemberDetail from "components/member/MemberDetail";
 import styles from "styles/member/MemberItem.module.scss";
 
-interface ItemProps {
-  id: string;
-  name: string;
-  role: string;
-  image: string | undefined | File;
-  workDay: string;
-  contact: string;
-  handleDelete: MouseEventHandler;
+interface MemeberItemProps extends MemeberListType {
+  handleOpenDatail: () => void;
+  handleCloseDetail: () => void;
+  roleType?: string;
+  detailIsOpen: boolean;
 }
 
 const MemberItem = ({
@@ -21,43 +18,49 @@ const MemberItem = ({
   image,
   workDay,
   contact,
-  handleDelete,
-}: ItemProps) => {
+  introduction,
+  startDate,
+  mainColor,
+  detailIsOpen,
+  handleCloseDetail,
+  handleOpenDatail,
+}: MemeberItemProps) => {
   return (
-    <div className={styles.itemWrapper}>
-      <div className={styles.contentWrapper}>
-        <div className={styles.role}>{role}</div>
-        <div className={styles.profileImg}>
+    <>
+      {detailIsOpen ? (
+        <MemberDetail
+          id={id}
+          name={name}
+          role={role}
+          image={image}
+          workDay={workDay}
+          contact={contact}
+          introduction={introduction}
+          startDate={startDate}
+          handleCloseDetail={handleCloseDetail}
+        />
+      ) : null}
+      <div
+        className={`${styles.itemWrapper} ${styles[`${mainColor}`]}`}
+        onClick={handleOpenDatail}
+      >
+        <div className={styles.imageWrapper}>
           {image === CHECK_IMAGE_WORD ? (
-            <img
-              src={Profile}
-              alt="profile icon"
-              className={styles.imageIcon}
-            />
+            <img src={UserIcon} alt="profile icon" className={styles.icon} />
           ) : (
             <img
               src={image as string}
               alt="profile pic"
-              className={styles.imageSrc}
+              className={styles.picture}
             />
           )}
         </div>
-        <div className={styles.introduction}>
+        <div className={styles.infoWrapper}>
           <div className={styles.name}>{name}</div>
-          <div className={styles.contact}>{contact}</div>
-          <div className={styles.workDay}>근무일 : {workDay}</div>
+          <div className={styles.role}>{role}</div>
         </div>
       </div>
-
-      <div className={styles.buttonWrapper}>
-        <Link to={`${id}`}>
-          <div className={styles.updateBtn}>수정</div>
-        </Link>
-        <div className={styles.deleteBtn} onClick={handleDelete}>
-          삭제
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

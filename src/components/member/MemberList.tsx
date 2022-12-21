@@ -13,27 +13,37 @@ interface ListProps {
 const MemberList = ({ list, handleSearch, handleReset }: ListProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.count}>총 {list.length} 명의 직원</div>
-        <SearchBar
-          placeholder="직원 이름을 입력해주세요."
-          handleSearch={handleSearch}
-          handleReset={handleReset}
-        />
-      </div>
-      <div className={styles.listWrapper}>
-        {list.map((data) => (
-          <MemberItemContainer
-            key={data.id}
-            id={data.id}
-            role={data.role}
-            image={data.image}
-            name={data.name}
-            contact={data.contact}
-            workDay={data.workDay}
-            introduction={data.introduction}
+      <div className={styles.innerContainer}>
+        <div className={styles.headerWrapper}>
+          <div className={styles.count}>총 {list.length} 명의 직원</div>
+          <SearchBar
+            placeholder="직원 이름을 입력해주세요."
+            handleSearch={handleSearch}
+            handleReset={handleReset}
           />
-        ))}
+        </div>
+        {list.length === 0 ? (
+          <div className={styles.noneWrapper}>
+            <div>등록된 직원이 없습니다.</div>
+          </div>
+        ) : (
+          <div className={styles.listWrapper}>
+            {list.map((data) => (
+              <MemberItemContainer
+                key={data.id}
+                id={data.id}
+                role={data.role}
+                image={data.image}
+                name={data.name}
+                contact={data.contact}
+                workDay={data.workDay}
+                startDate={data.startDate}
+                introduction={data.introduction}
+                mainColor={data.mainColor}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

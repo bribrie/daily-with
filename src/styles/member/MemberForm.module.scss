@@ -88,11 +88,26 @@
       svg {
         width: 3rem;
         height: 3rem;
+        fill: #c6c8ca;
       }
     }
 
     input {
       display: none;
+    }
+
+    .editImageWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 100%;
+
+      img {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
@@ -122,6 +137,53 @@
 
     .labelInput {
       @include CreateLabelInput;
+    }
+
+    .colorWrapper {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      column-gap: 0.5rem;
+      font-size: 0.8rem;
+      align-items: center;
+      border-bottom: none;
+      margin-bottom: 0.5rem;
+
+      input {
+        display: none;
+      }
+
+      .colorBox {
+        height: 2rem;
+
+        &.checked {
+          border: 2px solid black;
+        }
+
+        &.primary {
+          background-color: $primary;
+        }
+
+        &.pink {
+          background-color: #fac8dd;
+        }
+
+        &.peach {
+          background-color: #f8b5a7;
+        }
+
+        &.purple {
+          background-color: #c9b6ff;
+        }
+
+        &.orange {
+          background-color: $orange;
+        }
+
+        &.green {
+          background-color: #bbeb73;
+        }
+      }
     }
   }
 }

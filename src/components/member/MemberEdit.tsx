@@ -1,42 +1,39 @@
 import { ChangeEventHandler, FormEventHandler, RefObject } from "react";
-import { ReactComponent as Plus } from "assets/images/Plus.svg";
-import { INPUT_TODAY_FORMAT } from "utilites/Date";
+import { MemeberListType } from "redux/types";
+import { CHECK_IMAGE_WORD } from "redux/member/memberSlice";
 import { ColorType } from "containers/member/MemberFormContainer";
 import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
 import CreateInput from "components/layout/create/CreateInput";
 import FinishButton from "components/common/ui/FinishButton";
+import UserIcon from "assets/images/UserCircle.png";
 import styles from "styles/member/MemberForm.module.scss";
 
-interface MemeberFormProps {
+interface EditProps {
+  data: MemeberListType;
   nameRef: RefObject<HTMLInputElement>;
-  roleRef: RefObject<HTMLSelectElement>;
   contactRef: RefObject<HTMLInputElement>;
   startDateRef: RefObject<HTMLInputElement>;
   workDay: string;
-  imageUrl: string | undefined;
   introductionRef: RefObject<HTMLInputElement>;
   mainColor: ColorType[];
-  handleProfileImage: ChangeEventHandler;
   handleChange: ChangeEventHandler;
-  handleSubmit: FormEventHandler;
   handleChangeColor: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
 }
 
-const MemberForm = ({
+const MemberEdit = ({
+  data,
   nameRef,
-  roleRef,
   contactRef,
   startDateRef,
   workDay,
   introductionRef,
-  imageUrl,
   mainColor,
-  handleProfileImage,
   handleChange,
-  handleSubmit,
   handleChangeColor,
-}: MemeberFormProps) => {
+  handleSubmit,
+}: EditProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <CreateHeader title="직원 등록" linkAddress="/member" linkName="직원">
@@ -45,12 +42,18 @@ const MemberForm = ({
             <input
               type="text"
               placeholder="이름을 입력해주세요"
+              defaultValue={data.name}
               ref={nameRef}
               required
             />
           </div>
           <div className={styles.role}>
-            <select name="role" ref={roleRef} required>
+            <select
+              name="role"
+              onChange={handleChange}
+              defaultValue={data.role}
+              required
+            >
               <option value="점장">점장</option>
               <option value="매니저">매니저</option>
               <option value="트레이너">트레이너</option>
@@ -59,21 +62,11 @@ const MemberForm = ({
             </select>
           </div>
           <div className={styles.pic}>
-            {!imageUrl ? (
-              <>
-                <label htmlFor="pic">
-                  <Plus stroke="#c6c8ca" />
-                </label>
-                <input
-                  id="pic"
-                  type="file"
-                  accept="image/jpg, image/png, image/jpeg"
-                  onChange={handleProfileImage}
-                />
-              </>
+            {data.image === CHECK_IMAGE_WORD ? (
+              <img src={UserIcon} alt="profile icon" className={styles.icon} />
             ) : (
-              <div className={styles.imageWrapper}>
-                <img src={imageUrl} alt="profile" />
+              <div className={styles.editImageWrapper}>
+                <img src={data.image as string} alt="profile" />
               </div>
             )}
           </div>
@@ -89,17 +82,19 @@ const MemberForm = ({
                 placeholder="번호를 입력해주세요"
                 ref={contactRef}
                 required
+                defaultValue={data.contact}
                 className={styles.textInput}
               />
             </CreateInput>
           </CreateContent>
 
-          <CreateContent idx="02" title="강사 소개 설정">
+          <CreateContent idx="02" title="강사 정보 설정">
             <CreateInput type="text">
               <input
                 type="text"
-                placeholder="강사 정보를 입력해주세요"
+                placeholder="추가 정보를 입력해주세요"
                 ref={introductionRef}
+                defaultValue={data.introduction}
                 className={styles.textInput}
               />
             </CreateInput>
@@ -114,7 +109,7 @@ const MemberForm = ({
                 value="월-금"
                 onChange={handleChange}
                 required
-                defaultChecked
+                defaultChecked={data.workDay === "월-금"}
                 className={styles.labelInput}
               />
             </CreateInput>
@@ -126,6 +121,7 @@ const MemberForm = ({
                 value="주말"
                 onChange={handleChange}
                 required
+                defaultChecked={data.workDay === "주말"}
                 className={styles.labelInput}
               />
             </CreateInput>
@@ -137,6 +133,9 @@ const MemberForm = ({
                 value="기타"
                 onChange={handleChange}
                 required
+                defaultChecked={
+                  data.workDay !== "월-금" && data.workDay !== "주말"
+                }
                 className={styles.labelInput}
               />
             </CreateInput>
@@ -149,18 +148,18 @@ const MemberForm = ({
                   placeholder="근무 요일을 입력해주세요"
                   required
                   onChange={handleChange}
+                  defaultValue={data.workDay}
                   className={styles.textInput}
                 />
               </div>
             ) : null}
           </CreateContent>
-
           <CreateContent idx="04" title="입사일 설정">
             <CreateInput type="text">
               <input
                 type="date"
                 placeholder="입사일을 입력해주세요"
-                defaultValue={INPUT_TODAY_FORMAT}
+                defaultValue={data.startDate}
                 ref={startDateRef}
                 required
                 className={styles.textInput}
@@ -193,9 +192,9 @@ const MemberForm = ({
           </CreateContent>
         </div>
       </section>
-      <FinishButton content="등록 완료" />
+      <FinishButton content="수정 완료" />
     </form>
   );
 };
 
-export default MemberForm;
+export default MemberEdit;

@@ -102,6 +102,8 @@ export interface MemeberListType {
   role: string;
   image: File | undefined | string;
   workDay: string;
+  startDate: string;
+  mainColor: string;
 }
 
 export interface MemberState {
@@ -117,7 +119,7 @@ export interface GetMemberReq {
   userUid: string | null;
 }
 
-export interface EditMemberReq extends MemeberListType {
+export interface EditMemberReq extends Omit<MemeberListType, "image"> {
   userUid: string | null;
 }
 

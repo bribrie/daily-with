@@ -21,11 +21,22 @@ import priceReducer from "./price/priceSlice";
 import taskReducer from "./task/taskSlice";
 import memberReducer from "./member/memberSlice";
 import modalReducer from "./common/modalSlice";
+import salesReducer from "./sales/dailySales/dailySalesSlice";
+import targetReducer from "./sales/monthlyTarget/targetSlice";
+import visitReducer from "./sales/visitTracker/visitSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: ["sales"],
+};
+
+//addSalesItemList는 세션에 저장안함 => 새로고침하면 없어지게
+const salesPersistConfig = {
+  key: "sales",
+  storage: storage,
+  blacklist: ["addSalesItemList"],
 };
 
 const rootReducer = combineReducers({
@@ -33,6 +44,9 @@ const rootReducer = combineReducers({
   price: priceReducer,
   task: taskReducer,
   member: memberReducer,
+  sales: persistReducer(salesPersistConfig, salesReducer),
+  target: targetReducer,
+  visit: visitReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

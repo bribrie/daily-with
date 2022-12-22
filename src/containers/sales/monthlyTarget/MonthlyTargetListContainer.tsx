@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import { currentUserUid } from "redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { getTargetAsync } from "redux/sales/salesThunk";
-import { salesLoading, targetList } from "redux/sales/salesSlice";
+import { getTargetAsync } from "redux/sales/monthlyTarget/targetThunk";
+import { TargetListType } from "redux/sales/salesTypes";
+import {
+  targetList,
+  targetLoading,
+} from "redux/sales/monthlyTarget/targetSlice";
+import useFilter from "hooks/useFilter";
 import Loading from "components/layout/Loading";
 import MonthlyTargetList from "components/sales/monthlyTarget/MonthlyTargetList";
 
 const MonthlyTargetListContainer = () => {
   const list = useAppSelector(targetList);
   const userUid = useAppSelector(currentUserUid);
-  const [isEdit, setIsEdit] = useState(false);
-  const [editId, setEditId] = useState("");
   const [itemCountList, setItemCountList] = useState(0);
   const dispatch = useAppDispatch();
-  const loading = useAppSelector(salesLoading);
+  const loading = useAppSelector(targetLoading);
+  const filterData = ["전체", "헬스", "PT", "필라테스"];
+  const [filterValue, handleFilterChange] = useFilter(filterData);
+
+  const filteredList = list.filter(
+    (el: TargetListType) => el.type === filterValue
+  );
 
   useEffect(() => {
     if (list.length === 0) {
@@ -37,30 +46,31 @@ const MonthlyTargetListContainer = () => {
     setItemCountList(0);
   };
 
-  const changeEditMode = (id: string) => {
-    setIsEdit((isEdit) => !isEdit);
-    setItemCountList(0);
-    setEditId(id);
-  };
-
-  const resetEditMode = () => {
-    setIsEdit(false);
-  };
-
   if (loading === "pending") {
     return <Loading />;
   }
 
+  if (filterValue === "전체") {
+    return (
+      <MonthlyTargetList
+        targetList={list}
+        itemCountList={itemCountList}
+        showAddTargetForm={showAddTargetForm}
+        resetItemCountList={resetItemCountList}
+        filterData={filterData}
+        handleFilterBar={handleFilterChange}
+      />
+    );
+  }
+
   return (
     <MonthlyTargetList
-      targetList={list}
+      targetList={filteredList}
       itemCountList={itemCountList}
       showAddTargetForm={showAddTargetForm}
       resetItemCountList={resetItemCountList}
-      isEdit={isEdit}
-      editId={editId}
-      changeEditMode={changeEditMode}
-      resetEditMode={resetEditMode}
+      filterData={filterData}
+      handleFilterBar={handleFilterChange}
     />
   );
 };

@@ -1,0 +1,36 @@
+@import "../../base/mixins";
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 4rem;
+  grid-template-areas: "month type new reRegister totalSales";
+  justify-items: center;
+  height: 3.5rem;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 0.5rem 0;
+  color: black;
+  font-weight: 600;
+
+  .month {
+    grid-area: month;
+  }
+
+  .type {
+    grid-area: type;
+  }
+  .new {
+    grid-area: new;
+  }
+  .reRegister {
+    grid-area: reRegister;
+  }
+  .totalSales {
+    grid-area: totalSales;
+  }
+
+  @include Mobile {
+    display: none;
+  }
+}

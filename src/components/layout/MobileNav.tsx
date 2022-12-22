@@ -7,9 +7,10 @@ import styles from "styles/layout/MobileNav.module.scss";
 interface Props {
   showNav: boolean;
   handleSignOut: MouseEventHandler;
+  handleToggleNav: MouseEventHandler;
 }
 
-const MobileNav = ({ showNav, handleSignOut }: Props) => {
+const MobileNav = ({ showNav, handleSignOut, handleToggleNav }: Props) => {
   return showNav ? (
     <nav className={styles.nav} aria-label="Breadcrumb">
       <ul className={styles.listWrapper}>
@@ -22,7 +23,7 @@ const MobileNav = ({ showNav, handleSignOut }: Props) => {
                 isActive ? styles.clicked : undefined
               }
             >
-              <div className={styles.itemContent}>
+              <div className={styles.itemContent} onClick={handleToggleNav}>
                 {<list.image fill="#292D32" />}
                 {list.name}
               </div>

@@ -14,6 +14,10 @@ interface HeaderProps {
 
 const Header = ({ toggle, handleToggle, handleSignOut, user }: HeaderProps) => {
   const [showNav, setShowNav] = useState(false);
+
+  const handleToggleNav = () => {
+    setShowNav(false);
+  };
   return (
     <>
       <header>
@@ -44,7 +48,12 @@ const Header = ({ toggle, handleToggle, handleSignOut, user }: HeaderProps) => {
                 </li>
               </>
             </ul>
-            {showNav ? <NavContainer showNav={showNav} /> : null}
+            {showNav ? (
+              <NavContainer
+                showNav={showNav}
+                handleToggleNav={handleToggleNav}
+              />
+            ) : null}
           </>
         ) : null}
       </header>

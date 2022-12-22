@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react";
 import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
-import Input from "components/layout/Input";
+import CreateInput from "components/layout/create/CreateInput";
 import FinishButton from "components/common/ui/FinishButton";
 import styles from "styles/price/PriceForm.module.scss";
 
@@ -43,89 +43,100 @@ const PriceForm = ({
           </CreateContent>
 
           <CreateContent idx="02" title="이용권 종목">
-            <Input
-              type="radio"
-              name="type"
-              value="헬스"
-              id="헬스"
-              label="헬스"
-              defaultChecked
-              onChange={handleChange}
-            />
-            <Input
-              type="radio"
-              name="type"
-              value="PT"
-              id="PT"
-              label="PT"
-              onChange={handleChange}
-            />
-            <Input
-              type="radio"
-              name="type"
-              value="필라테스"
-              id="필라테스"
-              label="필라테스"
-              onChange={handleChange}
-            />
+            <CreateInput type="radio" labelId="헬스" labelValue="헬스">
+              <input
+                type="radio"
+                id="헬스"
+                value="헬스"
+                name="type"
+                onChange={handleChange}
+                defaultChecked
+                className={styles.labelInput}
+              />
+            </CreateInput>
+            <CreateInput type="radio" labelId="PT" labelValue="PT">
+              <input
+                type="radio"
+                id="PT"
+                value="PT"
+                name="type"
+                onChange={handleChange}
+                className={styles.labelInput}
+              />
+            </CreateInput>
+            <CreateInput type="radio" labelId="필라테스" labelValue="필라테스">
+              <input
+                type="radio"
+                id="필라테스"
+                name="type"
+                value="필라테스"
+                onChange={handleChange}
+                className={styles.labelInput}
+              />
+            </CreateInput>
           </CreateContent>
 
           <CreateContent idx="03" title="이용권 종류">
-            <Input
-              type="radio"
-              name="period"
-              value="기간제"
-              id="기간제"
-              label="기간제"
-              defaultChecked
-              onChange={handleChange}
-            />
-            <Input
-              type="radio"
-              name="period"
-              value="횟수제"
-              id="횟수제"
-              label="횟수제"
-              onChange={handleChange}
-            />
+            <CreateInput type="radio" labelId="기간제" labelValue="기간제">
+              <input
+                type="radio"
+                id="기간제"
+                value="기간제"
+                name="period"
+                onChange={handleChange}
+                defaultChecked
+                className={styles.labelInput}
+              />
+            </CreateInput>
+            <CreateInput type="radio" labelId="횟수제" labelValue="횟수제">
+              <input
+                type="radio"
+                id="횟수제"
+                value="횟수제"
+                name="period"
+                onChange={handleChange}
+                className={styles.labelInput}
+              />
+            </CreateInput>
           </CreateContent>
 
           <CreateContent idx="04" title="이용권 이름">
-            <Input
-              type="text"
-              name="title"
-              id="title"
-              required
-              onChange={handleChange}
-            />
+            <CreateInput type="text">
+              <input
+                type="text"
+                name="title"
+                required
+                onChange={handleChange}
+                className={styles.textInput}
+              />
+            </CreateInput>
           </CreateContent>
 
           <CreateContent idx="05" title="이용권 금액">
-            <Input
-              type="text"
-              name="price"
-              value={price}
-              id="price"
-              placeholder="0"
-              unit="원"
-              required
-              onChange={handlePrice}
-            />
+            <CreateInput type="text" unit="원">
+              <input
+                type="text"
+                name="title"
+                value={price}
+                placeholder="0"
+                required
+                onChange={handlePrice}
+                className={styles.unitInput}
+              />
+            </CreateInput>
           </CreateContent>
 
           <CreateContent idx="06" title="연기 가능 일수">
-            <Input
-              type="text"
-              name="delay"
-              id="delay"
-              value="0"
-              unit="일"
-              onChange={handleChange}
-            />
-          </CreateContent>
-
-          <CreateContent idx="07" title="색상 선택">
-            <div></div>
+            <CreateInput type="text" unit="일">
+              <input
+                type="text"
+                name="delay"
+                defaultValue="0"
+                required
+                onChange={handleChange}
+                className={styles.unitInput}
+              />
+            </CreateInput>
           </CreateContent>
         </section>
         <FinishButton content="등록 완료" />

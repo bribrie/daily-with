@@ -1,3 +1,4 @@
+@import "../base/mixins";
 @import "../base/colors";
 
 .formWrapper {
@@ -22,6 +23,18 @@
     .checkInfo {
       color: $gray;
       font-size: 0.8rem;
+    }
+
+    .textInput {
+      @include CreateTextInput;
+    }
+
+    .unitInput {
+      @include CreateUnitInput;
+    }
+
+    .labelInput {
+      @include CreateLabelInput;
     }
   }
 }

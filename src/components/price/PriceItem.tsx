@@ -12,7 +12,7 @@ interface ItemProps {
   delay: string;
   event: boolean;
   isModalOpen: boolean;
-  handleModalOpen: MouseEventHandler;
+  handleModalOpen: (id: string) => void;
   handleDelete: MouseEventHandler;
 }
 
@@ -36,7 +36,6 @@ const PriceItem = ({
       {isModalOpen && (
         <Modal message="정말 삭제하시겠습니까?" onConfirm={handleDelete} />
       )}
-
       <div
         className={styles.container}
         onMouseEnter={() => setHide(true)}
@@ -64,7 +63,9 @@ const PriceItem = ({
                 <Link to={`${id}`}>
                   <div>수정하기</div>
                 </Link>
-                <div onClick={handleModalOpen}>삭제하기</div>
+                <div onClick={() => handleModalOpen(id as string)}>
+                  삭제하기
+                </div>
               </div>
             </>
           )}

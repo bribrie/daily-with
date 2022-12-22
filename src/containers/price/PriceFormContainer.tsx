@@ -1,6 +1,4 @@
 import { FormEvent, useState } from "react";
-import useInput from "hooks/useInput";
-import PriceForm from "components/price/PriceForm";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import {
@@ -10,6 +8,8 @@ import {
 } from "redux/price/priceSlice";
 import { currentUserUid } from "redux/auth/authSlice";
 import useCurrency from "hooks/useCurrency";
+import useInput from "hooks/useInput";
+import PriceForm from "components/price/PriceForm";
 import Loading from "components/layout/Loading";
 
 const PriceFormContainer = () => {
@@ -19,7 +19,6 @@ const PriceFormContainer = () => {
     title: "",
     delay: "0",
   }); //defaultChecked를 initial로 세팅
-
   const [price, handlePrice] = useCurrency("");
   const [event, setEvent] = useState(false);
   const loading = useAppSelector(priceLoading);

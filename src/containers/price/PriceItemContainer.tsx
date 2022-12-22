@@ -5,10 +5,15 @@ import {
   getPriceAsync,
   priceLoading,
 } from "redux/price/priceSlice";
-import { modalOpen, modalState } from "redux/common/modalSlice";
+import {
+  modalId,
+  modalOpen,
+  modalSavedId,
+  modalState,
+} from "redux/common/modalSlice";
 import { PriceListType } from "redux/types";
-import PriceItem from "components/price/PriceItem";
 import Loading from "components/layout/Loading";
+import PriceItem from "components/price/PriceItem";
 
 const PriceItemContainer = ({
   id,
@@ -23,15 +28,17 @@ const PriceItemContainer = ({
   const userUid = useAppSelector(currentUserUid);
   const loadingStatus = useAppSelector(priceLoading);
   const isModalOpen = useAppSelector(modalState);
+  const deleteId = useAppSelector(modalId);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = (id: string) => {
+    dispatch(modalSavedId(id));
     dispatch(modalOpen());
   };
 
   //모달에서 확인 후 삭제진행
   const handleDelete = async () => {
     try {
-      const deleteData = { userUid, id };
+      const deleteData = { userUid, id: deleteId };
       await dispatch(deletePriceAsync(deleteData)).unwrap();
       await dispatch(getPriceAsync(userUid)).unwrap();
     } catch {

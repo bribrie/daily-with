@@ -1,12 +1,12 @@
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import { ItemProps } from "containers/sales/visitTracker/VisitItemContainer";
 import { Link } from "react-router-dom";
 import Modal from "components/common/modal/Modal";
 import styles from "styles/sales/visitTracker/VisitForm.module.scss";
 
-interface Props extends ItemProps {
+interface Props extends Omit<ItemProps, "filterValue"> {
   isModalOpen: boolean;
-  handleModalOpen: MouseEventHandler;
+  handleModalOpen: (id: string) => void;
   handleDelete: () => void;
 }
 
@@ -47,7 +47,10 @@ const VisitItem = ({
             <div className={styles.twoButton}>
               <Link to={`${visitList.id}`}>수정</Link>
             </div>
-            <div className={styles.twoButton} onClick={handleModalOpen}>
+            <div
+              className={styles.twoButton}
+              onClick={() => handleModalOpen(visitList.id)}
+            >
               삭제
             </div>
           </div>

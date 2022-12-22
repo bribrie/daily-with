@@ -4,6 +4,7 @@ import { currentUserUid } from "redux/auth/authSlice";
 import {
   addVisitDataAsync,
   editVisitDataAsync,
+  getAllVisitDataAsync,
   getOneMonthVisitDataAsync,
 } from "redux/sales/visitTracker/visitThunk";
 import {
@@ -17,9 +18,14 @@ import VisitForm from "components/sales/visitTracker/VisitForm";
 export interface VisitFormProps {
   editItem?: VisitListType;
   resetItemCount?: () => void;
+  filterValue?: string;
 }
 
-const VisitFormContainer = ({ editItem, resetItemCount }: VisitFormProps) => {
+const VisitFormContainer = ({
+  editItem,
+  resetItemCount,
+  filterValue,
+}: VisitFormProps) => {
   const dateRef = useRef<HTMLInputElement>(null);
   const typeRef = useRef<HTMLSelectElement>(null);
   const offlineRef = useRef<HTMLInputElement>(null);
@@ -65,8 +71,12 @@ const VisitFormContainer = ({ editItem, resetItemCount }: VisitFormProps) => {
         );
         return;
       }
-      dispatch(addVisitDataAsync(addData)).unwrap();
-      dispatch(getOneMonthVisitDataAsync({ userUid })).unwrap();
+      await dispatch(addVisitDataAsync(addData)).unwrap();
+      if (filterValue === "전체") {
+        await dispatch(getAllVisitDataAsync({ userUid })).unwrap();
+      } else {
+        await dispatch(getOneMonthVisitDataAsync({ userUid })).unwrap();
+      }
       resetItemCount && resetItemCount();
     } catch {
       alert("등록에 실패했습니다. 다시 시도해주세요.");

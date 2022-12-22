@@ -3,7 +3,6 @@ import { VisitListType } from "redux/sales/salesTypes";
 import VisitItemContainer from "containers/sales/visitTracker/VisitItemContainer";
 import VisitFormContainer from "containers/sales/visitTracker/VisitFormContainer";
 import VisitHeader from "./VisitHeader";
-import FilterBar from "components/common/ui/FilterBar";
 import styles from "styles/sales/visitTracker/VisitList.module.scss";
 
 interface ListProps {
@@ -11,6 +10,7 @@ interface ListProps {
   itemCount: number;
   showAddForm: MouseEventHandler;
   resetItemCount: () => void;
+  filterValue: string;
 }
 
 const VisitList = ({
@@ -18,10 +18,10 @@ const VisitList = ({
   itemCount,
   showAddForm,
   resetItemCount,
+  filterValue,
 }: ListProps) => {
   return (
     <>
-      {/* <FilterBar /> */}
       <div className={styles.wrapper}>
         <VisitHeader />
         {list.length === 0 && itemCount === 0 ? (
@@ -29,10 +29,17 @@ const VisitList = ({
         ) : (
           <>
             {list.map((data) => (
-              <VisitItemContainer key={data.id} visitList={data} />
+              <VisitItemContainer
+                key={data.id}
+                visitList={data}
+                filterValue={filterValue}
+              />
             ))}
             {itemCount >= 1 && (
-              <VisitFormContainer resetItemCount={resetItemCount} />
+              <VisitFormContainer
+                resetItemCount={resetItemCount}
+                filterValue={filterValue}
+              />
             )}
           </>
         )}

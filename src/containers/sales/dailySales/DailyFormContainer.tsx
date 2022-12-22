@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { currentUserUid } from "redux/auth/authSlice";
 import {
   addSalesAsync,
+  editSalesAsync,
+  getAllSalesAsync,
   getOneMonthSalesAsync,
 } from "redux/sales/dailySales/dailySalesThunk";
 import {
@@ -10,6 +12,7 @@ import {
   addSalesData,
   deleteSalesData,
 } from "redux/sales/dailySales/dailySalesSlice";
+import { useNavigate } from "react-router-dom";
 import { AddSalesItemListType, SalesListType } from "redux/sales/salesTypes";
 import useCurrency from "hooks/useCurrency";
 import DailyForm from "components/sales/dailySales/DailyForm";
@@ -20,6 +23,7 @@ export interface FormProps {
   resetItemCount?: () => void;
   todaySalesList?: SalesListType[];
   allSalesList?: SalesListType[];
+  filterValue?: string;
 }
 
 const DailyFormContainer = ({
@@ -28,6 +32,7 @@ const DailyFormContainer = ({
   resetItemCount,
   todaySalesList,
   allSalesList,
+  filterValue,
 }: FormProps) => {
   const userUid = useAppSelector(currentUserUid);
   const dispatch = useAppDispatch();
@@ -40,14 +45,7 @@ const DailyFormContainer = ({
   );
   const addedItemList = useAppSelector(addSalesItemList);
   const [count, setCount] = useState(0);
-
-  console.log(
-    "todaySalesList :",
-    todaySalesList,
-    "allSalesList : ",
-    allSalesList
-  );
-
+  const navigate = useNavigate();
   //* 서버보내기 전에 reducer state에 추가
   const addSalesItem = () => {
     const addData: AddSalesItemListType = {
@@ -65,9 +63,11 @@ const DailyFormContainer = ({
       (type === "today" && todaySalesList)
     ) {
       if (todaySalesList) {
-        const al = todaySalesList.filter((el) => el.type === addData.type);
-        if (al.length !== 0) {
-          alert("중복");
+        const sameItem = todaySalesList.filter(
+          (el) => el.type === addData.type
+        );
+        if (sameItem.length !== 0) {
+          alert("중복된 데이터입니다.");
           return;
         }
       }
@@ -79,10 +79,19 @@ const DailyFormContainer = ({
       }
     }
     //1-2. 이전 매출이면 type과 date 둘 다 확인해서 같은 데이터가 있는 지 확인
-    if (type === "all" && addedItemList.length >= 1) {
+    if (
+      (type === "all" && addedItemList.length >= 1) ||
+      (type === "all" && allSalesList)
+    ) {
+      if (allSalesList) {
+        const sameItem = allSalesList.filter((el) => el.type === addData.type);
+        if (sameItem.length !== 0) {
+          alert("중복된 데이터입니다.");
+          return;
+        }
+      }
       for (let el of addedItemList) {
         if (el.type === addData.type && el.date === addData.date) {
-          console.log("Last if문 들어옴");
           alert(
             `이미 ${el.date}날짜의 등록된 ${el.type} 데이터가 있습니다. 수정해주세요.`
           );
@@ -110,9 +119,13 @@ const DailyFormContainer = ({
         data: addedItemList,
       };
       await dispatch(addSalesAsync(addData)).unwrap();
-      await dispatch(
-        getOneMonthSalesAsync({ userUid: addData.userUid })
-      ).unwrap();
+      if (filterValue === "전체") {
+        await dispatch(getAllSalesAsync({ userUid: addData.userUid })).unwrap();
+      } else {
+        await dispatch(
+          getOneMonthSalesAsync({ userUid: addData.userUid })
+        ).unwrap();
+      }
       setCount(0);
       resetItemCount && resetItemCount();
     } catch {
@@ -123,6 +136,20 @@ const DailyFormContainer = ({
   const handleEditSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      const data = {
+        userUid,
+        id: editData?.id as string,
+        date: dateRef.current?.value as string,
+        type: typeRef.current?.value as string,
+        newRegister: newRegisterRef.current?.valueAsNumber as number,
+        reRegister: reRegisterRef.current?.valueAsNumber as number,
+        totalSales,
+      };
+      await dispatch(editSalesAsync(data)).unwrap();
+      await dispatch(getOneMonthSalesAsync({ userUid: data.userUid })).unwrap();
+      setCount(0);
+      resetItemCount && resetItemCount();
+      navigate("/sales/all");
     } catch {
       alert("매출 등록에 실패했습니다. 다시 시도해주세요.");
     }

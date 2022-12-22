@@ -8,7 +8,7 @@ import TypeSelectBox from "components/common/ui/TypeSelectBox";
 import DailySalesItemContainer from "containers/sales/dailySales/DailySalesItemContainer";
 import styles from "styles/sales/dailySales/DailyForm.module.scss";
 
-interface Props extends Omit<FormProps, "resetItemCount"> {
+interface Props extends Omit<FormProps, "resetItemCount" | "filterValue"> {
   addedItemList: AddSalesItemListType[];
   dateRef: RefObject<HTMLInputElement>;
   typeRef: RefObject<HTMLSelectElement>;

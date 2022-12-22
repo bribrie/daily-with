@@ -11,19 +11,20 @@ import {
   salesLoading,
 } from "redux/sales/dailySales/dailySalesSlice";
 import useItemCount from "hooks/useItemCount";
-import AllSalesList from "components/sales/dailySales/AllSalesList";
-import Loading from "components/layout/Loading";
 import useFilter from "hooks/useFilter";
+import FilterBar from "components/common/ui/FilterBar";
+import Loading from "components/layout/Loading";
+import AllSalesList from "components/sales/dailySales/AllSalesList";
 
 const AllSalesListContainer = () => {
   const thisMonthList = useAppSelector(oneMonthSalesList);
   const allList = useAppSelector(allSalesList);
   const [itemCount, showAddForm, resetItemCount] = useItemCount("매출을");
-  const userUid = useAppSelector(currentUserUid);
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(salesLoading);
   const filterData = ["이번달", "전체"];
   const [filterValue, handleFilterChange] = useFilter(filterData);
+  const loading = useAppSelector(salesLoading);
+  const userUid = useAppSelector(currentUserUid);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (allList.length === 0) {
@@ -42,30 +43,37 @@ const AllSalesListContainer = () => {
     }
   }, [userUid, dispatch, allList.length, thisMonthList.length]);
 
+  //로딩
   if (loading === "pending") return <Loading />;
 
+  //이번달
   if (filterValue === "이번달") {
     return (
-      <AllSalesList
-        allSalesList={thisMonthList}
-        itemCount={itemCount}
-        showAddForm={showAddForm}
-        resetItemCount={resetItemCount}
-        filterData={filterData}
-        handleFilterChange={handleFilterChange}
-      />
+      <>
+        <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+        <AllSalesList
+          allSalesList={thisMonthList}
+          itemCount={itemCount}
+          showAddForm={showAddForm}
+          resetItemCount={resetItemCount}
+          filterValue={filterValue}
+        />
+      </>
     );
   }
 
+  //전체
   return (
-    <AllSalesList
-      allSalesList={allList}
-      itemCount={itemCount}
-      showAddForm={showAddForm}
-      resetItemCount={resetItemCount}
-      filterData={filterData}
-      handleFilterChange={handleFilterChange}
-    />
+    <>
+      <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+      <AllSalesList
+        allSalesList={allList}
+        itemCount={itemCount}
+        showAddForm={showAddForm}
+        resetItemCount={resetItemCount}
+        filterValue={filterValue}
+      />
+    </>
   );
 };
 

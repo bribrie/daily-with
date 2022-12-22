@@ -44,6 +44,10 @@ export interface AddSalesReq {
   data: Omit<SalesListType, "id">[];
 }
 
+export interface EditSalesReq extends SalesListType {
+  userUid: string | null;
+}
+
 //* Monthly Target
 export interface TargetListType {
   id: string;

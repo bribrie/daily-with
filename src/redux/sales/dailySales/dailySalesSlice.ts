@@ -5,9 +5,9 @@ import { SalesState } from "../salesTypes";
 import {
   addSalesAsync,
   deleteSalesAsync,
+  editSalesAsync,
   getAllSalesAsync,
   getOneMonthSalesAsync,
-  updateSalesAsync,
 } from "./dailySalesThunk";
 
 const dailySalesSlice = createSlice({
@@ -66,13 +66,13 @@ const dailySalesSlice = createSlice({
     builder.addCase(addSalesAsync.rejected, (state) => {
       state.loading = "failed";
     });
-    builder.addCase(updateSalesAsync.pending, (state) => {
+    builder.addCase(editSalesAsync.pending, (state) => {
       state.loading = "pending";
     });
-    builder.addCase(updateSalesAsync.fulfilled, (state) => {
+    builder.addCase(editSalesAsync.fulfilled, (state) => {
       state.loading = "succeeded";
     });
-    builder.addCase(updateSalesAsync.rejected, (state) => {
+    builder.addCase(editSalesAsync.rejected, (state) => {
       state.loading = "failed";
     });
     builder.addCase(deleteSalesAsync.pending, (state) => {

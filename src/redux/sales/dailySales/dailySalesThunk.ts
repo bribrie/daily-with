@@ -10,7 +10,13 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { AddSalesReq, GetReq, SalesListType, DeleteReq } from "../salesTypes";
+import {
+  AddSalesReq,
+  GetReq,
+  SalesListType,
+  DeleteReq,
+  EditSalesReq,
+} from "../salesTypes";
 import { db } from "service/firebase";
 import {
   SALES_FILTER_MONTH_FINISH,
@@ -72,7 +78,6 @@ export const getOneMonthSalesAsync = createAsyncThunk(
         });
 
         return { data: dataArray };
-        //payload 전달
       }
     } catch (err: any) {
       return rejectWithValue(err.message);
@@ -83,7 +88,6 @@ export const getOneMonthSalesAsync = createAsyncThunk(
 export const addSalesAsync = createAsyncThunk(
   "dailySales/add",
   async (addData: AddSalesReq, { rejectWithValue }) => {
-    console.log("addData reducer", addData);
     try {
       if (addData.userUid && addData.date) {
         const ref = collection(db, "users", addData.userUid, "sales");
@@ -99,9 +103,33 @@ export const addSalesAsync = createAsyncThunk(
   }
 );
 
-export const updateSalesAsync = createAsyncThunk(
+export const editSalesAsync = createAsyncThunk(
   "dailySales/update",
-  async (updateData, { rejectWithValue }) => {}
+  async (editData: EditSalesReq, { rejectWithValue }) => {
+    try {
+      if (editData.userUid && editData.id) {
+        const ref = doc(
+          collection(db, "users", editData.userUid, "sales"),
+          editData.id
+        );
+
+        await updateDoc(ref, {
+          date: editData.date,
+          data: [
+            {
+              date: editData.date,
+              type: editData.type,
+              newRegister: editData.newRegister,
+              reRegister: editData.reRegister,
+              totalSales: editData.totalSales,
+            },
+          ],
+        });
+      }
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
 );
 
 export const deleteSalesAsync = createAsyncThunk(

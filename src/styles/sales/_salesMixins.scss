@@ -1,6 +1,73 @@
 @import "../base/colors";
 @import "../base/mixins";
 
+@mixin AddBuleButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: $primary;
+    margin: 3rem 0;
+
+    &:disabled {
+      background-color: $skyBlue;
+      cursor: default;
+    }
+  }
+}
+
+@mixin SalesButton {
+  button {
+    font-size: 0.9rem;
+    padding: 0.3em;
+    background-color: $orange;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+@mixin SalesTwoButton {
+  display: flex;
+  gap: 0.3rem;
+
+  .twoButton {
+    padding: 0.3em;
+    font-size: 0.7rem;
+    background-color: $orange;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+@mixin AddSalesItemButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: $primary;
+    margin: 1rem 0;
+
+    &:disabled {
+      background-color: $skyBlue;
+      cursor: default;
+    }
+  }
+}
+
 @mixin MonthlyTargetItem {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 2fr 4rem;
@@ -75,5 +142,106 @@
       gap: 0.5rem;
       font-size: 0.8rem;
     }
+  }
+}
+
+@mixin VisitItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 0.3rem;
+  grid-template-areas: "date type offline online friend telIn naverIn kakaoIn totalVisit registerVisit button";
+  justify-items: center;
+  height: 3.5rem;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+
+  .date {
+    grid-area: date;
+    color: $orange;
+  }
+  .type {
+    grid-area: type;
+  }
+  .offline {
+    grid-area: offline;
+  }
+  .online {
+    grid-area: online;
+  }
+  .friend {
+    grid-area: friend;
+  }
+  .telIn {
+    grid-area: telIn;
+  }
+  .naverIn {
+    grid-area: naverIn;
+  }
+  .kakaoIn {
+    grid-area: kakaoIn;
+  }
+  .totalVisit {
+    grid-area: totalVisit;
+  }
+  .registerVisit {
+    grid-area: registerVisit;
+  }
+
+  .buttonWrapper {
+    grid-area: button;
+    button {
+      font-size: 0.9rem;
+      padding: 0.3em;
+      background-color: $orange;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .twoButtonWrapper {
+    @include SalesTwoButton;
+  }
+}
+
+@mixin DailyItem {
+  display: grid;
+  align-items: center;
+  grid-template-areas: "date type newRegister reRegister totalSales button";
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 4rem;
+  text-align: center;
+  column-gap: 0.3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+
+  .date {
+    grid-area: date;
+  }
+  .type {
+    grid-area: type;
+  }
+  .newRegister {
+    grid-area: newRegister;
+  }
+  .reRegister {
+    grid-area: reRegister;
+  }
+  .totalSales {
+    grid-area: totalSales;
+  }
+
+  .buttonWrapper {
+    grid-area: button;
+    @include SalesButton;
+  }
+
+  .twoButtonWrapper {
+    grid-area: button;
+    @include SalesTwoButton;
   }
 }

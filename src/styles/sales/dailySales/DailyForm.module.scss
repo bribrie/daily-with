@@ -1,0 +1,28 @@
+@import "../salesMixins";
+
+.wrapper {
+  @include DailyItem;
+
+  input {
+    width: 100%;
+    text-align: center;
+    outline: none;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+  }
+}
+
+.addAsyncButton {
+  @include AddSalesItemButton;
+}

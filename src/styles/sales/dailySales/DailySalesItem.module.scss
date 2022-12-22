@@ -1,0 +1,5 @@
+@import "../salesMixins";
+
+.wrapper {
+  @include DailyItem;
+}

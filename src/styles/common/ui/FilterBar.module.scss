@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  font-size: 0.8rem;
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+
+  svg {
+    height: 1rem;
+  }
+  .listWrapper {
+    outline: none;
+    border: none;
+    font-size: 0.8rem;
+    color: gray;
+  }
+}

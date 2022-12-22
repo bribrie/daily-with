@@ -150,7 +150,6 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 0.3rem;
   grid-template-areas: "date type offline online friend telIn naverIn kakaoIn totalVisit registerVisit button";
-  justify-items: center;
   height: 3.5rem;
   align-items: center;
   text-align: center;
@@ -158,9 +157,27 @@
   padding: 0.5rem 0;
   font-size: 0.9rem;
 
+  @include Mobile {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 2rem);
+    grid-template-areas:
+      "date date date date date date date date date"
+      "type offline online friend telIn naverIn kakaoIn totalVisit registerVisit"
+      "button button button button button button button button button";
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    height: auto;
+    row-gap: 0.5rem;
+  }
+
   .date {
     grid-area: date;
     color: $orange;
+
+    @include Mobile {
+      display: flex;
+      font-size: 1rem;
+      justify-content: flex-start;
+    }
   }
   .type {
     grid-area: type;
@@ -200,10 +217,38 @@
       color: white;
       cursor: pointer;
     }
+
+    @include Mobile {
+      display: flex;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      button {
+        padding: 0.3rem 0.5rem;
+      }
+    }
   }
 
   .twoButtonWrapper {
-    @include SalesTwoButton;
+    grid-area: button;
+    display: flex;
+    gap: 0.3rem;
+
+    .twoButton {
+      padding: 0.3em;
+      font-size: 0.7rem;
+      background-color: $orange;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    @include Mobile {
+      width: 100%;
+      gap: 0.5rem;
+
+      .twoButton {
+        padding: 0.3rem 0.5rem;
+      }
+    }
   }
 }
 
@@ -219,8 +264,24 @@
   height: 2.5rem;
   margin-bottom: 0.5rem;
 
+  @include Mobile {
+    grid-template-areas:
+      "date date date date"
+      "type newRegister reRegister totalSales"
+      "button button button button";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 2rem);
+    height: auto;
+    row-gap: 0.5rem;
+  }
+
   .date {
     grid-area: date;
+    @include Mobile {
+      display: flex;
+      padding: 0 1rem;
+      justify-content: flex-start;
+    }
   }
   .type {
     grid-area: type;
@@ -242,6 +303,24 @@
 
   .twoButtonWrapper {
     grid-area: button;
-    @include SalesTwoButton;
+    display: flex;
+    gap: 0.3rem;
+
+    .twoButton {
+      padding: 0.3em;
+      font-size: 0.7rem;
+      background-color: $orange;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    @include Mobile {
+      width: 100%;
+      gap: 0.5rem;
+
+      .twoButton {
+        padding: 0.2rem 0.5rem;
+      }
+    }
   }
 }

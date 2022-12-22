@@ -21,8 +21,19 @@
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
 
+  @include Mobile {
+    grid-template-areas:
+      "type wh wh wh rh rh rh totalVisitor registerVisitor"
+      "type offline online friend telIn naverIn kakaoIn totalVisitor registerVisitor";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    font-size: 0.7rem;
+  }
+
   .date {
     grid-area: date;
+    @include Mobile {
+      display: none;
+    }
   }
 
   .type {
@@ -69,8 +80,5 @@
   }
   .registerVisitor {
     grid-area: registerVisitor;
-  }
-  @include Mobile {
-    display: none;
   }
 }

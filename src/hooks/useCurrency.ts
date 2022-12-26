@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useCallback } from "react";
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
+export const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
   currency: "KRW",
 });
 

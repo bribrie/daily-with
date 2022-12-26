@@ -17,7 +17,7 @@ const visitSlice = createSlice({
     loading: "idle",
   } as VisitState,
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(getOneMonthVisitDataAsync.pending, (state) => {
       state.loading = "pending";
     });

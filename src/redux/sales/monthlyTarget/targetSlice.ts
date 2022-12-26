@@ -15,7 +15,7 @@ const targetSlice = createSlice({
     loading: "idle",
   } as TargetState,
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(getTargetAsync.pending, (state) => {
       state.loading = "pending";
     });

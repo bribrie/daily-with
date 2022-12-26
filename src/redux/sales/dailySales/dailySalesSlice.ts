@@ -29,7 +29,7 @@ const dailySalesSlice = createSlice({
       });
     },
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(getOneMonthSalesAsync.pending, (state) => {
       state.loading = "pending";
     });

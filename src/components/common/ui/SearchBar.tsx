@@ -4,8 +4,8 @@ import styles from "styles/common/ui/SearchBar.module.scss";
 
 interface SearchProps {
   placeholder: string;
-  handleSearch: KeyboardEventHandler;
-  handleReset: MouseEventHandler;
+  handleSearch?: KeyboardEventHandler;
+  handleReset?: MouseEventHandler;
 }
 
 const SearchBar = ({ placeholder, handleSearch, handleReset }: SearchProps) => {

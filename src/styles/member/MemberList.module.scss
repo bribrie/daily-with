@@ -38,10 +38,10 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(8rem, 11rem));
       grid-auto-rows: 14rem;
-      grid-gap: 3rem;
+      grid-gap: 2rem;
 
       @include ListDeskTop {
-        grid-template-columns: repeat(4, minmax(7rem, 11rem));
+        grid-template-columns: repeat(4, minmax(9rem, 11rem));
         grid-gap: 1.5rem;
       }
 

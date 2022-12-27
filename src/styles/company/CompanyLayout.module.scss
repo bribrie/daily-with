@@ -1,0 +1,10 @@
+@import "../base//mixins";
+@import "../base/colors";
+
+.layoutContainer {
+  @include LayoutContainer;
+
+  .innerContainer {
+    @include InnerContainer;
+  }
+}

@@ -1,0 +1,17 @@
+.itemWrapper {
+  margin-bottom: 2.5rem;
+
+  .header {
+    font-size: 0.9rem;
+    color: gray;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    svg {
+      width: 0.9rem;
+      margin-right: 0.5rem;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+@import "../base//mixins";
+@import "../base/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .listWrapper {
+    margin-bottom: 1.5rem;
+
+    .timeWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .timeItem {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .title {
+          color: $darkBlue;
+          width: 4rem;
+        }
+
+        .holiday {
+          color: $red;
+          width: 4rem;
+        }
+
+        .time {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          @include Mobile {
+            gap: 0;
+          }
+
+          div {
+            width: 5rem;
+          }
+
+          .holidayTime {
+            width: max-content;
+          }
+
+          .hyphen {
+            width: 2rem;
+          }
+        }
+      }
+    }
+
+    .noneContent {
+      width: 100%;
+    }
+
+    .siteWrapper {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(5rem, 12rem));
+      gap: 1rem;
+      align-items: center;
+
+      @include Mobile {
+        gap: 0.5rem;
+        grid-template-columns: repeat(3, minmax(4rem, 12rem));
+      }
+
+      .siteItem {
+        height: 3.5rem;
+        border: 1px dashed lightblue;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(184, 229, 245);
+        }
+
+        a {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

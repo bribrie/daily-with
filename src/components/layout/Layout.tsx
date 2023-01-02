@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import HeaderContainer from "containers/layout/HeaderContainer";
+import Header from "./Header";
 import NavContainer from "containers/layout/NavContainer";
 import styles from "styles/layout/Layout.module.scss";
 
@@ -24,7 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
   if (windowSize <= 768) {
     return (
       <div className={styles.container}>
-        <HeaderContainer />
+        <Header />
         <section className={styles.main}> {children || <Outlet />}</section>
       </div>
     );
@@ -32,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className={styles.container}>
-      <HeaderContainer />
+      <Header />
       <NavContainer />
       <section className={styles.main}> {children || <Outlet />}</section>
     </div>

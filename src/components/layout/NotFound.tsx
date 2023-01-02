@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { ReactComponent as Alert } from "assets/images/Alert.svg";
-import HeaderContainer from "containers/layout/HeaderContainer";
+import Header from "./Header";
 import styles from "styles/layout/NotFound.module.scss";
 
 const NotFound = () => {
   return (
     <div className={styles.container}>
-      <HeaderContainer />
+      <Header />
       <section className={styles.main}>
         <div className={styles.icon}>
           <Alert stroke="gray" />

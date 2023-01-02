@@ -1,0 +1,35 @@
+@import "./dashboardMixins.scss";
+
+.container {
+  grid-area: salesChart;
+  @include DashboardLayoutContainer;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    @include DashboardTitle;
+    flex: 1;
+  }
+
+  .contentContainer {
+    flex: 9;
+
+    .noneContent {
+      @include NoneContent;
+    }
+    .canvasContainer {
+      g {
+        rect[class="bar"] {
+          fill: $darkBlue;
+        }
+
+        line {
+          stroke: $black;
+        }
+        text {
+          fill: $black;
+        }
+      }
+    }
+  }
+}

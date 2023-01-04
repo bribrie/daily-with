@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 import {
   collection,
   addDoc,
@@ -136,7 +140,7 @@ const taskSlice = createSlice({
     builder.addCase(addTaskAsync.pending, (state) => {
       state.loading = "pending";
     });
-    builder.addCase(addTaskAsync.fulfilled, (state, action) => {
+    builder.addCase(addTaskAsync.fulfilled, (state) => {
       state.loading = "succeeded";
     });
     builder.addCase(addTaskAsync.rejected, (state) => {
@@ -146,7 +150,7 @@ const taskSlice = createSlice({
     builder.addCase(editTaskAsync.pending, (state) => {
       state.loading = "pending";
     });
-    builder.addCase(editTaskAsync.fulfilled, (state, action) => {
+    builder.addCase(editTaskAsync.fulfilled, (state) => {
       state.loading = "succeeded";
     });
     builder.addCase(editTaskAsync.rejected, (state) => {
@@ -170,5 +174,29 @@ export const currentTask = (state: RootState) =>
 
 export const taskLoading = (state: RootState) =>
   state.persistedReducer.task.loading;
+
+export const morningTask = createSelector(currentTask, (list) => {
+  const task = list["daymorning"];
+  if (task.length > 3) {
+    return task.slice(0, 3);
+  }
+  return task;
+});
+
+export const afternoonTask = createSelector(currentTask, (list) => {
+  const task = list["dayafternoon"];
+  if (task.length > 3) {
+    return task.slice(0, 3);
+  }
+  return task;
+});
+
+export const weekendTask = createSelector(currentTask, (list) => {
+  const task = list["weekend"];
+  if (task.length > 3) {
+    return task.slice(0, 3);
+  }
+  return task;
+});
 
 export default taskSlice.reducer;

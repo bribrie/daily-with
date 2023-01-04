@@ -1,0 +1,79 @@
+@import "./dashboardMixins.scss";
+
+.container {
+  grid-area: timeTask;
+  @include DashboardLayoutContainer;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    @include DashboardTitle;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    .all {
+      font-size: 0.8rem;
+      color: lightgray;
+      &:hover {
+        color: $darkBlue;
+      }
+    }
+
+    @include Mobile {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+      .all {
+        align-self: flex-end;
+      }
+    }
+  }
+
+  .contentContainer {
+    flex: 9;
+
+    .noneContent {
+      @include NoneContent;
+    }
+
+    .itemWrapper {
+      display: grid;
+      align-items: center;
+      margin-bottom: 1rem;
+      grid-template-columns: 2fr 4fr 4fr;
+      grid-template-areas: "time task detail";
+
+      .time {
+        grid-area: time;
+      }
+      .task {
+        grid-area: task;
+      }
+      .detail {
+        grid-area: detail;
+      }
+
+      @include Mobile {
+        grid-template-columns: 3fr 7fr;
+        grid-template-areas:
+          "time task"
+          "time detail";
+        gap: 0.5rem;
+        height: max-content;
+
+        .time {
+          height: 100%;
+          text-align: center;
+          padding-right: 0.5rem;
+          border-right: 1px solid lightgray;
+        }
+        .detail {
+          color: gray;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

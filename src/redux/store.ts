@@ -26,6 +26,7 @@ import targetReducer from "./sales/monthlyTarget/targetSlice";
 import visitReducer from "./sales/visitTracker/visitSlice";
 import companyReducer from "./company/companySlice";
 import noticeReducer from "./dashboard/noticeSlice";
+import timeTaskReducer from "./dashboard/timeTaskSlice";
 
 const persistConfig = {
   key: "root",
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   visit: visitReducer,
   company: persistReducer(blackListPersistConfig, companyReducer),
   notice: noticeReducer,
+  timeTask: timeTaskReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

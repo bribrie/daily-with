@@ -6,9 +6,10 @@ import styles from "styles/layout/Layout.module.scss";
 
 export interface LayoutProps {
   children?: ReactNode;
+  type?: string;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, type }: LayoutProps) => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -25,7 +26,13 @@ const Layout = ({ children }: LayoutProps) => {
     return (
       <div className={styles.container}>
         <Header />
-        <section className={styles.main}> {children || <Outlet />}</section>
+        <section
+          className={
+            type ? `${styles.main} ${styles[`${type}`]}` : `${styles.main}`
+          }
+        >
+          {children || <Outlet />}
+        </section>
       </div>
     );
   }
@@ -34,7 +41,13 @@ const Layout = ({ children }: LayoutProps) => {
     <div className={styles.container}>
       <Header />
       <NavContainer />
-      <section className={styles.main}> {children || <Outlet />}</section>
+      <section
+        className={
+          type ? `${styles.main} ${styles[`${type}`]}` : `${styles.main}`
+        }
+      >
+        {children || <Outlet />}
+      </section>
     </div>
   );
 };

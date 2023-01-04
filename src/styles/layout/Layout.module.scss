@@ -33,5 +33,9 @@
   .main {
     grid-area: contents;
     overflow: scroll;
+
+    &.dashboard {
+      background-color: #f8f8f8;
+    }
   }
 }

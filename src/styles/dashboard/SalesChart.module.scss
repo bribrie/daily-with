@@ -17,10 +17,15 @@
     .noneContent {
       @include NoneContent;
     }
+
     .canvasContainer {
       g {
         rect[class="bar"] {
           fill: $darkBlue;
+
+          &:hover {
+            fill-opacity: 0.8;
+          }
         }
 
         line {
@@ -28,6 +33,10 @@
         }
         text {
           fill: $black;
+        }
+
+        text[class="salesText"] {
+          font-size: 0.8rem;
         }
       }
     }

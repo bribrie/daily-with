@@ -8,11 +8,10 @@ import {
   Selection,
 } from "d3";
 import { useCallback, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { currentUserUid } from "redux/auth/authSlice";
-import { useAppDispatch } from "redux/hooks";
-import { oneMonthSalesList } from "redux/sales/dailySales/dailySalesSlice";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { thisMonthHealthSales } from "redux/sales/dailySales/dailySalesSlice";
 import { getOneMonthSalesAsync } from "redux/sales/dailySales/dailySalesThunk";
 import { SalesListType } from "redux/sales/salesTypes";
 import { ReactComponent as Plus } from "assets/images/Plus.svg";
@@ -20,24 +19,20 @@ import styles from "styles/dashboard/SalesChart.module.scss";
 
 const SalesChart = () => {
   const containerRef = useRef<SVGSVGElement>(null);
-  const list = useSelector(oneMonthSalesList).filter(
-    (el) => el.type === "헬스"
-  );
-  const userUid = useSelector(currentUserUid);
+  const list = useAppSelector(thisMonthHealthSales);
+  const userUid = useAppSelector(currentUserUid);
   const dispatch = useAppDispatch();
 
   const width = 650;
   const height = 250;
-  const margin = { top: 20, left: 70, bottom: 25, right: 20 };
+  const margin = { top: 30, left: 70, bottom: 25, right: 20 };
 
   const drawChart = useCallback(
     (canvas: Selection<SVGSVGElement | null, unknown, null, undefined>) => {
       const yValueToNumber = (d: string) => Number(d.replace(/,/g, ""));
-
       const maxData = max(list, (d: SalesListType) =>
         Number(d.totalSales.replace(/,/g, ""))
       );
-
       const date = list
         .map((el) => el.date.slice(-2))
         .sort((a: any, b: any) => a - b);
@@ -86,19 +81,37 @@ const SalesChart = () => {
           (d) => height - margin.bottom - yScale(yValueToNumber(d.totalSales))
         ) // data의 orders 값 적용
         .attr("fill", "black");
+
+      //bar위에 totalSales값 보여주기
+      canvas
+        .append("g")
+        .selectAll("text")
+        .data(list)
+        .join("text")
+        .attr("class", "salesText")
+        .attr("y", (d) => yScale(Number(d.totalSales.replace(/,/g, ""))) - 10)
+        .text((d) => d.totalSales)
+        .attr(
+          "x",
+          (d) => Number(xScale(d.date.slice(-2))) + xScale.bandwidth() / 5
+        )
+        .attr("fill-opacity", 0)
+        .transition()
+        .delay(1000)
+        .duration(750)
+        .attr("fill-opacity", 1);
     },
-    [list.length, margin.top, margin.right, margin.left, margin.bottom]
+    [list, margin.top, margin.right, margin.left, margin.bottom]
   );
 
   useEffect(() => {
-    // 미리 데이터 불러옴
     if (list.length === 0) {
       dispatch(getOneMonthSalesAsync({ userUid })).unwrap();
     } else {
-      const canvas = select(containerRef.current).attr(
-        "viewBox",
-        `0 0 ${width} ${height}`
-      );
+      const canvas = select(containerRef.current)
+        .call((g) => g.selectAll("g").remove())
+        .attr("viewBox", `0 0 ${width} ${height}`);
+
       if (canvas) {
         drawChart(canvas);
       }

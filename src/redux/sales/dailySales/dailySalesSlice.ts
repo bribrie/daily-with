@@ -53,7 +53,7 @@ const dailySalesSlice = createSlice({
         state.addSalesItemList = [];
       }
     });
-    builder.addCase(getAllSalesAsync.rejected, (state, action) => {
+    builder.addCase(getAllSalesAsync.rejected, (state) => {
       state.loading = "failed";
     });
     builder.addCase(addSalesAsync.pending, (state) => {
@@ -91,7 +91,7 @@ export const salesLoading = (state: RootState) =>
   state.persistedReducer.sales.loading;
 
 export const oneMonthSalesList = (state: RootState) =>
-  state.persistedReducer.sales.oneMonthSalesList;
+  state.persistedReducer.sales.oneMonthSalesList || [];
 
 export const allSalesList = (state: RootState) =>
   state.persistedReducer.sales.allSalesList;
@@ -101,6 +101,52 @@ export const addSalesItemList = (state: RootState) =>
 
 export const todaySalesList = createSelector(oneMonthSalesList, (list) =>
   list.filter((item) => item.date === INPUT_TODAY_FORMAT)
+);
+
+export const thisMonthTotalSales = createSelector(oneMonthSalesList, (list) => {
+  let todayTotalSalesList: number[] = [];
+  list.forEach((el) => {
+    const onlyNumberSales = el.totalSales.replace(/[^0-9]/g, "");
+    todayTotalSalesList.push(Number(onlyNumberSales));
+  });
+  return todayTotalSalesList.reduce((acc, cur) => acc + cur, 0);
+});
+
+export const thisMonthHealthSales = createSelector(
+  oneMonthSalesList,
+  (list) => {
+    const filtered = list.filter((el) => el.type === "헬스");
+    return filtered;
+  }
+);
+
+export const todaySalesCount = createSelector(todaySalesList, (list) => {
+  const sum = list.reduce((acc, cur) => {
+    return acc + cur.reRegister + cur.newRegister;
+  }, 0);
+  return sum;
+});
+
+export const totalNewCount = createSelector(thisMonthHealthSales, (item) => {
+  const sum = item.reduce((acc, cur) => {
+    return acc + cur.newRegister;
+  }, 0);
+  return sum;
+});
+
+export const totalReCount = createSelector(thisMonthHealthSales, (item) => {
+  const sum = item.reduce((acc, cur) => {
+    return acc + cur.reRegister;
+  }, 0);
+  return sum;
+});
+
+export const totalRegister = createSelector(
+  totalNewCount,
+  totalReCount,
+  (newcount, reCount) => {
+    return newcount + reCount;
+  }
 );
 
 export const { addSalesData, deleteSalesData } = dailySalesSlice.actions;

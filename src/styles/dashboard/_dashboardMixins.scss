@@ -4,8 +4,12 @@
 @mixin DashboardLayoutContainer {
   background-color: white;
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 1.3rem;
   box-shadow: 3px 2px 9px 0 rgb(0 0 0 / 4%);
+
+  @include Mobile {
+    padding: 1rem;
+  }
 }
 
 @mixin DashboardTitle {
@@ -13,11 +17,6 @@
   color: black;
   font-size: 1rem;
   font-weight: 600;
-}
-
-@mixin DashboardContentContainer {
-  // background-color: white;
-  // border-radius: 10px;
 }
 
 @mixin NoneContent {

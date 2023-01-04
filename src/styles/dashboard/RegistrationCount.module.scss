@@ -1,0 +1,110 @@
+@import "./dashboardMixins.scss";
+
+.container {
+  grid-area: registrationCount;
+  display: grid;
+  place-items: center;
+  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+
+  .itemWrapper {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 3px 2px 9px 0 rgb(0 0 0 / 4%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .arcChart {
+      flex: 4;
+      svg {
+        max-height: 6rem;
+        padding: 0.8rem;
+        g {
+          path[class="Today"] {
+            fill: #bde0fe;
+          }
+          path[class="Total"] {
+            fill: #c9b6ff;
+          }
+          path[class="newPercentage"] {
+            fill: $peach;
+          }
+          path[class="rePercentage"] {
+            fill: #f8b5a7;
+          }
+
+          text {
+            font-size: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .contentWrapper {
+      flex: 6;
+
+      .count {
+        font-size: 1rem;
+        font-weight: 500;
+        color: black;
+        margin-bottom: 0.5rem;
+      }
+      .title {
+        color: gray;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  @include Tablet {
+    gap: 1rem;
+
+    .itemWrapper {
+      .arcChart {
+        flex: 5;
+        svg {
+          padding: 0.5rem;
+        }
+      }
+
+      .contentWrapper {
+        flex: 5;
+        .count {
+          font-size: 0.9rem;
+        }
+        .title {
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
+
+  @include Mobile {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+
+    .itemWrapper {
+      .arcChart {
+        flex: 4;
+        svg {
+          max-height: 4.5rem;
+          padding: 0.5rem;
+        }
+      }
+
+      .contentWrapper {
+        flex: 6;
+        .count {
+          font-size: 0.9rem;
+        }
+        .title {
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
+}

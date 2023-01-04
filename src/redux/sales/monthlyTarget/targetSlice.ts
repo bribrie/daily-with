@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
+import { MONTHLY_TARGET_DATE } from "utilites/Date";
 import { TargetState } from "../salesTypes";
 import {
   addTargetAsync,
@@ -63,5 +64,13 @@ export const targetList = (state: RootState) =>
 
 export const targetLoading = (state: RootState) =>
   state.persistedReducer.target.loading;
+
+export const healthTargetSales = createSelector(targetList, (list) => {
+  const filteredData = list.filter(
+    (el) => el.month === MONTHLY_TARGET_DATE && el.type === "헬스"
+  )[0];
+  if (filteredData) return filteredData.totalSales;
+  return "0";
+});
 
 export default targetSlice.reducer;

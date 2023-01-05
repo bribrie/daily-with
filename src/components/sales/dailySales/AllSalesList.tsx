@@ -20,38 +20,35 @@ const AllSalesList = ({
   filterValue,
 }: Props) => {
   return (
-    <>
-      <DailySalesLayout>
+    <DailySalesLayout>
+      {allSalesList.length === 0 ? (
+        <div className={styles.noneContent}>등록된 매출이 없습니다.</div>
+      ) : (
         <>
-          {allSalesList.length === 0 ? (
-            <div className={styles.noneContent}>등록된 매출이 없습니다.</div>
-          ) : (
-            <>
-              {allSalesList.map((data) => (
-                <DailySalesItemContainer
-                  key={data.id}
-                  itemType="salesLast"
-                  savedSalesList={data}
-                  filterValue={filterValue}
-                />
-              ))}
-              {itemCount >= 1 ? (
-                <DailyFormContainer
-                  type="all"
-                  resetItemCount={resetItemCount}
-                  allSalesList={allSalesList}
-                  filterValue={filterValue}
-                />
-              ) : (
-                <div className={styles.addButtonWrapper}>
-                  <button onClick={showAddForm}>이전 매출 추가하기</button>
-                </div>
-              )}
-            </>
-          )}
+          {allSalesList.map((data) => (
+            <DailySalesItemContainer
+              key={data.id}
+              itemType="salesLast"
+              savedSalesList={data}
+              filterValue={filterValue}
+            />
+          ))}
+          {itemCount >= 1 ? (
+            <DailyFormContainer
+              type="all"
+              resetItemCount={resetItemCount}
+              allSalesList={allSalesList}
+              filterValue={filterValue}
+            />
+          ) : null}
         </>
-      </DailySalesLayout>
-    </>
+      )}
+      {itemCount <= 0 ? (
+        <div className={styles.addButtonWrapper}>
+          <button onClick={showAddForm}>이전 매출 추가하기</button>
+        </div>
+      ) : null}
+    </DailySalesLayout>
   );
 };
 

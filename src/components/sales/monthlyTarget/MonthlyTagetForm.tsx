@@ -2,11 +2,12 @@ import { ChangeEventHandler, FormEventHandler, RefObject } from "react";
 import { TargetFormProps } from "containers/sales/monthlyTarget/MonthlyTargetFormContainer";
 import { MONTHLY_TARGET_DATE } from "utilites/Date";
 import MonthlyTargetHeader from "./MonthlyTargetHeader";
+import TypeSelectBox from "components/common/ui/TypeSelectBox";
 import styles from "styles/sales/monthlyTarget/MonthlyTargetForm.module.scss";
 
 interface FormProps extends TargetFormProps {
   monthRef: RefObject<HTMLInputElement>;
-  typeRef: RefObject<HTMLInputElement>;
+  typeRef: RefObject<HTMLSelectElement>;
   newRef: RefObject<HTMLInputElement>;
   reRegisterRef: RefObject<HTMLInputElement>;
   totalSales: string;
@@ -43,12 +44,9 @@ export const MonthlyTargetForm = ({
           />
         </div>
         <div className={styles.type}>
-          <input
-            type="text"
-            ref={typeRef}
-            defaultValue={editItem ? editItem.type : ""}
-            placeholder="종목"
-            required
+          <TypeSelectBox
+            typeRef={typeRef}
+            typeDefaultValue={editItem ? editItem.type : null}
           />
         </div>
         <div className={styles.new}>

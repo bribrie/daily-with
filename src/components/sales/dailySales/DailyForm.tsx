@@ -117,7 +117,7 @@ const DailyForm = ({
           type="submit"
           onClick={editData ? handleEditSubmit : handleSubmit}
         >
-          저장
+          {editData ? "수정 완료" : "저장"}
         </button>
       </div>
     </>

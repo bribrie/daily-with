@@ -27,21 +27,21 @@ const AllSalesListContainer = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (allList.length === 0) {
+    if (filterValue === "전체" && allList.length === 0) {
       try {
         dispatch(getAllSalesAsync({ userUid })).unwrap();
       } catch {
         alert("모든 매출을 불러오지 못했습니다. 다시 시도해주세요.");
       }
     }
-    if (thisMonthList.length === 0) {
+    if (filterValue === "이번달" && thisMonthList.length === 0) {
       try {
         dispatch(getOneMonthSalesAsync({ userUid })).unwrap();
       } catch {
         alert("모든 매출을 불러오지 못했습니다. 다시 시도해주세요.");
       }
     }
-  }, [userUid, dispatch, allList.length, thisMonthList.length]);
+  }, [filterValue, userUid, dispatch, allList.length, thisMonthList.length]);
 
   //로딩
   if (loading === "pending") return <Loading />;

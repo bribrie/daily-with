@@ -84,7 +84,9 @@ const DailyFormContainer = ({
       (type === "all" && allSalesList)
     ) {
       if (allSalesList) {
-        const sameItem = allSalesList.filter((el) => el.type === addData.type);
+        const sameItem = allSalesList.filter(
+          (el) => el.type === addData.type && el.date === addData.date
+        );
         if (sameItem.length !== 0) {
           alert("중복된 데이터입니다.");
           return;

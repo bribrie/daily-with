@@ -21,7 +21,7 @@ const MonthlyTargetFormContainer = ({
   resetItemCountList,
 }: TargetFormProps) => {
   const monthRef = useRef<HTMLInputElement>(null);
-  const typeRef = useRef<HTMLInputElement>(null);
+  const typeRef = useRef<HTMLSelectElement>(null);
   const newRef = useRef<HTMLInputElement>(null);
   const reRegisterRef = useRef<HTMLInputElement>(null);
   const [totalSales, handleTotalSales] = useCurrency(

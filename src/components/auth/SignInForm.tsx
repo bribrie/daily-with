@@ -6,13 +6,13 @@ import styles from "styles/auth/SignInForm.module.scss";
 interface SignInProps {
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
-  googleClick: MouseEventHandler;
+  handleGoogleSubmit: MouseEventHandler;
 }
 
 const SignInForm = ({
   handleChange,
   handleSubmit,
-  googleClick,
+  handleGoogleSubmit,
 }: SignInProps) => {
   return (
     <div className={styles.container}>
@@ -37,7 +37,7 @@ const SignInForm = ({
           />
           <button className={styles.loginBtn}>로그인</button>
         </form>
-        <button onClick={googleClick} className={styles.btn}>
+        <button onClick={handleGoogleSubmit} className={styles.btn}>
           Google로 로그인하기
         </button>
         <button className={styles.btn}>

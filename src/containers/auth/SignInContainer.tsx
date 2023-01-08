@@ -1,5 +1,9 @@
 import { FormEvent } from "react";
-import { googleSignInAsync, loading, SignInAsync } from "redux/auth/authSlice";
+import {
+  googleSignInAsync,
+  authLoading,
+  signInAsync,
+} from "redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import useInput from "hooks/useInput";
 import SignInForm from "components/auth/SignInForm";
@@ -15,21 +19,25 @@ const SignInContainer = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loadingStatus = useAppSelector(loading);
+  const loadingStatus = useAppSelector(authLoading);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(SignInAsync(signInUser)).unwrap();
+      await dispatch(signInAsync(signInUser)).unwrap();
       navigate("/");
-    } catch (err) {
-      //TODO: 에러 처리 하기
+    } catch {
+      alert("일치하는 회원 정보가 없습니다.");
     }
   };
 
-  const googleClick = () => {
-    //TODO: 수정 및 확인하기
-    dispatch(googleSignInAsync());
+  const handleGoogleSubmit = async () => {
+    try {
+      await dispatch(googleSignInAsync());
+      navigate("/");
+    } catch {
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   if (loadingStatus === "pending") {
@@ -40,7 +48,7 @@ const SignInContainer = () => {
     <SignInForm
       handleChange={inputChange}
       handleSubmit={handleSubmit}
-      googleClick={googleClick}
+      handleGoogleSubmit={handleGoogleSubmit}
     />
   );
 };

@@ -2,16 +2,29 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   browserSessionPersistence,
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  collection,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { auth, db, provider } from "service/firebase";
-import { AuthState, SignInReq, SignUpReq } from "../types";
+import {
+  AuthState,
+  SignInReq,
+  SignUpReq,
+  UpdateUserNameReq,
+  User,
+} from "../types";
 import { persistor, RootState } from "redux/store";
 import { PURGE } from "redux-persist";
 
@@ -57,7 +70,7 @@ export const signUpAsync = createAsyncThunk(
   }
 );
 
-export const SignInAsync = createAsyncThunk(
+export const signInAsync = createAsyncThunk(
   "auth/signin",
   async (signInUser: SignInReq, { rejectWithValue }) => {
     try {
@@ -86,18 +99,54 @@ export const signOutAsync = createAsyncThunk("auth/signout", async () => {
 
 //구글 로그인
 export const googleSignInAsync = createAsyncThunk("auth/google", async () => {
-  const result = await signInWithPopup(auth, provider);
   try {
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-
-    const token = credential?.accessToken;
+    const result = await signInWithPopup(auth, provider);
     const user = result.user;
+    //firestore에서 이메일 확인 후 없으면 현재 유저의 uid로 doc추가
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const snapshot = await getDocs(q);
+    const len = snapshot.docs.length;
+
+    //없을 때 추가
+    if (len === 0) {
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName || "",
+        email: user.email,
+      });
+      return { name: user.displayName, uid: user.uid };
+    }
+    //있을 때는 찾아서 state에 저장 -> 이름을 변경한 경우 displayName과 다를 수 있기 때문에 firestore에 저장된 이름으로 보여줌
+    const firestoreUser: User = {
+      name: "",
+      uid: "",
+    };
+    snapshot.forEach((doc) => {
+      const { name } = doc.data();
+      firestoreUser.name = name;
+      firestoreUser.uid = doc.id;
+    });
+    return firestoreUser;
   } catch (error: any) {
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    //TODO: 수정
-    console.log("google err", credential);
+    return error.message;
   }
 });
+
+export const updateUserNameAsync = createAsyncThunk(
+  "auth/updateUserName",
+  async (data: UpdateUserNameReq, { rejectWithValue }) => {
+    try {
+      if (data.userUid) {
+        const centerNameRef = doc(collection(db, "users"), data.userUid);
+        await updateDoc(centerNameRef, {
+          name: data.centerName,
+        });
+        return { name: data.centerName };
+      }
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -112,24 +161,50 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.loading = "succeeded";
     });
-    builder.addCase(signUpAsync.rejected, (state, action) => {
+    builder.addCase(signUpAsync.rejected, (state) => {
       state.loading = "failed";
     });
     //SignIn
-    builder.addCase(SignInAsync.pending, (state) => {
+    builder.addCase(signInAsync.pending, (state) => {
       state.loading = "pending";
     });
-    builder.addCase(SignInAsync.fulfilled, (state, action) => {
+    builder.addCase(signInAsync.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = "succeeded";
     });
-    builder.addCase(SignInAsync.rejected, (state, action) => {
+    builder.addCase(signInAsync.rejected, (state) => {
       state.loading = "failed";
     });
     //SingOut
     builder.addCase(PURGE, () => initialState);
     builder.addCase(signOutAsync.fulfilled, (state) => {
       state = initialState;
+    });
+    //Google SignIn
+    builder.addCase(googleSignInAsync.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(googleSignInAsync.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user = action.payload;
+        state.loading = "succeeded";
+      }
+    });
+    builder.addCase(googleSignInAsync.rejected, (state) => {
+      state.loading = "failed";
+    });
+    //UpdateUserName
+    builder.addCase(updateUserNameAsync.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(updateUserNameAsync.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user.name = action.payload?.name;
+        state.loading = "succeeded";
+      }
+    });
+    builder.addCase(updateUserNameAsync.rejected, (state) => {
+      state.loading = "failed";
     });
   },
 });

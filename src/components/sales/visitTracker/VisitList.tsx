@@ -21,33 +21,32 @@ const VisitList = ({
   filterValue,
 }: ListProps) => {
   return (
-    <>
-      <div className={styles.wrapper}>
-        <VisitHeader />
-        {list.length === 0 && itemCount === 0 ? (
-          <div className={styles.info}>등록된 데이터가 없습니다.</div>
-        ) : (
-          <>
-            {list.map((data) => (
-              <VisitItemContainer
-                key={data.id}
-                visitList={data}
-                filterValue={filterValue}
-              />
-            ))}
-            {itemCount >= 1 && (
-              <VisitFormContainer
-                resetItemCount={resetItemCount}
-                filterValue={filterValue}
-              />
-            )}
-          </>
-        )}
+    <div className={styles.wrapper}>
+      <VisitHeader />
+      {list.length === 0 && itemCount === 0 ? (
+        <div className={styles.info}>등록된 데이터가 없습니다.</div>
+      ) : (
+        <>
+          {list.map((data) => (
+            <VisitItemContainer
+              key={data.id}
+              visitList={data}
+              filterValue={filterValue}
+            />
+          ))}
+        </>
+      )}
+      {itemCount >= 1 ? (
+        <VisitFormContainer
+          resetItemCount={resetItemCount}
+          filterValue={filterValue}
+        />
+      ) : (
         <div className={styles.buttonWrapper}>
           <button onClick={showAddForm}>방문 경로 추가</button>
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

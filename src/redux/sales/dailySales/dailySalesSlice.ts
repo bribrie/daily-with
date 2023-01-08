@@ -91,7 +91,7 @@ export const salesLoading = (state: RootState) =>
   state.persistedReducer.sales.loading;
 
 export const oneMonthSalesList = (state: RootState) =>
-  state.persistedReducer.sales.oneMonthSalesList || [];
+  state.persistedReducer.sales.oneMonthSalesList;
 
 export const allSalesList = (state: RootState) =>
   state.persistedReducer.sales.allSalesList;

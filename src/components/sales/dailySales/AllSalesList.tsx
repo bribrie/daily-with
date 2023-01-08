@@ -21,7 +21,7 @@ const AllSalesList = ({
 }: Props) => {
   return (
     <DailySalesLayout>
-      {allSalesList.length === 0 ? (
+      {allSalesList.length === 0 && itemCount <= 0 ? (
         <div className={styles.noneContent}>등록된 매출이 없습니다.</div>
       ) : (
         <>
@@ -33,21 +33,20 @@ const AllSalesList = ({
               filterValue={filterValue}
             />
           ))}
-          {itemCount >= 1 ? (
-            <DailyFormContainer
-              type="all"
-              resetItemCount={resetItemCount}
-              allSalesList={allSalesList}
-              filterValue={filterValue}
-            />
-          ) : null}
         </>
       )}
-      {itemCount <= 0 ? (
+      {itemCount >= 1 ? (
+        <DailyFormContainer
+          type="all"
+          resetItemCount={resetItemCount}
+          allSalesList={allSalesList}
+          filterValue={filterValue}
+        />
+      ) : (
         <div className={styles.addButtonWrapper}>
           <button onClick={showAddForm}>이전 매출 추가하기</button>
         </div>
-      ) : null}
+      )}
     </DailySalesLayout>
   );
 };

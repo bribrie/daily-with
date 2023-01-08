@@ -1,5 +1,4 @@
-@import "../../base/colors";
-@import "../../base/mixins";
+@import "../salesMixins";
 
 .wrapper {
   width: 100%;
@@ -14,23 +13,6 @@
   }
 
   .buttonWrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    button {
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 5px;
-      color: white;
-      background-color: $primary;
-      margin: 3rem 0;
-
-      &:disabled {
-        background-color: $skyBlue;
-        cursor: default;
-      }
-    }
+    @include AddBuleButton;
   }
 }

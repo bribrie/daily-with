@@ -8,27 +8,27 @@ import styles from "styles/sales/monthlyTarget/MonthlyTargetList.module.scss";
 
 interface ListProps {
   targetList: TargetListType[];
-  itemCountList: number;
-  showAddTargetForm: MouseEventHandler;
-  resetItemCountList: () => void;
+  itemCount: number;
+  showAddForm: MouseEventHandler;
+  resetItemCount: () => void;
   filterData: string[];
   handleFilterBar: ChangeEventHandler;
 }
 
 const MonthlyTargetList = ({
   targetList,
-  itemCountList,
-  showAddTargetForm,
-  resetItemCountList,
+  itemCount,
+  showAddForm,
+  resetItemCount,
   filterData,
   handleFilterBar,
 }: ListProps) => {
   return (
     <>
       <FilterBar filterData={filterData} selectedData={handleFilterBar} />
-      <MonthlyTargetHeader />
       <div className={styles.contentWrapper}>
-        {targetList.length === 0 ? (
+        <MonthlyTargetHeader />
+        {targetList.length === 0 && itemCount <= 0 ? (
           <div className={styles.info}>등록된 데이터가 없습니다.</div>
         ) : (
           <>
@@ -37,12 +37,13 @@ const MonthlyTargetList = ({
             ))}
           </>
         )}
-        {itemCountList >= 1 ? (
-          <MonthlyTargetFormContainer resetItemCountList={resetItemCountList} />
-        ) : null}
-      </div>
-      <div className={styles.buttonWrapper}>
-        <button onClick={showAddTargetForm}>이번 달 목표 매출 추가</button>
+        {itemCount >= 1 ? (
+          <MonthlyTargetFormContainer resetItemCountList={resetItemCount} />
+        ) : (
+          <div className={styles.buttonWrapper}>
+            <button onClick={showAddForm}>이번 달 목표 매출 추가</button>
+          </div>
+        )}
       </div>
     </>
   );

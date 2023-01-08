@@ -35,11 +35,11 @@ const TimeTaskContainer = () => {
     }
     //주말일 때
     if (day === 6 || day === 7) {
-      if (presentTime === "weekend") {
-        return;
-      }
       if (weekendAllTask.length === 0) {
         dispatch(getTaskAsync({ userUid, name: "weekend" }));
+      }
+      if (presentTime === "weekend") {
+        return;
       }
       dispatch(changeTime("weekend"));
       return;

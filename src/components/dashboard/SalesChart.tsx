@@ -11,7 +11,10 @@ import { useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { currentUserUid } from "redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { thisMonthHealthSales } from "redux/sales/dailySales/dailySalesSlice";
+import {
+  salesLoading,
+  thisMonthHealthSales,
+} from "redux/sales/dailySales/dailySalesSlice";
 import { getOneMonthSalesAsync } from "redux/sales/dailySales/dailySalesThunk";
 import { SalesListType } from "redux/sales/salesTypes";
 import { ReactComponent as Plus } from "assets/images/Plus.svg";
@@ -19,21 +22,23 @@ import styles from "styles/dashboard/SalesChart.module.scss";
 
 const SalesChart = () => {
   const containerRef = useRef<SVGSVGElement>(null);
-  const list = useAppSelector(thisMonthHealthSales);
+  const thisMonthList = useAppSelector(thisMonthHealthSales);
   const userUid = useAppSelector(currentUserUid);
   const dispatch = useAppDispatch();
+  const loading = useAppSelector(salesLoading);
 
   const width = 650;
   const height = 250;
-  const margin = { top: 30, left: 70, bottom: 25, right: 20 };
 
   const drawChart = useCallback(
     (canvas: Selection<SVGSVGElement | null, unknown, null, undefined>) => {
+      const margin = { top: 30, left: 70, bottom: 25, right: 20 };
+
       const yValueToNumber = (d: string) => Number(d.replace(/,/g, ""));
-      const maxData = max(list, (d: SalesListType) =>
+      const maxData = max(thisMonthList, (d: SalesListType) =>
         Number(d.totalSales.replace(/,/g, ""))
       );
-      const date = list
+      const date = thisMonthList
         .map((el) => el.date.slice(-2))
         .sort((a: any, b: any) => a - b);
 
@@ -66,7 +71,7 @@ const SalesChart = () => {
       canvas
         .append("g")
         .selectAll("bar")
-        .data(list)
+        .data(thisMonthList)
         .join("rect")
         .attr("class", "bar")
         .attr("x", (d) => Number(xScale(d.date.slice(-2))))
@@ -86,7 +91,7 @@ const SalesChart = () => {
       canvas
         .append("g")
         .selectAll("text")
-        .data(list)
+        .data(thisMonthList)
         .join("text")
         .attr("class", "salesText")
         .attr("y", (d) => yScale(Number(d.totalSales.replace(/,/g, ""))) - 10)
@@ -101,28 +106,27 @@ const SalesChart = () => {
         .duration(750)
         .attr("fill-opacity", 1);
     },
-    [list, margin.top, margin.right, margin.left, margin.bottom]
+    [thisMonthList]
   );
 
   useEffect(() => {
-    if (list.length === 0) {
+    if (thisMonthList.length === 0 && loading === "idle") {
       dispatch(getOneMonthSalesAsync({ userUid })).unwrap();
-    } else {
-      const canvas = select(containerRef.current)
-        .call((g) => g.selectAll("g").remove())
-        .attr("viewBox", `0 0 ${width} ${height}`);
-
-      if (canvas) {
-        drawChart(canvas);
-      }
+      return;
     }
-  }, [list.length, dispatch, userUid, drawChart]);
+    const canvas = select(containerRef.current)
+      .call((g) => g.selectAll("g").remove())
+      .attr("viewBox", `0 0 ${width} ${height}`);
+    if (canvas) {
+      drawChart(canvas);
+    }
+  }, [thisMonthList.length, dispatch, userUid, drawChart, loading]);
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>이번달 일별 매출</div>
       <div className={styles.contentContainer}>
-        {list.length === 0 ? (
+        {thisMonthList.length === 0 ? (
           <div className={styles.noneContent}>
             <div>등록된 이번달 매출이 없습니다.</div>
             <div className={styles.addBtn}>

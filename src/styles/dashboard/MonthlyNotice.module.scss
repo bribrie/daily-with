@@ -1,0 +1,73 @@
+@import "./dashboardMixins.scss";
+
+.container {
+  grid-area: monthlyNotice;
+  @include DashboardLayoutContainer;
+
+  .title {
+    @include DashboardTitle;
+  }
+
+  .noneContent {
+    @include NoneContent;
+    cursor: pointer;
+  }
+
+  .noticeList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+
+    .item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 2.5rem;
+      padding: 0 1rem;
+      border-radius: 10px;
+      border: 1.5px solid #b9d1fb7a;
+
+      &.dragging {
+        background-color: #b9d1fb7a;
+      }
+
+      &.addBtn {
+        border: 1.5px dashed #b9d1fb7a;
+        background-color: white;
+        cursor: pointer;
+        &:hover {
+          background-color: #b9d1fb7a;
+        }
+      }
+    }
+  }
+
+  .updateBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      text-align: center;
+      border-radius: 5px;
+      border: 1.5px dashed #b9d1fb7a;
+      cursor: pointer;
+      height: 2.5rem;
+      &:hover {
+        background-color: #b9d1fb7a;
+        color: white;
+        border: 1.5px dashed #b9d1fb7a;
+      }
+    }
+  }
+}

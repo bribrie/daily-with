@@ -2,6 +2,7 @@ import { MouseEventHandler } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { NoticeListType } from "redux/types";
 import { THIS_MONTH } from "utilites/Date";
+import { ReactComponent as Plus } from "assets/images/Plus.svg";
 import styles from "styles/dashboard/MonthlyNotice.module.scss";
 
 interface NoticeProps {
@@ -24,11 +25,14 @@ const MonthlyNotice = ({
   return (
     <DragDropContext onDragEnd={handleDragChange}>
       <div className={styles.container}>
-        <div className={styles.title}>{THIS_MONTH}월 공지사항</div>
+        <div className={styles.title}>{THIS_MONTH}월 공지</div>
         {noticeList.length === 0 ? (
-          <div className={styles.noneContainer}>
+          <div className={styles.noneContent} onClick={showAddForm}>
             <div>등록된 공지가 없습니다.</div>
-            <div>추가하기</div>
+            <div className={styles.addBtn}>
+              <Plus fill="gray" />
+              추가하기
+            </div>
           </div>
         ) : (
           <Droppable droppableId="noticeList">
@@ -60,17 +64,10 @@ const MonthlyNotice = ({
                 ))}
                 {provided.placeholder}
                 {showSavedButton ? (
-                  <>
-                    <div
-                      onClick={handleUpdateOrderNumber}
-                      className={styles.saveBtn}
-                    >
-                      저장하기
-                    </div>
-                    <div onClick={handleCancel} className={styles.saveBtn}>
-                      취소
-                    </div>
-                  </>
+                  <li className={styles.updateBtn}>
+                    <div onClick={handleUpdateOrderNumber}>저장</div>
+                    <div onClick={handleCancel}>취소</div>
+                  </li>
                 ) : (
                   <li
                     className={`${styles.item} ${styles.addBtn}`}

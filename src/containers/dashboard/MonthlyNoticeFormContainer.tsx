@@ -1,5 +1,4 @@
 import { FormEvent, useRef } from "react";
-import { useSelector } from "react-redux";
 import { currentUserUid } from "redux/auth/authSlice";
 import {
   addNoticeAsync,
@@ -7,7 +6,7 @@ import {
   getNoticeAsync,
   noticeList,
 } from "redux/dashboard/noticeSlice";
-import { useAppDispatch } from "redux/hooks";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
 import MonthlyNoticeForm from "components/dashboard/MonthlyNoticeForm";
 
 interface Props {
@@ -17,13 +16,14 @@ interface Props {
 const MonthlyNoticeFormContainer = ({ resetItemCountList }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const userUid = useSelector(currentUserUid);
-  const list = useSelector(noticeList);
+  const userUid = useAppSelector(currentUserUid);
+  const list = useAppSelector(noticeList);
 
   const handleDelete = async (id: string) => {
     try {
       await dispatch(deleteNoticeAsync({ userUid, id })).unwrap();
       await dispatch(getNoticeAsync({ userUid })).unwrap();
+      resetItemCountList();
     } catch {
       alert("공지사항 삭제에 실패했습니다. 다시 시도해주세요.");
     }
@@ -42,10 +42,14 @@ const MonthlyNoticeFormContainer = ({ resetItemCountList }: Props) => {
         addNoticeAsync({ userUid, content: value, orderNumber })
       ).unwrap();
       await dispatch(getNoticeAsync({ userUid })).unwrap();
-      resetItemCountList();
+      resetItemCountList(); //list 보여주기
     } catch {
       alert("공지 등록에 실패했습니다. 다시 시도해주세요.");
     }
+  };
+
+  const handleCancel = () => {
+    resetItemCountList(); //list 보여주기
   };
 
   return (
@@ -54,6 +58,7 @@ const MonthlyNoticeFormContainer = ({ resetItemCountList }: Props) => {
       handleDelete={handleDelete}
       inputRef={inputRef}
       handleSumbit={handleSumbit}
+      handleCancel={handleCancel}
     />
   );
 };

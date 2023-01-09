@@ -6,7 +6,7 @@ import CreateHeader from "components/layout/create/CreateHeader";
 import CreateContent from "components/layout/create/CreateContent";
 import CreateInput from "components/layout/create/CreateInput";
 import FinishButton from "components/common/ui/FinishButton";
-import UserIcon from "assets/images/UserCircle.png";
+import UserIcon from "assets/images/UserCircle.webp";
 import styles from "styles/member/MemberForm.module.scss";
 
 interface EditProps {

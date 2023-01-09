@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { navList } from "assets/NavData";
 import { ReactComponent as SignOut } from "assets/images/Out.svg";
-import Logo from "assets/images/Logo.png";
+import Logo from "assets/images/Logo.webp";
 import styles from "styles/layout/Nav.module.scss";
 
 interface Props {
@@ -15,7 +15,7 @@ const Nav = ({ handleSignOut }: Props) => {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link to="/">
-            <img src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" width="143" height="48" />
           </Link>
         </div>
         <ul className={styles.listWrapper}>
@@ -36,8 +36,8 @@ const Nav = ({ handleSignOut }: Props) => {
             </li>
           ))}
         </ul>
-        <div className={styles.logout}>
-          <div className={styles.outIcon} onClick={handleSignOut}>
+        <div className={styles.logout} onClick={handleSignOut}>
+          <div className={styles.outIcon}>
             <SignOut fill="#292D32" />
           </div>
           <div>로그아웃</div>

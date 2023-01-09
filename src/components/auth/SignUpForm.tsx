@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FormEventHandler } from "react";
-import Logo from "assets/images/Logo.png";
+import Logo from "assets/images/Logo.webp";
 import styles from "styles/auth/SignUpForm.module.scss";
 
 interface SignUpProps {

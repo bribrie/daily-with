@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
-import Logo from "assets/images/Logo.png";
+import Logo from "assets/images/Logo.webp";
 import styles from "styles/auth/SignInForm.module.scss";
 
 interface SignInProps {

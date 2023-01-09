@@ -1,6 +1,6 @@
 import { CHECK_IMAGE_WORD } from "redux/member/memberSlice";
 import { MemeberListType } from "redux/types";
-import UserIcon from "assets/images/UserCircle.png";
+import UserIcon from "assets/images/UserCircle.webp";
 import MemberDetail from "components/member/MemberDetail";
 import styles from "styles/member/MemberItem.module.scss";
 

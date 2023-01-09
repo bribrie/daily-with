@@ -8,7 +8,7 @@ import {
 } from "redux/member/memberSlice";
 import { MemeberListType } from "redux/types";
 import { currentUserUid } from "redux/auth/authSlice";
-import UserIcon from "assets/images/UserCircle.png";
+import UserIcon from "assets/images/UserCircle.webp";
 import Portal from "components/common/modal/Portal";
 import styles from "styles/member/MemberDetail.module.scss";
 import Loading from "components/layout/Loading";

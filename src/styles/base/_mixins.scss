@@ -77,7 +77,7 @@
 
 /* Responsive size */
 @mixin DeskTop {
-  @media all and (min-width: 768px) {
+  @media all and (min-width: 769px) {
     @content;
   }
 }

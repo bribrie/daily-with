@@ -39,7 +39,6 @@ const TaskEditContainer = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     try {
       const editData: EditTaskReq = {
         userUid,

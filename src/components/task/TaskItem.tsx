@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, MouseEventHandler } from "react";
 import { TaskListType } from "redux/types";
-import { ReactComponent as Trash } from "assets/images/Trash.svg";
-import { ReactComponent as Pencil } from "assets/images/Pencil.svg";
 import LabelBox from "components/common/ui/LabelBox";
+import Modal from "components/common/modal/Modal";
 import styles from "styles/task/TaskItem.module.scss";
 
 interface itemProps extends Omit<TaskListType, "part"> {
   handleDelete: MouseEventHandler;
+  handleModalOpen: (id: string) => void;
+  isModalOpen: boolean;
 }
 
 const TaskItem = ({
@@ -18,42 +19,42 @@ const TaskItem = ({
   time,
   specialDate,
   handleDelete,
+  handleModalOpen,
+  isModalOpen,
 }: itemProps) => {
-  const [hide, setHide] = useState(false);
+  const [hideButton, setHideButton] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.labelWrapper}>
-        {specialDate !== "" ? (
-          <div className={styles.dateWrapper}>{specialDate}</div>
-        ) : (
-          <LabelBox list={day} />
-        )}
-      </div>
-      <div className={styles.timeWrapper}>{time}</div>
+    <>
+      {isModalOpen && (
+        <Modal message="정말 삭제하시겠습니까?" onConfirm={handleDelete} />
+      )}
       <div
-        className={styles.contentWrapper}
-        onMouseEnter={() => setHide(true)}
-        onMouseLeave={() => setHide(false)}
+        className={styles.wrapper}
+        onClick={() => setHideButton((prev) => !prev)}
       >
-        <div className={styles.titleWrapper}>{title}</div>
-        <div className={styles.detailWrapper}>{detail}</div>
-        <div className={styles.buttonWrapper}>
-          {hide ? (
-            <>
-              <Link to={`${id}`}>
-                <button>
-                  <Pencil stroke="gray" />
-                </button>
-              </Link>
-              <button onClick={handleDelete}>
-                <Trash stroke="gray" />
-              </button>
-            </>
-          ) : null}
+        {hideButton ? (
+          <div className={styles.buttonWrapper}>
+            <div>
+              <Link to={`${id}`}>수정</Link>
+            </div>
+            <div onClick={() => handleModalOpen(id as string)}>삭제</div>
+          </div>
+        ) : null}
+        <div className={styles.labelWrapper}>
+          {specialDate !== "" ? (
+            <div className={styles.dateWrapper}>{specialDate}</div>
+          ) : (
+            <LabelBox list={day} />
+          )}
+        </div>
+        <div className={styles.timeWrapper}>{time}</div>
+        <div className={styles.contentWrapper}>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.detail}>{detail}</div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

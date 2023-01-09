@@ -34,15 +34,18 @@
   }
 
   .imageWrapper {
-    flex: 6;
-    height: 65%;
+    height: 8.5rem;
     padding: 1rem 0;
     display: flex;
     justify-content: center;
 
+    @include Mobile {
+      height: 8rem;
+    }
+
     .icon {
-      width: 75%;
-      height: 105%;
+      width: 70%;
+      object-fit: cover;
     }
 
     .picture {
@@ -52,12 +55,11 @@
   }
 
   .infoWrapper {
-    flex: 4;
+    height: 5.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
     gap: 0.5rem;
     padding: 0.5rem 0;
 
@@ -72,6 +74,7 @@
     }
 
     @include Mobile {
+      height: 5rem;
       .name {
         font-size: 1rem;
       }

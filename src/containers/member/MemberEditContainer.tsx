@@ -47,7 +47,6 @@ const MemberEditContainer = () => {
   const navigate = useNavigate();
 
   const handleChangeColor = (e: any) => {
-    console.log(e.target.id);
     const changed = mainColor.map((el) => {
       return { ...el, checked: el.color === e.target.id };
     });

@@ -13,14 +13,14 @@ const MemberItemContainer = ({
   mainColor,
   introduction,
 }: MemeberListType) => {
-  const [detailIsOpen, setDetailIsOpenn] = useState(false);
+  const [detailIsOpen, setDetailIsOpen] = useState(false);
 
   const handleOpenDatail = () => {
-    setDetailIsOpenn(true);
+    setDetailIsOpen(true);
   };
 
   const handleCloseDetail = () => {
-    setDetailIsOpenn(false);
+    setDetailIsOpen(false);
   };
 
   return (

@@ -3,51 +3,41 @@
 .container {
   @include LayoutContainer;
 
-  .header {
+  .innerContainer {
     @include InnerContainer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    align-content: center;
-    height: 3rem;
-    margin-bottom: 3rem;
 
-    .count {
-      font-size: 1.5rem;
-      flex: 4;
-    }
-
-    .searchBar {
-      flex: 1;
-      height: 100%;
-    }
-
-    @include Mobile {
-      width: 100%;
-      flex-direction: column;
-      height: 5rem;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .headerWrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 3rem;
+      margin-bottom: 3rem;
 
       .count {
-        font-size: 1.3rem;
-        flex: 1;
+        font-size: 1.5rem;
       }
 
-      .searchBar {
-        flex: 1;
+      @include Mobile {
+        width: 100%;
+        flex-direction: column;
+        height: 5rem;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        .count {
+          font-size: 1.3rem;
+        }
       }
     }
   }
 
-  .textWrapper {
-    max-width: 1024px;
-    margin: auto;
+  .noneWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .itemWrapper {
-    @include InnerContainer;
     display: grid;
     grid-template-columns: repeat(4, minmax(9.7rem, 16.4rem));
     grid-auto-rows: 11rem;

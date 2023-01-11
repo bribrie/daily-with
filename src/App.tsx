@@ -63,7 +63,6 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="loading" element={<Loading />} />
         </Route>
         {/* Dashboard */}
         <Route element={<Layout type="dashboard" />}>
@@ -100,13 +99,11 @@ function App() {
               path="monthly-target/:id"
               element={<MonthlyTargetEditPage />}
             />
-            <Route path="loading" element={<Loading />} />
           </Route>
           {/* Company */}
           <Route path="/company" element={<CompanyLayout />}>
             <Route path="information" element={<CompanyInfoPage />} />
             <Route path="edit" element={<CompanyFormPage />} />
-            <Route path="loading" element={<Loading />} />
           </Route>
         </Route>
         {/* Not Found */}

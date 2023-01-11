@@ -7,7 +7,11 @@ interface Props {
 const Loading = ({ type }: Props) => {
   return (
     <div
-      className={type ? `${styles.container} ${styles.all}` : `${styles.main}`}
+      className={
+        type
+          ? `${styles.container} ${styles[`${type}`]}`
+          : `${styles.container}`
+      }
     >
       <div className={styles.spinner}></div>
     </div>

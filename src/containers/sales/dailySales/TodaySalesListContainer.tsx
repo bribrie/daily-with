@@ -40,7 +40,7 @@ const TodaySalesListContainer = () => {
     }
   }, [dispatch, userUid, todaySales.length]);
 
-  if (loading === "pending") return <Loading />;
+  if (loading === "pending") return <Loading type="sales" />;
 
   return (
     <TodaySalesList

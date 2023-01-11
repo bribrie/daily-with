@@ -44,7 +44,7 @@ const AllSalesListContainer = () => {
   }, [filterValue, userUid, dispatch, allList.length, thisMonthList.length]);
 
   //로딩
-  if (loading === "pending") return <Loading />;
+  if (loading === "pending") return <Loading type="sales" />;
 
   //이번달
   if (filterValue === "이번달") {

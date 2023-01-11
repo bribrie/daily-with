@@ -35,9 +35,7 @@ const VisitListContainer = () => {
     }
   }, [thisMonthList.length, allList.length, dispatch, userUid]);
 
-  if (loading === "pending") {
-    <Loading />;
-  }
+  if (loading === "pending") <Loading type="sales" />;
 
   if (filterValue === "이번달") {
     return (

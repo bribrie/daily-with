@@ -35,9 +35,7 @@ const MonthlyTargetListContainer = () => {
     }
   }, [dispatch, list.length, userUid]);
 
-  if (loading === "pending") {
-    return <Loading />;
-  }
+  if (loading === "pending") return <Loading type="sales" />;
 
   if (filterValue === "전체") {
     return (

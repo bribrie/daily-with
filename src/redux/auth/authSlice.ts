@@ -25,7 +25,7 @@ import {
   UpdateUserNameReq,
   User,
 } from "../types";
-import { persistor, RootState } from "redux/store";
+import { RootState } from "redux/store";
 import { PURGE } from "redux-persist";
 
 const initialState: AuthState = {
@@ -93,7 +93,6 @@ export const signInAsync = createAsyncThunk(
 );
 
 export const signOutAsync = createAsyncThunk("auth/signout", async () => {
-  await persistor.purge();
   await signOut(auth);
 });
 

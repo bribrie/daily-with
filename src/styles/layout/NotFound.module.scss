@@ -18,45 +18,52 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
 
     .icon {
-      flex: 6;
+      flex: 5;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end;
 
       svg {
-        width: 18rem;
-        height: 18rem;
-        background: transparent;
+        width: 16rem;
+        height: 16rem;
+
+        @include Mobile {
+          width: 13rem;
+          height: 13rem;
+        }
       }
     }
 
     .contentWrapper {
-      flex: 4;
+      flex: 5;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       gap: 2rem;
-      margin-top: -2rem;
 
       .content {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 600;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         row-gap: 0.5rem;
+        @include Mobile {
+          font-size: 1rem;
+        }
       }
 
       .button {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1rem;
         @include Button($primary);
+        width: 70%;
         color: white;
       }
     }

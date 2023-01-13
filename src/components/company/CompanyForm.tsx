@@ -173,7 +173,8 @@ const CompanyForm = ({
               <div className={styles.siteUrl}>
                 <input
                   type="url"
-                  placeholder="url 주소"
+                  placeholder="https://example.com"
+                  pattern="https://.*"
                   name="url"
                   value={siteUrl}
                   onChange={handleLinkChange}

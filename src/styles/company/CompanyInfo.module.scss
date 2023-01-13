@@ -23,12 +23,10 @@
           color: $darkBlue;
           width: 4rem;
         }
-
         .holiday {
           color: $red;
           width: 4rem;
         }
-
         .time {
           display: flex;
           align-items: center;
@@ -48,6 +46,7 @@
 
           .hyphen {
             width: 2rem;
+            text-align: center;
           }
         }
       }

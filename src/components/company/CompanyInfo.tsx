@@ -12,16 +12,21 @@ import CompanyHeader from "./CompanyHeader";
 import styles from "styles/company/CompanyInfo.module.scss";
 
 export interface CompanyProps {
+  username: string | null;
   basicInfo: CompanyBasicState[];
   timeInfo: CompanyTimeState[];
   linkInfo: CompanyLinkState[];
 }
 
-const CompanyInfo = ({ basicInfo, timeInfo, linkInfo }: CompanyProps) => {
+const CompanyInfo = ({
+  username,
+  basicInfo,
+  timeInfo,
+  linkInfo,
+}: CompanyProps) => {
   const timeData = timeInfo.length !== 0 && [
     {
       title: "평일",
-
       open: timeInfo[0].weekdayOpen,
       close: timeInfo[0].weekdayClose,
     },
@@ -47,7 +52,9 @@ const CompanyInfo = ({ basicInfo, timeInfo, linkInfo }: CompanyProps) => {
     <div className={styles.container}>
       <div className={styles.listWrapper}>
         <CompanyHeader title="센터 이름" icon={<Home />}>
-          <div className={styles.content}>휘트니스피플 홍대점</div>
+          <div className={styles.content}>
+            {username ? username : "등록된 센터 이름이 없습니다."}
+          </div>
         </CompanyHeader>
 
         <CompanyHeader title="전화 번호" icon={<Phone />}>

@@ -111,7 +111,6 @@ const CompanyFormContainer = () => {
       ];
       const linkData =
         name === "" || url === "" ? [] : [{ name, url, orderNumber: 1 }];
-
       let addData: AddCompanyReq = {
         userUid,
         phoneNumber: phoneNumberRef.current?.value as string,
@@ -120,34 +119,31 @@ const CompanyFormContainer = () => {
         linkInfo: addedLinkList.length === 0 ? linkData : addedLinkList,
       };
 
-      //센터 이름은 같을 때,
-      if (currentCenterName === changedCenterName) {
-        //처음 등록 시
-        if (basicInfo.length === 0) {
-          await dispatch(addCompanyAsync(addData)).unwrap();
-          return;
+      //처음 등록 시
+      if (basicInfo.length === 0) {
+        if (currentCenterName !== changedCenterName) {
+          await dispatch(
+            updateUserNameAsync({ userUid, centerName: changedCenterName })
+          ).unwrap();
         }
-        //수정 시
-        addData.id = basicInfo[0].id;
-        await dispatch(editCompanyAsync(addData)).unwrap();
-      } else {
-        //센터 이름 변경했을 때,
+        await dispatch(addCompanyAsync(addData)).unwrap();
+        await dispatch(getCompanyAsync({ userUid })).unwrap();
+        navigate("/company/information");
+        return;
+      }
+
+      //수정 시
+      if (currentCenterName !== changedCenterName) {
         await dispatch(
           updateUserNameAsync({ userUid, centerName: changedCenterName })
         ).unwrap();
-        //처음 등록 시
-        if (basicInfo.length === 0) {
-          await dispatch(addCompanyAsync(addData)).unwrap();
-          return;
-        }
-        //수정 시
-        addData.id = basicInfo[0].id;
-        await dispatch(editCompanyAsync(addData)).unwrap();
       }
-      //get 후 정보 페이지로 이동
+      await dispatch(editCompanyAsync(addData)).unwrap();
       await dispatch(getCompanyAsync({ userUid })).unwrap();
       navigate("/company/information");
-    } catch {}
+    } catch {
+      alert("회사 정보 저장에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   const timeData = [
@@ -162,7 +158,7 @@ const CompanyFormContainer = () => {
     { title: "휴일", name: "holidayDate", date: holidayDate },
   ];
 
-  if (loading === "pending") return <Loading />;
+  if (loading === "pending") return <Loading type="sales" />;
 
   return (
     <CompanyForm

@@ -6,6 +6,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import { AddCompanyReq, CompanyInitialState, GetReq } from "redux/types";
 import { db } from "service/firebase";
@@ -89,15 +90,17 @@ export const editCompanyAsync = createAsyncThunk(
   }
 );
 
+const initialState: CompanyInitialState = {
+  information: [],
+  timeInformation: [],
+  linkInformation: [],
+  addLinkList: [],
+  loading: "idle",
+};
+
 const companySlice = createSlice({
   name: "company",
-  initialState: {
-    information: [],
-    timeInformation: [],
-    linkInformation: [],
-    addLinkList: [],
-    loading: "idle",
-  } as CompanyInitialState,
+  initialState,
   reducers: {
     addLink: (state, action) => {
       state.addLinkList.push(action.payload);
@@ -142,6 +145,7 @@ const companySlice = createSlice({
     builder.addCase(editCompanyAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

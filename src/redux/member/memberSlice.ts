@@ -25,6 +25,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
+import { PURGE } from "redux-persist";
 
 export const CHECK_IMAGE_WORD = "Image does not exist";
 
@@ -197,9 +198,11 @@ export const deleteMemberAsync = createAsyncThunk(
   }
 );
 
+const initialState: MemberState = { memberList: [], loading: "idle" };
+
 const memberSlice = createSlice({
   name: "member",
-  initialState: { memberList: [], loading: "idle" } as MemberState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     //Get
@@ -251,6 +254,7 @@ const memberSlice = createSlice({
     builder.addCase(deleteMemberAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

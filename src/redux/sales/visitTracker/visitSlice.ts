@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import { VisitState } from "../salesTypes";
 import {
@@ -9,13 +10,15 @@ import {
   getOneMonthVisitDataAsync,
 } from "./visitThunk";
 
+const initialState: VisitState = {
+  oneMonthVisitList: [],
+  allVisitList: [],
+  loading: "idle",
+};
+
 const visitSlice = createSlice({
   name: "visit",
-  initialState: {
-    oneMonthVisitList: [],
-    allVisitList: [],
-    loading: "idle",
-  } as VisitState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getOneMonthVisitDataAsync.pending, (state) => {
@@ -70,6 +73,7 @@ const visitSlice = createSlice({
     builder.addCase(deleteVisitDataAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

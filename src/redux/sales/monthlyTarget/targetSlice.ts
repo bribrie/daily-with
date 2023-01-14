@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import { MONTHLY_TARGET_DATE } from "utilites/Date";
 import { TargetState } from "../salesTypes";
@@ -9,12 +10,11 @@ import {
   getTargetAsync,
 } from "./targetThunk";
 
+const initialState: TargetState = { targetList: [], loading: "idle" };
+
 const targetSlice = createSlice({
   name: "target",
-  initialState: {
-    targetList: [],
-    loading: "idle",
-  } as TargetState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTargetAsync.pending, (state) => {
@@ -56,6 +56,7 @@ const targetSlice = createSlice({
     builder.addCase(deleteTargetAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

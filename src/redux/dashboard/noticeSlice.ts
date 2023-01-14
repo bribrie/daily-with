@@ -9,6 +9,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import {
   AddNoticeReq,
@@ -117,12 +118,11 @@ export const deleteNoticeAsync = createAsyncThunk(
   }
 );
 
+const initialState: NoticeState = { noticeList: [], loading: "idle" };
+
 const noticeSlice = createSlice({
   name: "notice",
-  initialState: {
-    noticeList: [],
-    loading: "idle",
-  } as NoticeState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getNoticeAsync.pending, (state) => {
@@ -155,6 +155,7 @@ const noticeSlice = createSlice({
     builder.addCase(deleteNoticeAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

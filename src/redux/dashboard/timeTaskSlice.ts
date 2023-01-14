@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 
 interface timeState {
@@ -14,6 +15,11 @@ const timeTaskSlice = createSlice({
     changeTime: (state, action) => {
       state.time = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, (state) => {
+      state.time = "";
+    });
   },
 });
 

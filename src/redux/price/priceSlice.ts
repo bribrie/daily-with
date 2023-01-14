@@ -7,6 +7,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import {
   PriceListType,
@@ -101,9 +102,11 @@ export const deletePriceAsync = createAsyncThunk(
   }
 );
 
+const initialState: PriceState = { priceList: [], loading: "idle" };
+
 const priceSlice = createSlice({
   name: "price",
-  initialState: { priceList: [], loading: "idle" } as PriceState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     //Get
@@ -143,12 +146,13 @@ const priceSlice = createSlice({
     builder.addCase(deletePriceAsync.pending, (state) => {
       state.loading = "pending";
     });
-    builder.addCase(deletePriceAsync.fulfilled, (state, action) => {
+    builder.addCase(deletePriceAsync.fulfilled, (state) => {
       state.loading = "succeeded";
     });
     builder.addCase(deletePriceAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

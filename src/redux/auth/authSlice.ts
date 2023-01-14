@@ -25,16 +25,8 @@ import {
   UpdateUserNameReq,
   User,
 } from "../types";
-import { RootState } from "redux/store";
+import { persistor, RootState } from "redux/store";
 import { PURGE } from "redux-persist";
-
-const initialState: AuthState = {
-  user: {
-    name: null,
-    uid: null,
-  },
-  loading: "idle",
-};
 
 //가입할 때는 db collection에 추가하기
 export const signUpAsync = createAsyncThunk(
@@ -94,6 +86,7 @@ export const signInAsync = createAsyncThunk(
 
 export const signOutAsync = createAsyncThunk("auth/signout", async () => {
   await signOut(auth);
+  await persistor.purge();
 });
 
 //구글 로그인
@@ -146,6 +139,14 @@ export const updateUserNameAsync = createAsyncThunk(
     }
   }
 );
+
+const initialState: AuthState = {
+  user: {
+    name: null,
+    uid: null,
+  },
+  loading: "idle",
+};
 
 const authSlice = createSlice({
   name: "auth",

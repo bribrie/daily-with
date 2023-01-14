@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import { INPUT_TODAY_FORMAT } from "utilites/Date";
 import { SalesState } from "../salesTypes";
@@ -10,15 +11,16 @@ import {
   getOneMonthSalesAsync,
 } from "./dailySalesThunk";
 
+const initialState: SalesState = {
+  oneMonthSalesList: [],
+  allSalesList: [],
+  addSalesItemList: [],
+  loading: "idle",
+};
+
 const dailySalesSlice = createSlice({
   name: "dailySales",
-  initialState: {
-    oneMonthSalesList: [],
-    allSalesList: [],
-    addSalesItemList: [],
-    loading: "idle",
-  } as SalesState,
-
+  initialState,
   reducers: {
     addSalesData: (state, action) => {
       state.addSalesItemList.push(action.payload);
@@ -84,6 +86,7 @@ const dailySalesSlice = createSlice({
     builder.addCase(deleteSalesAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

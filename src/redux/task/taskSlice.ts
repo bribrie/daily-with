@@ -14,6 +14,7 @@ import {
   doc,
   orderBy,
 } from "firebase/firestore";
+import { PURGE } from "redux-persist";
 import { RootState } from "redux/store";
 import {
   initialState,
@@ -166,6 +167,7 @@ const taskSlice = createSlice({
     builder.addCase(deleteTaskAsync.rejected, (state) => {
       state.loading = "failed";
     });
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

@@ -15,7 +15,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage/session"; //세션 스토리지
-import logger from "redux-logger";
 import authReducer from "./auth/authSlice";
 import priceReducer from "./price/priceSlice";
 import taskReducer from "./task/taskSlice";
@@ -35,9 +34,8 @@ const persistConfig = {
   blacklist: ["sales", "company"],
 };
 
-//addSalesItemList는 세션에 저장안함 => 새로고침하면 없어지게
 const blackListPersistConfig = {
-  key: "addedList",
+  key: "salesAndCompany",
   storage: storage,
   blacklist: ["addSalesItemList", "addLinkList"],
 };
@@ -67,7 +65,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(logger), //redux-logger 사용
+    }),
 });
 
 export const persistor = persistStore(store);

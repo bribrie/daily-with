@@ -108,7 +108,7 @@ function App() {
         </Route>
         {/* Not Found */}
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>{" "}
+      </Routes>
     </Suspense>
   );
 }

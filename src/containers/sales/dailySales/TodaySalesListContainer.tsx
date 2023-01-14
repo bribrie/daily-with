@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { currentUserUid } from "redux/auth/authSlice";
 import {
+  oneMonthSalesList,
   salesLoading,
   todaySalesList,
 } from "redux/sales/dailySales/dailySalesSlice";
@@ -31,7 +32,7 @@ const TodaySalesListContainer = () => {
   }, [todaySales]);
 
   useEffect(() => {
-    if (todaySales.length === 0) {
+    if (oneMonthSalesList.length === 0) {
       try {
         dispatch(getOneMonthSalesAsync({ userUid })).unwrap();
       } catch {

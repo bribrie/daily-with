@@ -30,8 +30,8 @@ const MobileNav = ({ showNav, handleSignOut, handleToggleNav }: Props) => {
             </NavLink>
           </li>
         ))}
-        <li className={styles.listItem} onClick={handleSignOut}>
-          <div className={styles.itemContent}>
+        <li className={styles.listItem}>
+          <div className={styles.itemContent} onClick={handleSignOut}>
             <SignOut fill="#292D32" />
             로그아웃
           </div>

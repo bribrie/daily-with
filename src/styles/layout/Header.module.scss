@@ -37,6 +37,7 @@ header {
       @include DeskTop {
         display: none;
       }
+      cursor: pointer;
     }
   }
 }

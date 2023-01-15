@@ -34,7 +34,7 @@ const CompanyFormContainer = () => {
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const [itemCount, addItemCount, resetItemCount] =
-    useItemCount("등록 버튼을 먼저");
+    useItemCount("앞의 정보를 먼저");
   const [{ name, url }, handleLinkChange, handleLinkReset] = useInput({
     name: "",
     url: "",
@@ -82,6 +82,11 @@ const CompanyFormContainer = () => {
     //빈 칸인지 확인
     if (name === "" || url === "") {
       alert("사이트 이름과 url을 모두 입력해주세요.");
+      return;
+    }
+    //올바른 url형식인지 확인
+    if (!url.includes("https://") || url.includes("www")) {
+      alert(`"https://www"으로 시작하는 올바른 주소 형식으로 입력해주세요.`);
       return;
     }
     //추가 후 input과 count 초기화

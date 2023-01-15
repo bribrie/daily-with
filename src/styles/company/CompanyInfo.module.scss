@@ -69,12 +69,12 @@
 
       .siteItem {
         height: 3.5rem;
-        border: 1px dashed lightblue;
+        border: 1px dashed $skyBlue;
         text-align: center;
         cursor: pointer;
 
         &:hover {
-          background-color: rgb(184, 229, 245);
+          background-color: $lightBlue;
         }
 
         a {

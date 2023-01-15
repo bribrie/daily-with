@@ -28,7 +28,7 @@ const PriceItem = ({
   handleModalOpen,
   handleDelete,
 }: ItemProps) => {
-  //보통은 가격 보여주고, 해당 이용권에 마우스 올리면 수정하기/삭제하기 버튼 보여줌
+  //보통은 가격 보여주고, 회원권 누르면 수정하기/삭제하기 버튼 보여줌
   const [hide, setHide] = useState(false);
 
   return (
@@ -38,8 +38,7 @@ const PriceItem = ({
       )}
       <div
         className={styles.container}
-        onMouseEnter={() => setHide(true)}
-        onMouseLeave={() => setHide(false)}
+        onClick={() => setHide((prev) => !prev)}
       >
         <div className={styles.contentWrapper}>
           <div className={styles.header}>
@@ -54,20 +53,14 @@ const PriceItem = ({
 
         <div className={styles.priceWrapper}>
           {!hide ? (
-            <>
-              <div className={styles.price}>{price} 원</div>
-            </>
+            <div className={styles.price}>{price} 원</div>
           ) : (
-            <>
-              <div className={styles.editDeleteBtn}>
-                <Link to={`${id}`}>
-                  <div>수정하기</div>
-                </Link>
-                <div onClick={() => handleModalOpen(id as string)}>
-                  삭제하기
-                </div>
-              </div>
-            </>
+            <div className={styles.editDeleteBtn}>
+              <Link to={`${id}`}>
+                <div>수정하기</div>
+              </Link>
+              <div onClick={() => handleModalOpen(id as string)}>삭제하기</div>
+            </div>
           )}
         </div>
       </div>

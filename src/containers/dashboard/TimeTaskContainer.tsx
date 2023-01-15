@@ -22,6 +22,18 @@ const TimeTaskContainer = () => {
   const day = new Date().getDay();
 
   useEffect(() => {
+    //주말일 때
+    if (day === 6 || day === 0) {
+      if (weekendAllTask.length === 0) {
+        dispatch(getTaskAsync({ userUid, name: "weekend" }));
+      }
+      if (presentTime === "weekend") {
+        return;
+      }
+      dispatch(changeTime("weekend"));
+      return;
+    }
+
     if (presentTime === hour) {
       return;
     }
@@ -32,17 +44,6 @@ const TimeTaskContainer = () => {
     //오후일 때
     if (16 <= hour && dayafternoonTask.length === 0) {
       dispatch(getTaskAsync({ userUid, name: "dayafternoon" }));
-    }
-    //주말일 때
-    if (day === 6 || day === 7) {
-      if (weekendAllTask.length === 0) {
-        dispatch(getTaskAsync({ userUid, name: "weekend" }));
-      }
-      if (presentTime === "weekend") {
-        return;
-      }
-      dispatch(changeTime("weekend"));
-      return;
     }
     dispatch(changeTime(hour));
   }, [
@@ -56,14 +57,13 @@ const TimeTaskContainer = () => {
     weekendAllTask.length,
   ]);
 
-  //오전일 때
-  if (2 <= presentTime && presentTime <= 15) {
-    return <TimeTask type="오전" taskList={dayMorningTask} />;
-  }
-
   //주말일 때
   if (presentTime === "weekend") {
     return <TimeTask type="주말" taskList={weekendAllTask} />;
+  }
+  //오전일 때
+  if (2 <= presentTime && presentTime <= 15) {
+    return <TimeTask type="오전" taskList={dayMorningTask} />;
   }
   //오후일 때
   return <TimeTask type="오후" taskList={dayafternoonTask} />;

@@ -29,14 +29,15 @@ const SalesChart = () => {
 
   const width = 650;
   const height = 250;
+  const margin = { top: 30, left: 70, bottom: 25, right: 20 };
 
   const drawChart = useCallback(
     (canvas: Selection<SVGSVGElement | null, unknown, null, undefined>) => {
-      const margin = { top: 30, left: 70, bottom: 25, right: 20 };
-
+      const xvalueFormat = (d: string) => d.slice(-2);
       const yValueToNumber = (d: string) => Number(d.replace(/,/g, ""));
+
       const maxData = max(thisMonthList, (d: SalesListType) =>
-        Number(d.totalSales.replace(/,/g, ""))
+        yValueToNumber(d.totalSales)
       );
       const date = thisMonthList
         .map((el) => el.date.slice(-2))
@@ -74,13 +75,13 @@ const SalesChart = () => {
         .data(thisMonthList)
         .join("rect")
         .attr("class", "bar")
-        .attr("x", (d) => Number(xScale(d.date.slice(-2))))
+        .attr("x", (d) => Number(xScale(xvalueFormat(d.date))))
         .attr("width", xScale.bandwidth())
         .attr("y", (d) => yScale(0))
         .attr("height", 0) //0 => totalSales 높이로 transition 효과 주기 위해
         .transition()
         .duration(1000)
-        .attr("y", (d) => yScale(Number(d.totalSales.replace(/,/g, ""))))
+        .attr("y", (d) => yScale(yValueToNumber(d.totalSales)))
         .attr(
           "height",
           (d) => height - margin.bottom - yScale(yValueToNumber(d.totalSales))
@@ -93,12 +94,13 @@ const SalesChart = () => {
         .selectAll("text")
         .data(thisMonthList)
         .join("text")
+        .attr("text-anchor", "middle")
         .attr("class", "salesText")
-        .attr("y", (d) => yScale(Number(d.totalSales.replace(/,/g, ""))) - 10)
+        .attr("y", (d) => yScale(yValueToNumber(d.totalSales)) - 5)
         .text((d) => d.totalSales)
         .attr(
           "x",
-          (d) => Number(xScale(d.date.slice(-2))) + xScale.bandwidth() / 5
+          (d) => Number(xScale(xvalueFormat(d.date))) + xScale.bandwidth() / 2
         )
         .attr("fill-opacity", 0)
         .transition()
@@ -106,7 +108,7 @@ const SalesChart = () => {
         .duration(750)
         .attr("fill-opacity", 1);
     },
-    [thisMonthList]
+    [thisMonthList, margin.top, margin.bottom, margin.right, margin.left]
   );
 
   useEffect(() => {

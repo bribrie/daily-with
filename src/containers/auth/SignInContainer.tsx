@@ -15,8 +15,6 @@ const SignInContainer = () => {
     email: "",
     password: "",
   });
-  const signInUser = { email, password };
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loadingStatus = useAppSelector(authLoading);
@@ -24,6 +22,7 @@ const SignInContainer = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      const signInUser = { email, password };
       await dispatch(signInAsync(signInUser)).unwrap();
       navigate("/");
     } catch {

@@ -1,6 +1,5 @@
 /* Mixin */
 @mixin Button($color) {
-  border: none;
   background-color: $color;
   width: 50%;
   height: 3rem;

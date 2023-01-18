@@ -126,7 +126,7 @@ const SalesChart = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>이번달 일별 매출</div>
+      <div className={styles.title}>이번 달 일별 매출</div>
       <div className={styles.contentContainer}>
         {thisMonthList.length === 0 ? (
           <div className={styles.noneContent}>

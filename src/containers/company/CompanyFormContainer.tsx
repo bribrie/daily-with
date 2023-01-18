@@ -85,7 +85,7 @@ const CompanyFormContainer = () => {
       return;
     }
     //올바른 url형식인지 확인
-    if (!url.includes("https://") || url.includes("www")) {
+    if (!url.includes("https://") || !url.includes("www")) {
       alert(`"https://www"으로 시작하는 올바른 주소 형식으로 입력해주세요.`);
       return;
     }
@@ -123,7 +123,6 @@ const CompanyFormContainer = () => {
         timeInfo: timeData,
         linkInfo: addedLinkList.length === 0 ? linkData : addedLinkList,
       };
-
       //처음 등록 시
       if (basicInfo.length === 0) {
         if (currentCenterName !== changedCenterName) {
@@ -143,7 +142,9 @@ const CompanyFormContainer = () => {
           updateUserNameAsync({ userUid, centerName: changedCenterName })
         ).unwrap();
       }
-      await dispatch(editCompanyAsync(addData)).unwrap();
+      await dispatch(
+        editCompanyAsync({ id: basicInfo[0].id, ...addData })
+      ).unwrap();
       await dispatch(getCompanyAsync({ userUid })).unwrap();
       navigate("/company/information");
     } catch {

@@ -12,6 +12,7 @@ interface ListProps {
   showAddForm: MouseEventHandler;
   resetItemCount: () => void;
   filterData: string[];
+  filterValue: string;
   handleFilterBar: ChangeEventHandler;
 }
 
@@ -21,11 +22,16 @@ const MonthlyTargetList = ({
   showAddForm,
   resetItemCount,
   filterData,
+  filterValue,
   handleFilterBar,
 }: ListProps) => {
   return (
     <>
-      <FilterBar filterData={filterData} selectedData={handleFilterBar} />
+      <FilterBar
+        filterData={filterData}
+        filterValue={filterValue}
+        handleFilterChange={handleFilterBar}
+      />
       <div className={styles.contentWrapper}>
         <MonthlyTargetHeader />
         {targetList.length === 0 && itemCount <= 0 ? (

@@ -44,6 +44,7 @@ const MonthlyTargetListContainer = () => {
         itemCount={itemCount}
         showAddForm={showAddForm}
         resetItemCount={resetItemCount}
+        filterValue={filterValue}
         filterData={filterData}
         handleFilterBar={handleFilterChange}
       />
@@ -56,6 +57,7 @@ const MonthlyTargetListContainer = () => {
       itemCount={itemCount}
       showAddForm={showAddForm}
       resetItemCount={resetItemCount}
+      filterValue={filterValue}
       filterData={filterData}
       handleFilterBar={handleFilterChange}
     />

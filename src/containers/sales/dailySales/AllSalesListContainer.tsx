@@ -50,7 +50,11 @@ const AllSalesListContainer = () => {
   if (filterValue === "이번달") {
     return (
       <>
-        <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+        <FilterBar
+          filterData={filterData}
+          filterValue={filterValue}
+          handleFilterChange={handleFilterChange}
+        />
         <AllSalesList
           allSalesList={thisMonthList}
           itemCount={itemCount}
@@ -65,7 +69,11 @@ const AllSalesListContainer = () => {
   //전체
   return (
     <>
-      <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+      <FilterBar
+        filterValue={filterValue}
+        filterData={filterData}
+        handleFilterChange={handleFilterChange}
+      />
       <AllSalesList
         allSalesList={allList}
         itemCount={itemCount}

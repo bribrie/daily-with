@@ -40,7 +40,11 @@ const VisitListContainer = () => {
   if (filterValue === "이번달") {
     return (
       <>
-        <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+        <FilterBar
+          filterData={filterData}
+          filterValue={filterValue}
+          handleFilterChange={handleFilterChange}
+        />
         <VisitList
           list={thisMonthList}
           itemCount={itemCount}
@@ -54,7 +58,11 @@ const VisitListContainer = () => {
 
   return (
     <>
-      <FilterBar filterData={filterData} selectedData={handleFilterChange} />
+      <FilterBar
+        filterData={filterData}
+        filterValue={filterValue}
+        handleFilterChange={handleFilterChange}
+      />
       <VisitList
         list={allList}
         itemCount={itemCount}

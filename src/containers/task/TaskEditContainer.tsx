@@ -48,13 +48,14 @@ const TaskEditContainer = () => {
         detail: detailRef.current?.value as string,
         day: selectDay,
         time: timeRef.current?.value as string,
-        specialDate: specialDateRef
-          ? (specialDateRef.current?.value as string)
-          : null,
+        specialDate:
+          selectDay.length !== 0
+            ? ""
+            : (specialDateRef.current?.value as string),
       };
 
-      if (editData.day.length === 0) {
-        alert("요일을 설정해주세요.");
+      if (editData.day.length === 0 && editData.specialDate?.length === 0) {
+        alert("요일 또는 특정 날짜를 설정해주세요.");
         return;
       }
 

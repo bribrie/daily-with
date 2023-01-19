@@ -32,7 +32,9 @@ const TimeTask = ({ type, taskList }: Props) => {
           <>
             {taskList.map((el) => (
               <div key={el.id} className={styles.itemWrapper}>
-                <div className={styles.time}>{el.time}</div>
+                <div className={styles.time}>
+                  {el.specialDate ? el.specialDate : el.time}
+                </div>
                 <div className={styles.task}>{el.title}</div>
                 <div className={styles.detail}>{el.detail}</div>
               </div>

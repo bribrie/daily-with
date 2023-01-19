@@ -107,26 +107,14 @@ const TaskEdit = ({
                     }`}</div>
                   ))}
                 </div>
-                <button className={styles.button} onClick={handleDayReset}>
+                <button type="button" onClick={handleDayReset}>
                   clear
                 </button>
               </div>
             </CreateInput>
           </CreateContent>
 
-          <CreateContent idx="05" title="시간 설정">
-            <CreateInput type="text">
-              <input
-                type="text"
-                defaultValue={data.time}
-                ref={timeRef}
-                className={styles.textInput}
-                required
-              />
-            </CreateInput>
-          </CreateContent>
-
-          <CreateContent idx="06" title="특정 날짜 선택">
+          <CreateContent idx="05" title="특정 날짜 선택">
             <div className={styles.specialDateInfo}>
               {selectDay.length === 0
                 ? `※ 특정 날짜로 설정하고 싶을 시, 달력에서 날짜를
@@ -140,7 +128,19 @@ const TaskEdit = ({
                 defaultValue={data.specialDate || ""}
                 ref={specialDateRef}
                 className={styles.textInput}
-                disabled={selectDay.length !== 0 ? true : false}
+                disabled={selectDay.length !== 0}
+              />
+            </CreateInput>
+          </CreateContent>
+
+          <CreateContent idx="06" title="시간 설정">
+            <CreateInput type="text">
+              <input
+                type="text"
+                defaultValue={data.time}
+                ref={timeRef}
+                className={styles.textInput}
+                required
               />
             </CreateInput>
           </CreateContent>

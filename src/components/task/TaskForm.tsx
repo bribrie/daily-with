@@ -105,7 +105,7 @@ const TaskForm = ({
                     }`}</div>
                   ))}
                 </div>
-                <button className={styles.button} onClick={handleDayReset}>
+                <button type="button" onClick={handleDayReset}>
                   clear
                 </button>
               </div>
@@ -125,7 +125,7 @@ const TaskForm = ({
                 type="date"
                 ref={specialDateRef}
                 className={styles.textInput}
-                disabled={selectDay.length !== 0 ? true : false}
+                disabled={selectDay.length !== 0}
               />
             </CreateInput>
           </CreateContent>

@@ -30,22 +30,22 @@
         .time {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-
-          @include Mobile {
-            gap: 0;
-          }
-
-          div {
-            width: 4rem;
-          }
+          justify-content: flex-start;
+          width: 15rem;
 
           .holidayTime {
             width: max-content;
           }
 
+          div {
+            width: 5rem;
+          }
+
+          .close {
+            text-align: center;
+          }
           .hyphen {
-            width: 1rem;
+            width: 2.5rem;
             text-align: center;
           }
         }

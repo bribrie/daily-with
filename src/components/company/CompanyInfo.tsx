@@ -88,7 +88,9 @@ const CompanyInfo = ({
                         <>
                           <div>오전 {item.open} 시</div>
                           <div className={styles.hyphen}>-</div>
-                          <div>오후 {item.close} 시</div>
+                          <div className={styles.close}>
+                            오후 {item.close} 시
+                          </div>
                         </>
                       )}
                     </div>

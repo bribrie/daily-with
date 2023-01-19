@@ -42,6 +42,18 @@ const DailyForm = ({
   return (
     <>
       {type === "edit" && <DailySalesHeader />}
+      {count >= 1 ? (
+        <>
+          {addedItemList.map((data) => (
+            <DailySalesItemContainer
+              key={data.id}
+              itemType="added"
+              savedSalesList={data}
+              deleteAddedItem={deleteAddedItem}
+            />
+          ))}
+        </>
+      ) : null}
       <form className={styles.wrapper}>
         <div className={styles.date}>
           {type === "today" ? (
@@ -100,18 +112,7 @@ const DailyForm = ({
           </div>
         )}
       </form>
-      {count >= 1 ? (
-        <>
-          {addedItemList.map((data) => (
-            <DailySalesItemContainer
-              key={data.id}
-              itemType="added"
-              savedSalesList={data}
-              deleteAddedItem={deleteAddedItem}
-            />
-          ))}
-        </>
-      ) : null}
+
       <div className={styles.addAsyncButton}>
         <button
           type="submit"

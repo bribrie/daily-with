@@ -6,14 +6,11 @@
 실제로 사용해보고 싶다면 
 [Daily With](https://daily-with-d2d4f.web.app/)에서 로그인 후 이용해보세요!
 
-상세 서비스 설명 및 개발 과정이 궁금하다면
-[Daily With 소개](https://bribrie.notion.site/daily-with-4480b1226950464e9f3c583d38196f2e)에서 확인하실 수 있습니다.  
 
 </br>
 
 ## 서비스 미리보기
-간단한 시연 영상이니 직접 사용해보시는 걸 추천해 드리며  
-더 구체적인 기능 설명이 궁금하다면 [여기서](https://bribrie.notion.site/daily-with-4480b1226950464e9f3c583d38196f2e) 확인해주세요!  
+간단한 시연 영상이니 직접 사용해보시는 걸 추천해 드립니다.
 
 
 </br>

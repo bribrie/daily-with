@@ -39,6 +39,20 @@ const SignInContainer = () => {
     }
   };
 
+  const handleAroundSubmit = async () => {
+    try {
+      await dispatch(
+        signInAsync({
+          email: process.env.REACT_APP_TEST_EMAIL as string,
+          password: process.env.REACT_APP_TEST_PASSWORD as string,
+        })
+      ).unwrap();
+      navigate("/");
+    } catch {
+      alert("로그인에 실패했습니다. 관리자에게 문의해주세요.");
+    }
+  };
+
   if (loadingStatus === "pending") {
     return <Loading />;
   }
@@ -48,6 +62,7 @@ const SignInContainer = () => {
       handleChange={inputChange}
       handleSubmit={handleSubmit}
       handleGoogleSubmit={handleGoogleSubmit}
+      handleAroundSubmit={handleAroundSubmit}
     />
   );
 };

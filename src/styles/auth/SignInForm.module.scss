@@ -36,7 +36,7 @@
     align-items: center;
     flex-direction: column;
     width: 50rem;
-    gap: 1em;
+    gap: 0.9rem;
 
     .form {
       display: flex;
@@ -81,6 +81,7 @@
 
     .btn {
       @include Button(white);
+
       a {
         display: flex;
         width: 100%;

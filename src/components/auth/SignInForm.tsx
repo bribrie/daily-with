@@ -7,12 +7,14 @@ interface SignInProps {
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   handleGoogleSubmit: MouseEventHandler;
+  handleAroundSubmit: MouseEventHandler;
 }
 
 const SignInForm = ({
   handleChange,
   handleSubmit,
   handleGoogleSubmit,
+  handleAroundSubmit,
 }: SignInProps) => {
   return (
     <div className={styles.container}>
@@ -42,6 +44,9 @@ const SignInForm = ({
         </button>
         <button className={styles.btn}>
           <Link to="/signup">회원가입</Link>
+        </button>
+        <button onClick={handleAroundSubmit} className={styles.btn}>
+          비회원으로 둘러보기
         </button>
       </div>
     </div>
